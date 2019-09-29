@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<link rel="stylesheet" href="../../assets/libs/layui/css/layui.css">
+		<script src="../../assets/libs/jquery.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
+	</head>
+
+	<body>
+		<div class="x-body">
+			<form class="layui-form" lay-filter="incment" action="">
+				<table class="layui-table" id="info">
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label for="username" class="layui-form-label">公司名称：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input id="myView" type="text" name="name" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label for="username" class="layui-form-label">公司编码：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="number" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">助记简称：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="mnemonic" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">本币币别：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<select>
+										<option name='moneytype' value="人民币">人民币</option>
+										<option name='moneytype' value="港币">港币</option>
+									</select>
+								</div>
+							</td>
+						</div>
+					</tr>
+
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label for="username" class="layui-form-label">电话：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="tel" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label for="username" class="layui-form-label">负责人：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" value="00000000" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+						</div>
+					</tr>
+
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">手机：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="mobile" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">所属大区：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<select name="lagearea" lay-filter="depart" id="lagearea">
+										<option value="华东地区">华东地区</option>
+										<option value="华中地区">华中地区</option>
+										<option value="华南地区">华南地区</option>
+										<option value="华北地区">华北地区</option>
+										<option value="西南地区">西南地区</option>
+										<option value="西北地区">西北地区</option>
+										<option value="东北地区">东北地区</option>
+									</select>
+								</div>
+							</td>
+						</div>
+					</tr>
+
+					<tr>
+						<td colspan="4">
+							<div class="layui-row">
+								<div class="layui-form-item" id="x-city">
+									<label class="layui-form-label">所属省份：</label>
+									<div class="layui-input-inline">
+										<select name="province" id="check" lay-filter="province">
+											<option value="0">请选择省</option>
+										</select>
+									</div>
+									<div class="layui-input-inline">
+										<select name="city" lay-filter="city">
+											<option class="check" value="">请选择市</option>
+										</select>
+									</div>
+									<div class="layui-input-inline">
+										<select name="area" lay-filter="area">
+											<option class="check" value="">请选择县/区</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">类型：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<select name="type" lay-filter="depart">
+										<option value="中心">中心</option>
+										<option value="分站">分站</option>
+									</select>
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">默认发件地:</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" value="河南郑州" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">所属网点：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="parentname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">所属财务中心:</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="financecenter" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+						</div>
+					</tr>
+
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">是否中转站：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<label><input type="radio" name='istransfer' value="0" title="否" v-model="istransfer"></label>
+									<label><input  type="radio" name='istransfer' value="1" title="是" v-model="istransfer"></label>
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">所属中转站:</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="transfername" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+						</div>
+					</tr>
+
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label for="username" class="layui-form-label">查单地址：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" value="" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label for="username" class="layui-form-label">特征码：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="featurescode" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+						</div>
+					</tr>
+
+					<div class="layui-form-item">
+						<td>
+							<label class="layui-form-label">财务中心：</label>
+						</td>
+						<td>
+							<div class="layui-input-inline">
+								<label><input type="radio"  name="isfinancecenter" value="0" title="否" ></label>
+								<label><input type="radio"  name="isfinancecenter" value="1" title="是"></label>
+							</div>
+						</td>
+						<td>
+							<label class="layui-form-label">允许到付：</label>
+						</td>
+						<td>
+							<div>
+								<input type="radio" name="istopay" value=0 title="不允许">
+								<input type="radio" name="istopay" value=1 title="允许">
+							</div>
+						</td>
+					</div>
+
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label for="username" class="layui-form-label">派送范围：</label>
+							</td>
+							<td colspan="3">
+								<div class="layui-input-inline">
+									<textarea type="text" name="deliveryrangename" class="layui-input" style="width: 700px;height: 50px;"></textarea>
+								</div>
+							</td>
+						</div>
+					</tr>
+
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label for="username" class="layui-form-label">备注： </label>
+							</td>
+							<td colspan="3">
+								<div class="layui-input-inline">
+									<textarea type="text" name="remark" class="layui-input" style="width: 700px;height: 50px;"></textarea>
+								</div>
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<td colspan="5">
+							<div class="layui-input-block">
+								<center>
+									<!--<button class="layui-btn">保存信息</button>-->
+									<button class="layui-btn" lay-submit="" lay-filter="mang" lay-filter="inc">立即提交</button>
+								</center>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<script>
+				layui.config({
+					base: '../../module/'
+				}).extend({
+					formSelects: 'formSelects/formSelects-v4'
+				}).use(['config', 'layer', 'index','admin', 'form'], function() {
+					var config = layui.config,
+						index = layui.index,
+						layer = layui.layer,
+						admin = layui.admin;
+					form = layui.form;
+					var method = 'post';
+					var id = admin.getTempData('incid');
+					alert(id);
+					if(id) {
+						admin.aj("web/incment/getincmentById?id=" + id, null, function(data) {
+							console.log(data)
+							method = 'put';
+							if(data.code == 1) {
+								console.log(JSON.stringify(data.data))
+								form.val('incment', data.data);
+								initOptionDict("web/Diction/getlistByParentId", "lagearea", 54, data.data.lagearea);
+								
+								
+								
+								form = layui.form;
+								if(data.data.provincename != null) {
+									var provincename = data.data.provincename.replace('省', '');
+									provincename = provincename.replace('市', '');
+									console.log('城市信息是:' + provincename + data.data.cityname)
+									$('#x-city').xcity(provincename, data.data.cityname, data.data.areaname);
+								}else{
+									$('#x-city').xcity('', '', '');
+								}
+							} else {
+								layer.msg(data.msg, {
+									icon: 2,
+									time: 1000,
+								});
+							}
+						}, method, null);
+					} else {
+						form.val('incment', null);
+						initOptionDict("web/Diction/getlistByParentId", "lagearea", 54, -1);
+					}
+					form.on('submit(mang)', function(data) {
+						var arr = new Array();      
+						if(method == 'put') {
+							data.field.id = id;
+						}
+						console.log('提交前的数据是:' + JSON.stringify(data.field))
+						admin.aj("web/incment/incment", data.field, function(data) {
+							var index = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index);
+							parent.layer.msg(data.msg, {
+								icon: 1,
+								time: 1000,
+							});
+						}, method, null);
+						return false;
+					});
+				    
+				    function initOptionDict(uri, itemId, parentId, defaultValue){
+						var data = {}; 
+						data["parentId"] =  parentId ;
+						var method = "post";
+						var cont = null ;			
+						admin.aj(uri, data, function(data) {
+								if(data.code == 1) {						
+									var itemList = data.data;								
+									$('#' + itemId ).html("");
+									layui.form.render("select");
+									$.each(itemList, function (index, item) {
+										$('#' + itemId ).append(new Option(item.name, item.name));// 下拉菜单里添加元素
+									});
+									
+									$("#" + itemId ).val(defaultValue);
+									layui.form.render("select");	
+									
+								}
+							}, method, cont);			
+					}
+				    
+				    //根据父节点查询地区
+				    function initRegionShowName(uri, itemId, parentId ,defaultValue){
+						var data = {}; 
+						data['parentCode']  = parentId;
+						var method = "post";
+						var cont = null ;			
+						admin.aj(uri, data, function(data) {
+								if(data.code == 1) {						
+									var itemList = data.data;								
+									$('#' + itemId ).html("");
+									$.each(itemList, function (index, item) {
+										$('#' + itemId ).append(new Option(item.name, item.code));// 下拉菜单里添加元素
+									});
+									$("#" + itemId ).val(defaultValue);
+									layui.form.render("select");
+								}
+							}, method, cont);			
+					}
+				    
+				})
+			</script>
+	</body>
+
+</html>

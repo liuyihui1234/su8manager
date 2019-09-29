@@ -1,0 +1,537 @@
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+  <link rel="stylesheet" href="../../assets/libs/layui/css/layui.css">
+  <script src="../../assets/libs/jquery.min.js"></script>
+  <script type="text/javascript" src="../../assets/libs/layui/layui.js" charset="utf-8"></script>
+ </head>
+	<body>
+		<div class="x-body">
+			<form class="layui-form" lay-filter="manger" action="" id="form-update">
+				<table class="layui-table" id="info">
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label for="username" class="layui-form-label">运单编号：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline" style="width: 80px;">
+									<input id="myView" type="text" name="com" name="billsnumber" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label for="username" class="layui-form-label">取件员：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline" style="width: 80px;">
+									<input type="text" name="number" name="Sendusername" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label for="username" class="layui-form-label">支付方式：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline" style="width: 80px;">
+									<input type="text" name="number" name="paymode" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								</div>
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<div class="layui-input-inline" style="width: 80px;"> <label class="layui-form-label">始发地城市：</label></div>
+							</td>
+							<td>
+								<div class="layui-input-inline" style="width: 80px;">
+									<input type="text" name="mnemonic" name="Fromcityname" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">快件到达城市：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline" style="width: 80px;">
+									<input type="text" name="mnemonic" name="tocityname" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">数量：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline" style="width: 80px;">
+									<input type="text" name="mnemonic" name="num" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								</div>
+							</td>
+						</div>
+					</tr>
+
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label for="username" class="layui-form-label">物品类别：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline" style="width: 80px;">
+									<input type="text" name="tel" name="goodstype" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label for="username" class="layui-form-label">内件品名：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline" style="width: 80px;">
+									<input type="text" required lay-verify="required" name="filename" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label for="username" class="layui-form-label">自取件：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline" style="width: 80px;">
+									<input type="text" required lay-verify="required" name="zqj" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								</div>
+							</td>
+						</div>
+					</tr>
+
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">寄件时间：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline" style="width: 80px;">
+									<input type="text" name="mobile" name="begintime" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">业务类型：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline" style="width: 80px;">
+									<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								</div>
+						</div>
+						</td>
+						<td>
+							<label for="username" class="layui-form-label">自寄件：</label>
+						</td>
+						<td>
+							<div class="layui-input-inline" style="width: 80px;">
+								<input type="text" required lay-verify="required" name="zjj" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+							</div>
+						</td>
+		</div>
+		</tr>
+
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">体积长：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" name="mobile" name="longs" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">体积宽：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="widths" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+			</div>
+			</td>
+			<td>
+				<label for="username" class="layui-form-label">体积高：</label>
+			</td>
+			<td>
+				<div class="layui-input-inline" style="width: 80px;">
+					<input type="text" required lay-verify="required" name="heights" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+				</div>
+			</td>
+			</div>
+		</tr>
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">是否保价：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">声明价值:</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">保价费用0%：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" name="parentname" name="insuredprice" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+			</div>
+		</tr>
+
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">代收货款：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">代收金额:</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">代收费用1%：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" name="parentname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+			</div>
+		</tr>
+
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">签收回单：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">回单号:</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">返单费用：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" name="parentname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+			</div>
+		</tr>
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">特殊配送：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">夜晚费用:</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">预约费用：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" name="parentname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+			</div>
+		</tr>
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">包装加工：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">材料费用:</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">人工费用：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" name="parentname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+			</div>
+		</tr>
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">其他个性化服务：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">服务要求:</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">订制费用：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" name="parentname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+			</div>
+		</tr>
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">重量：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="weight" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">费用:</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="price" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">费用合计：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" name="parentname" name="sumprice" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+			</div>
+		</tr>
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">发件客户名称：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="formguestname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">寄件人姓名:</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="fromname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">寄件人电话：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" name="parentname" name="fromtel" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+			</div>
+		</tr>
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">寄件单位：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="fromincname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">寄件地址:</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="fromaddress" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">收件客户名称：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="tpguestname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+			</div>
+		</tr>
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">收件人姓名：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="toname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">收件人电话:</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="totel" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">收件单位：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" name="parentname" name="toincname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+			</div>
+		</tr>
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">快件所属网点：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="createincname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">派件人：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="deliveryusername" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">收件验证证件号码：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+
+			</div>
+		</tr>
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label class="layui-form-label">收件人签名：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="tousersignature" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">收件地址:</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" required lay-verify="required" name="toaddress" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+				<td>
+					<label class="layui-form-label">签收时间：</label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<input type="text" name="parentname" name="endtime" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</td>
+			</div>
+		</tr>
+
+		<tr>
+			<div class="layui-form-item">
+				<td>
+					<label for="username" class="layui-form-label">备注： </label>
+				</td>
+				<td>
+					<div class="layui-input-inline" style="width: 80px;">
+						<textarea type="text" name="remark" class="layui-input" style="width: 200px;height: 76px;"></textarea>
+					</div>
+				</td>
+			</div>
+		</tr>
+		</table>
+		</form>
+		<script>
+			layui.config({
+		     base: '../../module/'
+		    }).extend({
+		     formSelects: 'formSelects/formSelects-v4'
+		    }).use(['layer', 'index','admin', 'form'], function() {
+		    	var index = layui.index,
+		      layer = layui.layer,
+		      admin = layui.admin;
+		     form = layui.form;
+		     var method = 'post';
+		     var info1 = admin.getTempData('id');
+		     if(info1) {
+		      admin.aj('web/order/getOrderShow', info1, function(data) {
+		       form.val('manger', data.data);
+		      }, method, null);
+		     } else {
+		      form.val('incment', null);
+		     }
+		    })
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,262 @@
+<div class="layui-card">
+	<div class="layui-card-header">
+		<h2 class="header-title">系统用户管理</h2>
+		<span class="layui-breadcrumb pull-right">
+          <a href="#!console">首页</a>
+          <a><cite>系统用户管理</cite></a>
+        </span>
+	</div>
+	
+	<div class="layui-row">
+		<form class="layui-form" action="" lay-filter="top" id="top">
+			<div class="layui-form-item" style="margin-top: 16px;">
+				<!--
+                	作者：liuyihui21919@163.com
+                	时间：2019-09-04
+                	描述：
+				<div class="layui-inline">
+					<label class="layui-form-label">所属大区:</label>
+					<div class="layui-input-inline">
+						<select name="bigZone" lay-filter="depart" id="bigZone">
+							
+						</select>
+					</div>
+				</div>
+				-->
+				<div class="layui-inline">
+					<label class="layui-form-label">一级网点:</label>
+					<div class="layui-input-inline">
+						<select name="provinceInc" lay-filter="provinceInc" id="provinceInc">
+							
+						</select>
+					</div>
+				</div>
+				
+				<div class="layui-inline">
+					<label class="layui-form-label">二级网点:</label>
+					<div class="layui-input-inline">
+						<select name="cityInc" lay-filter="cityInc" id="cityInc">
+							
+						</select>
+					</div>
+				</div>
+				
+				<div class="layui-inline">
+					<label class="layui-form-label">三级网点:</label>
+					<div class="layui-input-inline">
+						<select name="areaInc" lay-filter="areaInc" id="areaInc">
+							
+						</select>
+					</div>
+				</div>
+				<br/>
+				<div class="layui-inline">
+					<label class="layui-form-label">关键字:</label>
+					<input id="user-search-value" class="layui-input search-input" type="text" placeholder="输入关键字"/>&emsp;
+				</div>
+				<button id = "user-btn-search" class="layui-btn" type="button">查询</button>
+			</div>
+			
+		</form>
+	</div>
+	
+	<div class="layui-card-body">
+		<div class="layui-form toolbar">
+			<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
+		</div>
+		<!-- 数据表格 -->
+		<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
+	</div>
+</div>
+<!-- 表格操作列 -->
+<script type="text/html" id="role-table-bar">
+	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script>
+	layui.use(['form', 'table', 'util', 'config', 'admin', 'layarea'], function() {
+		var form = layui.form,
+			table = layui.table,
+			config = layui.config,
+			layer = layui.layer,
+			util = layui.util,
+			admin = layui.admin,
+			layarea = layui.layarea;
+		var id = 0;
+		var method = 'get';
+		var uri = 'web/incment/incment';
+		//渲染表格
+		table.render({
+			elem: '#usermanger',
+			id: 'usermanger',
+			url: config.server + uri,
+			response: {
+				statusName: 'code',
+				statusCode: 1,
+				msgName: 'msg',
+				//countName: 'totalpage',
+				dataName: 'data'
+			},
+			headers: {
+				Authorization: config.getToken().access_token
+			},
+			limits: [10, 15, 20, 25, 50, 100],
+			limit: 15,
+			page: true,
+			cols: [
+				[{
+						type: "checkbox",
+						width: 50,
+						fixed: "left"
+					},
+					{
+						field: 'name',
+						title: '网点名称'
+					},
+					{
+						field: 'number',
+						title: '编号',
+						sort: true
+					},
+					{
+						field: 'lagearea',
+						title: '所属区域',
+						sort: true
+					},
+					{
+						align: 'center',
+						toolbar: '#role-table-bar',
+						title: '操作'
+					}
+				]
+			]
+		});
+		// 添加按钮点击事件
+		$('#role-btn-add').click(function() {
+			showEditModel();
+		});
+
+		//删除按钮点击事件
+		$('#role-btn-del').click(function() {
+			var checkStatus = table.checkStatus('usermanger'),
+				data = checkStatus.data;
+			var arr = new Array();
+			for(var i = 0; i < data.length; i++) {
+				arr.push(data[i].id)
+			}
+			doDelete(arr);
+		});
+
+		function doajax(data, cont) {
+			admin.aj(uri, data, function(data) {
+				console.log(data)
+				if(data.code == 1) {
+					layer.msg(data.msg, {
+						icon: 1
+					});
+					if(method == 'delete') {
+						table.reload('usermanger', {
+							page: {
+								curr: 1 //重新从第 1 页开始
+							}
+						});
+						return;
+					}
+					table.reload('usermanger');
+					layer.closeAll('page');
+				} else {
+					layer.msg(data.msg, {
+						icon: 2
+					});
+				}
+			}, method, cont);
+		}
+
+		// 工具条点击事件
+		table.on('tool(role-table)', function(obj) {
+			var data = obj.data;
+			id = data.id;
+			if(obj.event === 'edit') { //修改
+				showEditModel(id);
+			} else if(obj.event === 'del') { //删除
+				var arr = new Array();
+				arr.push(obj.data.id)
+				doDelete(arr);
+			}
+		});
+		// 显示编辑弹窗
+		var showEditModel = function(data) {
+			method = data ? 'put' : 'post';
+			console.log('当前的方法是' + method)
+			admin.putTempData('incid', null);
+			layer.open({
+				type: 2,
+				offset: '40px',
+				title: data ? '修改' : '添加',
+				shade: [0.8, '#393D49'],
+				shadeClose: true,
+				shade: false,
+				maxmin: true, //开启最大化最小化按钮
+				area: ['70%', '90%'],
+				content: 'components/incment/incment_edit.html',
+				success: function(layero, index) {
+					alert("after : " + index );
+					if(data) {
+						admin.putTempData('incid', data);
+					}
+				}
+			});
+		};
+		// 删除
+		var doDelete = function(obj) {
+			method = 'delete';
+			layer.confirm('确定要删除吗？', function(i) {
+				layer.close(i);
+				doajax(JSON.stringify(obj), 1)
+			});
+		};
+		
+		$(function() {// 初始化内容
+			//initOptionDict(admin.aj, "web/Diction/getlistByParentId", "bigZone", 54, -1);			
+			initIncShowName(admin.aj, "web/incment/getIncByParent", "provinceInc", "0",-1);
+	    }); 
+	    
+	    form.on('select(provinceInc)', function(data){   
+			var val=data.value;
+			if(val != null ){
+				initIncShowName(admin.aj , 'web/incment/getIncByParent','cityInc', val , -1);
+			}
+		});
+	    
+	    form.on('select(cityInc)', function(data){   
+			var val=data.value;
+			if(val != null ){
+				initIncShowName(admin.aj , 'web/incment/getIncByParent','areaInc', val , -1);
+			}
+		});
+	    
+	    
+	    $('#user-btn-search').click(function () {
+            //var key = $('#user-search-key').val();
+            var parentId = '';
+            var provinceInc = $('#provinceInc').val();
+            var cityInc = $('#cityInc').val();
+            var areaInc = $('#areaInc').val();
+            if(provinceInc != null && provinceInc != ''){
+            	parentId = provinceInc;
+            }
+            
+            if(cityInc != null && cityInc != ''){
+            	parentId = cityInc;
+            }
+            
+            if(areaInc != null && areaInc != ''){
+            	parentId = areaInc;
+            }
+            var value = $('#user-search-value').val();  
+            table.reload('usermanger', {where: {'info1':value,'info2':parentId}});
+        });
+	});
+</script>

@@ -1,0 +1,248 @@
+<div class="layui-card">
+	<div class="layui-card-header">
+		<h2 class="header-title">权限管理</h2>
+		<span class="layui-breadcrumb pull-right">
+          <a href="#!console">首页</a>
+          <a><cite>权限管理</cite></a>
+        </span>
+	</div>
+	<div class="layui-card-body">
+		<div class="layui-form toolbar">
+			<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
+		</div>
+
+		<!-- 数据表格 -->
+		<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
+	</div>
+</div>
+
+<script type="text/html" id="role-select">
+	<form class="layui-form" id="role-form" action="" lay-filter="manger">
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+			<legend>选择功能</legend>
+		</fieldset>
+		<div class="layui-input-inline">
+			<div id="test1" class="demo-tree demo-tree-box" style="width: 200px; height: 300px; overflow: scroll;"></div>
+		</div>
+		<div class="layui-input-inline">
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<input  type="checkbox" name="a1" lay-skin="primary" value="1" title="添加" >
+					<input  type="checkbox" name="a2" lay-skin="primary" value="2" title="修改">
+					<input  type="checkbox" name="a3" lay-skin="primary" value="3" title="删除">
+					<input  type="checkbox" name="a4" lay-skin="primary" value="4" title="查看详情">
+					<input  type="checkbox" name="a5" lay-skin="primary" value="5" title="菜单查看" >
+					<br>
+					<input  type="checkbox" name="a6" lay-skin="primary" value="6" title="上传">
+					<input  type="checkbox" name="a7" lay-skin="primary" value="7" title="审核">
+					<input  type="checkbox" name="a8" lay-skin="primary" value="8" title="取消审核">
+					<input  type="checkbox" name="a9" lay-skin="primary" value="9" title="导入">
+					<input  type="checkbox" name="a10" lay-skin="primary" value="10" title="导出">
+					<br>
+					<center>
+						<button class="layui-btn" lay-filter="add" lay-submit="">增加</button>
+					</center>
+				</div>
+			</div>
+		</div>
+	</form>
+</script>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="role-table-bar">
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script>
+	var menuid;
+	layui.use(['form', 'table', 'util', 'config', 'admin'], function() {
+		var form = layui.form;
+		var table = layui.table;
+		var config = layui.config;
+		var layer = layui.layer;
+		var util = layui.util;
+		var admin = layui.admin;
+		var id = 0;
+		var method = 'get';
+		var uri = 'web/Menus/authority';
+		
+		//渲染表格
+		table.render({
+			elem: '#usermanger',
+			url: config.server + uri,
+			response: {
+				statusName: 'code',
+				statusCode: 1,
+				msgName: 'msg',
+				//countName: 'totalpage',
+				dataName: 'data'
+			},
+			headers: {
+				Authorization: config.getToken().access_token
+			},
+			limits: [10, 15, 20, 25, 50, 100],
+			limit: 15,
+			page: true,
+			cols: [
+				[{
+						type: "checkbox",
+						width: 50,
+						fixed: "left"
+					},
+					{
+						field: 'text',
+						sort: true,
+						title: '模块名称'
+					},
+					{
+						field: 'actionName',
+						sort: true,
+						title: '功能名称'
+					},
+
+					{
+						align: 'center',
+						toolbar: '#role-table-bar',
+						title: '操作'
+					}
+				]
+			]
+		});
+
+		// 添加按钮点击事件
+		$('#role-btn-add').click(function() {
+			showEditModel();
+		});
+
+		//删除按钮点击事件
+		$('#role-btn-del').click(function() {
+			var checkStatus = table.checkStatus('usermanger'),
+				data = checkStatus.data;
+			var arr = new Array();
+			for(var i = 0; i < data.length; i++) {
+				arr.push(data[i].id)
+			}
+			doDelete(arr);
+		});
+
+		form.on('submit(add)', function(data) {
+			var arr = new Array();         
+			$("input:checkbox:checked").each(function(i) {    
+				if(!isNaN($(this).val())) {
+					arr[i] = $(this).val(); 
+				}
+			});
+			data.field.actionid = arr.join(",");
+			alert(menuid)
+			data.field.menuid=menuid;
+			console.log('提交前的数据是:' + JSON.stringify(data.field))
+			doajax(data.field, null);
+
+			return false;
+		});
+
+		form.verify({
+			pass: [
+				/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
+			]
+		});
+
+		//请求公用方法
+		function doajax(data, cont) {
+			admin.aj(uri, data, function(data) {
+				//layer.closeAll('loading');
+				console.log(data)
+				if(data.code == 1) {
+					layer.msg(data.msg, {
+						icon: 1,
+						time: 1000
+					});
+					table.reload('usermanger');
+					layer.closeAll('page');
+				} else {
+					//layer.closeAll('page');
+					layer.msg(data.msg, {
+						icon: 2,
+						time: 1000
+					});
+				}
+			}, method, cont);
+		}
+
+		// 工具条点击事件
+		table.on('tool(role-table)', function(obj) {
+			var data = obj.data;
+			id = data.id;
+			var arr = new Array();
+			arr.push(id);
+			doDelete(arr);
+
+		});
+		// 显示编辑弹窗
+		var showEditModel = function() {
+			method = 'post';
+			layer.open({
+				type: 1,
+				title: '添加',
+				shadeClose: true,
+				shade: false,
+				offset: 'auto',
+				maxmin: true, //开启最大化最小化按钮
+				area: [65, '600px'],
+				content: $('#role-select').html(),
+				success: function() {
+					$('#role-form .close').click(function() {
+						layer.closeAll('page');
+					});
+				}
+			});
+			select();
+		};
+		// 删除
+		var doDelete = function(obj) {
+			method = 'delete';
+			layer.confirm('确定要删除吗？', function(i) {
+				layer.close(i);
+				doajax(JSON.stringify(obj), 1)
+			});
+		};
+
+	});
+
+	function select() {
+		layui.use(['form', 'tree', 'util', 'admin'], function() {
+			var form = layui.form;
+			var admin = layui.admin;
+			uri = 'web/Menus/getTreeMenu';
+			var tree = layui.tree,
+				layer = layui.layer,
+				util = layui.util;
+			form.val('manger', null);
+			admin.aj(uri, null, function(data) {
+				data1 = data.data; 
+				tree.render({
+					elem: '#test1', 
+					data: data1,
+					click: function(obj) {
+						menuid = obj.data.id;
+						uri = 'web/Menus/getActionIdByMenuId?id='+menuid;
+						admin.aj(uri, null, function(data) {							
+							var ids=data.data;
+							console.log(ids)
+							for(var i = 0; i < ids.length; i++) {
+								var c = 'a' + ids[i];
+								console.log(c)
+								data.data[c]= 1;
+								console.log(data.data);
+							}
+							form.val('manger', data.data);
+							 form.render('chencked');
+						}, 'get', null);
+					}
+				});
+			}, 'get', null);
+
+		});
+	}
+</script>

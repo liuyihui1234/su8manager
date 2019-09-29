@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<link rel="stylesheet" href="../../assets/libs/layui/css/layui.css">
+		<script src="../../assets/libs/jquery.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
+	</head>
+
+	<body>
+		<div class="layui-tab layui-tab-card">
+			<ul class="layui-tab-title">
+				<li class="layui-this">网站设置</li>
+				<li>用户管理</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<form class="layui-form" action="" lay-filter="group">
+						<table class="layui-table" id="info">
+							<tr>
+								<div class="layui-inline">
+									<td>
+										<label for="username" class="layui-form-label|layui-inline">用户组名称：</label>
+									</td>
+									<td>
+										<div class="layui-inline">
+											<input id="myView" name="groupname" type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;float:left">
+										</div>
+										<div class="layui-inline">
+											<p style="color: red;"> (例如:普通用户组)</p>
+										</div>
+									</td>
+								</div>
+							</tr>
+							<tr>
+
+								<div class="layui-form-item">
+									<td>
+										<label class="layui-form-label">超级管理员:</label>
+									</td>
+									<td>
+										<div class="layui-input-block">
+											<input type="radio" name="issuperadmin" value="1" title="是" checked="">
+											<input type="radio" name="issuperadmin" value="0" title="否">
+										</div>
+									</td>
+								</div>
+							</tr>
+							<tr>
+								<div class="layui-form-item">
+									<td>
+										<label class="layui-form-label">用户组描述:</label>
+									</td>
+									<td>
+										<div class="layui-input-block">
+											<textarea placeholder="请输入内容" class="layui-textarea" name="groupinfo"></textarea>
+										</div>
+									</td>
+								</div>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="layui-form-item">
+										<div class="layui-input-block">
+											<center>
+												<button class="layui-btn" lay-submit="" lay-filter="group">修改用户组</button>
+											</center>
+										</div>
+									</div>
+								</td>
+							</tr>
+
+						</table>
+					</form>
+				</div>
+
+				<div class="layui-tab-item">
+
+					<form class="layui-form" action="" lay-filter="menu">
+						<table class="layui-table" id="info1">
+							<tr>
+								<div class="layui-inline">
+									<td>
+										<label class="layui-form-label|layui-inline">信息名称：</label>
+									</td>
+									<td>
+										<label class="layui-form-label|layui-inline">操作权限：</label>
+									</td>
+								</div>
+							</tr>
+
+							<tr v-for="(p,index) in list" style="display: table-row;">
+								<div class="layui-inline">
+									<td class="td">
+										<!--<i class="layui-icon layui-icon-triangle-d"></i>-->
+										<i class="layui-icon layui-icon-triangle-r" @click="changestyle($event)"></i>
+										<label for="" class="layui-form-label|layui-inline">{{p.menuname}}</label>
+									</td>
+									<td class="td">
+										<div class="layui-form-item">
+											<div class="layui-input-block">
+												<input type="checkbox" name="cominfo" lay-skin="primary" value="1" title="菜单查看">
+											</div>
+										</div>
+
+									</td>
+								</div>
+							</tr>
+						</table>
+					</form>
+
+				</div>
+			</div>
+		</div>
+		<script>
+			layui.config({
+				base: '../../module/'
+			}).extend({
+				formSelects: 'formSelects/formSelects-v4'
+			}).use(['config', 'layer', 'index', 'admin', 'form','element'], function() {
+				var $ = layui.jquery,
+					element = layui.element;
+				var form = layui.form;
+				layer = layui.layer;
+				layedit = layui.layedit;
+				laydate = layui.laydate;
+
+				form.on('submit(demo1)', function(data) {
+					layer.alert(JSON.stringify(data.field), {
+						title: '最终的提交信息'
+					})
+					return false;
+				});
+				var config = layui.config,
+					index = layui.index,
+					layer = layui.layer,
+					admin = layui.admin;
+				form = layui.form;
+				var method = 'post';
+				var data = admin.getTempData('group');
+				if(data) {
+					form.val('group',data);
+				} else {
+					form.val('incment', null);
+				}
+				form.on('submit(mang)', function(data) {
+					var arr = new Array();      
+					if(method == 'put') {
+						data.field.id = id;
+					}
+					console.log('提交前的数据是:' + JSON.stringify(data.field))
+					admin.aj("/web/incment/incment", data.field, function(data) {
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
+						parent.layer.msg(data.msg, {
+							icon: 1,
+							time: 1000,
+						});
+					}, method, null);
+					return false;
+				});
+
+			})
+		</script>
+	</body>
+
+</html>

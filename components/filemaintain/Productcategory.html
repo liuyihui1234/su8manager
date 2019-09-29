@@ -1,0 +1,229 @@
+<div class="layui-card">
+	<div class="layui-card-header">
+		<h2 class="header-title">问题原因</h2>
+		<span class="layui-breadcrumb pull-right">
+          <a href="#!console">首页</a>
+          <a><cite>快件类型</cite></a>
+        </span>
+	</div>
+	<div class="layui-card-body">
+		<div class="layui-form toolbar">
+			<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
+		</div>
+		<!-- 数据表格 -->
+		<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
+	</div>
+</div>
+<!-- 表格操作列 -->
+<script type="text/html" id="role-table-bar">
+	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<!-- 表单弹窗 -->
+<script type="text/html" id="role-model">
+	<form class="layui-form" action="" lay-filter="manger" id="form-update">
+		<table class="layui-table" id="info">
+			<tr>
+				<div class="layui-form-item">
+					<td>
+						<label for="username" class="layui-form-label">类型编号：</label>
+					</td>
+					<td>
+						<div class="layui-input-inline">
+							<input type="text" name="number" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+						</div>
+					</td>
+					<td>
+						<label for="username" class="layui-form-label">类型名称：</label>
+					</td>
+					<td>
+						<div class="layui-input-inline">
+							<input type="text" name="name" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+						</div>
+					</td>
+				</div>
+			</tr>
+			<tr>
+				<div class="layui-form-item">
+					<td>
+						<label for="username" class="layui-form-label">备注：</label>
+					</td>
+					<td>
+						<div class="layui-input-inline">
+							<input type="text" name="remarks" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+						</div>
+					</td>
+					<td>
+						<label class="layui-form-label">类型区域：</label>
+					</td>
+					<td>
+						<div class="layui-input-inline">
+							<input type="text" name="recipient" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+						</div>
+					</td>
+				</div>
+			</tr>
+
+			<input type="hidden" name="id" />
+			<tr>
+				<td colspan="5">
+					<div class="layui-input-block">
+						<center>
+							<!--<button class="layui-btn">保存信息</button>-->
+							<button id="add" class="layui-btn" lay-submit="" lay-filter="mang">保存信息</button>
+						</center>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+</script>
+<script>
+	layui.use(['form', 'table', 'util', 'config', 'admin'], function() {
+		var form = layui.form;
+		var table = layui.table;
+		var config = layui.config;
+		var layer = layui.layer;
+		var util = layui.util;
+		var admin = layui.admin;
+		var id = 0;
+		var method = 'get';
+		var uri = 'web/Detype/Detype';
+		//渲染表格
+		table.render({
+			elem: '#usermanger',
+			url: config.server + uri,
+			response: {
+				statusName: 'code',
+				statusCode: 1,
+				msgName: 'msg',
+				//countName: 'totalpage',
+				dataName: 'data'
+			},
+			headers: {
+				Authorization: config.getToken().access_token
+			},
+			limits: [10, 15, 20, 25, 50, 100],
+			limit: 15,
+			page: true,
+			cols: [
+				[{
+						type: "checkbox",
+						width: 50,
+						fixed: "left"
+					},
+					{
+						field: 'number',
+						sort: true,
+						title: '类型编号'
+					},
+					{
+						field: 'name',
+						sort: true,
+						title: '类型名称'
+					},
+					{
+						align: 'center',
+						toolbar: '#role-table-bar',
+						title: '操作' 
+					}
+				]
+			]
+		});
+		// 添加按钮点击事件
+		$('#role-btn-add').click(function() {
+			showEditModel();
+		});
+
+		//删除按钮点击事件
+		$('#role-btn-del').click(function() {
+			var checkStatus = table.checkStatus('usermanger'),
+				data = checkStatus.data;
+			var arr = new Array();
+			for(var i = 0; i < data.length; i++) {
+				arr.push(data[i].id)
+			}
+			doDelete(arr);
+		});
+
+		form.on('submit(mang)', function(data) {
+			var arr = new Array();         
+			if(data) {
+				data.field.id = id;
+			}
+			console.log('提交前的数据是:' + JSON.stringify(data.field))
+			doajax(data.field, null);
+			return false;
+		});
+
+		//请求公用方法
+		function doajax(data, cont) {
+			admin.aj(uri, data, function(data) {
+				console.log(data)
+				if(data.code == 1) {
+					layer.msg(data.msg, {
+						icon: 1,
+						time: 1000
+					});
+					table.reload('usermanger');
+					layer.closeAll('page');
+				} else {
+					//layer.closeAll('page');
+					layer.msg(data.msg, {
+						icon: 2,
+						time: 1000
+					});
+				}
+			}, method, cont);
+		}
+
+		// 工具条点击事件
+		table.on('tool(role-table)', function(obj) {
+			var data = obj.data;
+			id = data.id;
+			if(obj.event === 'edit') { //修改
+				showEditModel(data);
+			} else if(obj.event === 'del') { //删除
+				var arr = new Array();
+				arr.push(id);
+				doDelete(arr);
+			}
+		});
+		// 显示编辑弹窗
+		var showEditModel = function(data) {
+			method = data ? 'put' : 'post';
+			console.log('当前的方法是' + method)
+			layer.open({
+				type: 1,
+				title: data ? '修改角色' : '添加角色',
+				shadeClose: true,
+				shade: false,
+				offset: 'auto',
+				maxmin: true, //开启最大化最小化按钮
+				area: [65, '600px'],
+				content: $('#role-model').html(),
+				success: function() {
+					$('#role-form').attr('method', 'GET');
+					if(data) {
+						form.val('manger', data);
+					}
+					$('#role-form .close').click(function() {
+						layer.closeAll('page');
+					});
+				}
+			});
+		};
+		// 删除
+		var doDelete = function(obj) {
+			method = 'delete';
+			layer.confirm('确定要删除吗？', function(i) {
+				layer.close(i);
+				//layer.load(2);
+				doajax(JSON.stringify(obj), 1)
+			});
+		};
+
+	});
+</script>

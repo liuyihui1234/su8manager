@@ -1,0 +1,283 @@
+<div class="layui-card">
+	<div class="layui-card-header">
+		<h2 class="header-title">到件扫描</h2>
+		<span class="layui-breadcrumb pull-right">
+          <a href="#!console">首页</a>
+          <a><cite>到件扫描</cite></a>
+        </span>
+	</div>
+	<div class="layui-row">
+		<form class="layui-form" action="" lay-filter="top" id="top">
+			<div class="layui-form-item" style="margin-top: 16px;">
+				<div class="layui-inline">
+					<label class="layui-form-label">运单编号:</label>
+					<div class="layui-input-inline">
+						<input type="text" name="billsnumber" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">班次:</label>
+					<div class="layui-input-inline">
+						<select name="flightsnumber" lay-filter="depart">
+							<option value="第一班">第一班</option>
+							<option value="第二班">第二班</option>
+							<option value="第三班">第三班</option>
+							<option value="第四班">第四班</option>
+							<option value="第五班">第五班</option>
+							<option value="第六班">第六班</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">派件员:</label>
+					<div class="layui-input-inline">
+						<input type="text" name="postman" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
+				</div>
+				<button class="layui-btn" lay-submit="" lay-filter="top">保存</button>
+			</div>
+		</form>
+
+	</div>
+	<div class="layui-card-body">
+		<div class="layui-form toolbar">
+			<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
+		</div>
+		<!-- 数据表格 -->
+		<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
+	</div>
+</div>
+<!-- 表格操作列 -->
+<script type="text/html" id="role-table-bar">
+	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<!-- 表单弹窗 -->
+<script type="text/html" id="role-model">
+	<form class="layui-form" action="" lay-filter="pop" id="pop">
+		<div class="layui-form-item" style="margin-top: 16px;">
+			<div class="layui-inline">
+				<label class="layui-form-label">运单编号:</label>
+				<div class="layui-input-inline">
+					<input type="text" name="billsnumber" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+				</div>
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label">班次:</label>
+				<div class="layui-input-inline">
+					<select name="flightsnumber" lay-filter="depart">
+						<option value="第一班">第一班</option>
+						<option value="第二班">第二班</option>
+						<option value="第三班">第三班</option>
+						<option value="第四班">第四班</option>
+						<option value="第五班">第五班</option>
+						<option value="第六班">第六班</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label">派件员:</label>
+				<div class="layui-input-inline">
+					<input type="text" name="postman" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+				</div>
+			</div>
+			<center>
+				<button class="layui-btn" lay-submit="" lay-filter="pop">保存</button>
+			</center>
+		</div>
+	</form>
+</script>
+<script>
+	layui.use(['form', 'table', 'util', 'config', 'admin'], function() {
+		var form = layui.form;
+		var table = layui.table;
+		var config = layui.config;
+		var layer = layui.layer;
+		var util = layui.util;
+		var admin = layui.admin;
+		var id = 0;
+		var method = 'get';
+		var uri = 'web/distributedScan';
+		//渲染表格
+		table.render({
+			elem: '#usermanger',
+			id: 'usermanger',
+			url: config.server + uri,
+			response: {
+				statusName: 'code',
+				statusCode: 1,
+				msgName: 'msg',
+				//countName: 'totalpage',
+				dataName: 'data'
+			},
+			headers: {
+				Authorization: config.getToken().access_token
+			},
+			limits: [10, 15, 20, 25, 50, 100],
+			limit: 10,
+			page: true,
+			cols: [
+				[{
+						type: "checkbox",
+						width: 50,
+						fixed: "left"
+					},
+					{
+						field: 'billsnumber',
+						sort: true,
+						title: '运单编号'
+					},
+					{
+						field: 'scantime',
+						sort: true,
+						title: '扫描时间'
+					},
+					{
+						field: 'scanners',
+						sort: true,
+						title: '扫描人员'
+					},
+					{
+						field: 'incname',
+						sort: true,
+						title: '扫描网点'
+					},
+					{
+						field: 'flightsnumber',
+						sort: true,
+						title: '派件班次'
+					}, {
+						field: 'postman',
+						sort: true,
+						title: '派件员'
+					},
+					{
+						align: 'center',
+						toolbar: '#role-table-bar',
+						title: '操作'
+					}
+				]
+			]
+		});
+		// 添加按钮点击事件
+		$('#role-btn-add').click(function() {
+			showEditModel();
+		});
+		$('#billnum').focus()
+		//删除按钮点击事件
+		$('#role-btn-del').click(function() {
+			method = 'delete';
+			var checkStatus = table.checkStatus('usermanger'),
+				data = checkStatus.data;
+			var arr = new Array();
+			for(var i = 0; i < data.length; i++) {
+				arr.push(data[i].id)
+			}
+			doDelete(arr);
+		});
+
+		form.on('submit(top)', function(data) {
+			method = 'post';
+			doajax(data.field, null);
+			return false;
+		});
+		form.on('submit(pop)', function(data) {
+			if(method == 'put') {
+				data.field.id = id;
+			}
+			console.log(JSON.stringify(data.field))
+			doajax(data.field, null);
+			return false;
+		});
+		form.on('submit(mang)', function(data) {
+			var arr = new Array();         
+			if(method == 'put') {
+				data.field.id = id;
+			}
+			console.log('提交前的数据是:' + JSON.stringify(data.field))
+			doajax(data.field, null);
+			return false;
+		});
+		//请求公用方法
+		function doajax(data, cont) {
+			admin.aj(uri, data, function(data) {
+				//layer.closeAll('loading');
+				console.log(data)
+				if(data.code == 1) {
+					layer.msg(data.msg, {
+						icon: 1,
+						time: 1000,
+					});
+					if(method == 'delete') {
+						table.reload('usermanger', {
+							page: {
+								curr: 1 //重新从第 1 页开始
+							}
+						});
+						return;
+					}
+					if(method == 'post') {
+						$('#top')[0].reset();
+					}
+					table.reload('usermanger');
+					layer.closeAll('page');
+				} else {
+					//layer.closeAll('page');
+					layer.msg(data.msg, {
+						icon: 2,
+						time: 1000,
+					});
+				}
+			}, method, cont);
+		}
+
+		// 工具条点击事件
+		table.on('tool(role-table)', function(obj) {
+			var data = obj.data;
+			id = data.id;
+			if(obj.event === 'edit') { //修改
+				showEditModel(data);
+			} else if(obj.event === 'del') { //删除
+				var arr = new Array();
+				arr.push(id)
+
+				doDelete(arr);
+			}
+		});
+		// 显示编辑弹窗
+		var showEditModel = function(data) {
+			method = data ? 'put' : 'post';
+			console.log('当前的方法是' + method)
+			layer.open({
+				type: 1,
+				title: data ? '修改' : '添加',
+				shadeClose: true,
+				shade: false,
+				offset: 'auto',
+				area: ['350px', '400px'],
+				content: $('#role-model').html(),
+				success: function() {
+					$('#role-form').attr('method', 'GET');
+					if(data) {
+						form.val("pop", data)
+					}
+					form.val("pop", null)
+					$('#role-form .close').click(function() {
+						layer.closeAll('page');
+					});
+				}
+			});
+		};
+		// 删除
+		var doDelete = function(obj) {
+			method = 'delete';
+			layer.confirm('确定要删除吗？', function(i) {
+				layer.close(i);
+				doajax(JSON.stringify(obj), 1)
+			});
+		};
+
+	});
+</script>
