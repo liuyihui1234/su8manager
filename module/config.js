@@ -123,27 +123,27 @@ layui.define(function (exports) {
                 name: '转运扫描',
                 url: '#!transferscan',
                 path: 'system/authorities.html',
-                auth: 'get:/authorities'
+                auth: 'get:/loginRecord'
             }, {
                 name: '转运追踪扫描',
                 url: '#!bagscan',
                 path: 'system/login_record.html',
                 auth: 'get:/loginRecord'
             },{
-                name: '派件扫描',
-                url: '#!delivery scan',  
-                path: 'incment/incment.html',
-                auth: 'post:/user/query'
-            }, {
                 name: '客户签收扫描',
                 url: '#!customersignscan',
-                path: 'system/role.html',
-                auth: 'get:/role'
-            }, {
+                path: 'scanmanage/customsign_scan.html',
+                auth: 'get:/loginRecord'
+            },{
+                name: '派件扫描',
+                url: '#!deliveryscan',  
+                path: 'scanmanage/distributed_scan.html',
+                auth: 'post:/loginRecord'
+            },  {
                 name: '留仓件、问题件扫描',
                 url: '#!problemscan',
                 path: 'scanmanage/problem_scan.html',
-                auth: 'get:/authorities'
+                auth: 'get:/loginRecord'
             }]
         },{
             name: '单证录入',
