@@ -8,7 +8,7 @@
 	</div>
 	<!-- 表单弹窗 -->
 	<div class="layui-row">
-		<form class="layui-form" lay-filter="manger" action="" id="form-update">
+		<form class="layui-form" lay-filter="manger" action="" id="form-add">
 			<table class="layui-table" id="info">
 				<tr>
 					<div class="layui-form-item">
@@ -17,7 +17,7 @@
 						</td>
 						<td>
 							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" class="layui-input" style="width: 200px;height: 38px;" id= "appointmentName">
+								<input type="text" class="layui-input" style="width: 200px;height: 38px;" name="fromname" id= "appointmentName">
 							</div>
 						</td>
 						<td>
@@ -25,7 +25,7 @@
 						</td>
 						<td>
 							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text"  class="layui-input" style="width: 200px;height: 38px;" id = "appointTel">
+								<input type="text"  class="layui-input" style="width: 200px;height: 38px;" name="fromtel" id = "appointTel">
 							</div>
 						</td>
 					</div>
@@ -36,14 +36,14 @@
 					</td>
 					<td>
 						<div class="layui-input-inline" style="width: 80px;">
-							<input type="text"  class="layui-input" style="width: 200px;height: 38px;" id="number">
+							<input type="text"  class="layui-input" style="width: 200px;height: 38px;" name="number" id="number">
 						</div>
 					</td>
 					
 					<td colspan="2">
 						<div class="layui-input-block">
 							<center>
-								<button id = "user-btn-search" class="layui-btn" type="button">查询</button>
+								<button class="layui-btn" lay-submit="" lay-filter="seach"  >查询</button>
 							</center>
 						</div>
 					</td>
@@ -57,7 +57,7 @@
 			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
 		</div>
 		<!-- 数据表格 -->
-		<table class="layui-table" id="role-table" lay-filter="role-table"></table>
+		<table class="layui-table" id="table_view" lay-filter="role-table"></table>
 	</div>
 </div>
 <!-- 表格操作列 -->
@@ -79,7 +79,7 @@
 		var uri = 'web/reservation/getAppointment';
 		//渲染表格
 		table.render({
-			elem: '#role-table',
+			elem: '#table_view',
 			url: config.server + uri,
 			response: {
 				statusName: 'code',
@@ -120,6 +120,10 @@
 						field: 'appointmenttime',
 						sort: 'false',
 						title: '预约时间'
+					},{
+						field: 'number',
+						sort: 'false',
+						title: '订单号'
 					}, {
 						field: 'accepttime',
 						sort: 'true',
@@ -150,7 +154,7 @@
 
 		//删除按钮点击事件
 		$('#role-btn-del').click(function() {
-			var checkStatus = table.checkStatus('usermanger'),
+			var checkStatus = table.checkStatus('table_view'),
 				data = checkStatus.data;
 			var arr = new Array();
 			for(var i = 0; i < data.length; i++) {
@@ -177,7 +181,7 @@
 					layer.msg(data.msg, {
 						icon: 1
 					});
-					table.reload('usermanger');
+					table.reload('table_view');
 					layer.closeAll('page');
 				} else {
 					//layer.closeAll('page');
@@ -213,6 +217,23 @@
 			}
 
 		});
+		
+		form.on('submit(seach)', function(data) {
+			console.log('提交前的数据是:' + JSON.stringify(data.field))
+				table.reload('table_view',			
+				{where:
+					{'fromname':data.field.fromname,
+					'fromtel':data.field.fromtel,
+					'number':data.field.number}
+				
+				}
+				);
+			document.getElementById("form-add").reset();
+			return false;
+
+		});
+		
+		
 		// 显示编辑弹窗
 		var showEditModel = function(data) {
 			method = data ? 'put' : 'post';
