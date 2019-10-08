@@ -199,7 +199,6 @@
 			method ='post';		
 			console.log('提交前的数据是:' + JSON.stringify(data.field))
 			doajax(data.field, null);
-			document.getElementById("form-add").reset();
 			return false;
 		});
 
@@ -214,6 +213,7 @@
 			admin.aj(uri, data, function(data) {
 				//layer.closeAll('loading');
 				console.log(data)
+				alert(data.code);
 				if(data.code == 1) {
 					layer.msg(data.msg, {
 						icon: 1,
@@ -221,6 +221,10 @@
 					});
 					table.reload('usermanger');
 					layer.closeAll('page');
+					if(method == 'post'){
+						document.getElementById("form-add").reset();
+					}
+					
 				} else {
 					//layer.closeAll('page');
 					layer.msg(data.msg, {

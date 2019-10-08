@@ -101,9 +101,40 @@ function initDictShowName(request , uri, itemId, defaultValue){
 					}
 				}, method, cont);			
 		}
-
-
-
+	
+	/**
+	 * 包括隐藏域      /web/Department/getListTwo
+	 * @param {Object} request
+	 * @param {Object} uri
+	 * @param {Object} itemId
+	 * @param {Object} defaultValue
+	 */
+	function initDictShowNameTwo(request , uri, itemId, defaultValue,hidenId){
+			var data = {}; 
+			var method = "post";
+			var cont = null ;	
+			request(uri, data, function(data) {
+					if(data.code == 1) {						
+						var itemList = data.data;								
+						$('#' + itemId ).html("");
+						layui.form.render("select");
+						
+						$.each(itemList, function (index, item) {
+							$('#' + itemId ).append(new Option(item.name, item.id));// 下拉菜单里添加元素
+						});
+						if(defaultValue == -1){
+							$("#" + itemId ).val(data.data[0].id)
+						}else{
+							$("#" + itemId ).val(defaultValue);
+						}
+						layui.form.render("select");
+						
+						if(data.data.length > 0 ){
+							$('#' + hidenId ).val(data.data[0].name);
+						}						
+					}
+				}, method, cont);			
+		}
 
 /*    
  * 根据父节点查询地区

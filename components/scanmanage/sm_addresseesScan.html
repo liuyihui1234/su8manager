@@ -21,20 +21,24 @@
 			</div>
 			<span>快件类型:</span>
 			<div class="layui-input-inline">
-				<select name="detypename" id="detypename">
+				<select name="detypeid" id="detypeid" lay-filter="detypeid">
 				</select>
 			</div>
+			<input type="hidden" id ="detypename" name="detypename"/>
 			<span>物品类型:</span>
 			<div class="layui-input-inline">
-				<select name="goodstype" id="goodstype"> 
+				<select name="goodsid" id="goodsid" lay-filter="goodsid"> 
 				</select>
 			</div>
+			<input type="hidden" id ="goodstype" name = "goodstype"/>
 			<button class="layui-btn" lay-submit="" lay-filter="addnew">保存信息</button>
 		</form>
 	</div>
 	<div class="layui-card-body">
 		<div class="layui-form toolbar">
+			<!--
 			<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+			-->
 			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
 		</div>
 	</div>
@@ -245,11 +249,10 @@
 		form.on('submit(addnew)', function(data) {
 			method = 'post';
 			console.log('提交前的数据是:' + JSON.stringify(data.field))
+			rst =  JSON.stringify(data.field);
 			doajax(data.field, null);
-			document.getElementById("form-add").reset();
-			return false;
 			
-
+			return false;
 		});
 
 		form.verify({
@@ -276,6 +279,9 @@
 							}
 						});
 						return;
+					}else if(method == 'post'){
+						document.getElementById("form-add").reset();
+						return; 
 					}
 					table.reload('usermanger');
 					layer.closeAll('page');
@@ -313,14 +319,17 @@
 				arr.push(id);
 				doDelete(arr);
 			}
-		});
-		
+		});		
 		$(function() {// 初始化内容
-			initDictShowName(admin.aj, "web/Detype/getAllRecord", "detypename", -1);	
-			initDictShowName(admin.aj, "web/Goods/Goods", "goodstype", -1);
-	   }); 
-	   
-	   
+			initDictShowNameTwo(admin.aj, "web/Detype/getAllRecord", "detypeid", -1,'detypename');	
+			initDictShowNameTwo(admin.aj, "web/Goods/Goods", "goodsid", -1,'goodstype');
+	   }); 	   
+	   form.on('select(detypeid)', function(data){   		
+			$("#detypename").val(data.elem[data.elem.selectedIndex].text);
+		});
+		form.on('select(goodsid)', function(data){   		
+			$("#goodstype").val(data.elem[data.elem.selectedIndex].text);
+		});		
 		// 显示编辑弹窗
 		var showEditModel = function(data) {
 			method = data ? 'put' : 'post';
@@ -355,10 +364,8 @@
 				doajax(JSON.stringify(obj), 1)
 			});
 		};
-
 	});
 	
-
 	/*小页面*/
 	var index;
 	var data1;
