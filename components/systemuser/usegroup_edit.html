@@ -21,7 +21,7 @@
 			</ul>
 			<div class="layui-tab-content">
 				<div class="layui-tab-item layui-show">
-					<form class="layui-form" action="" lay-filter="group">
+					<form class="layui-form" action="" lay-filter="group" id="modifyGroup">
 						<table class="layui-table" id="info">
 							<tr>
 								<div class="layui-inline">
@@ -39,7 +39,6 @@
 								</div>
 							</tr>
 							<tr>
-
 								<div class="layui-form-item">
 									<td>
 										<label class="layui-form-label">超级管理员:</label>
@@ -81,7 +80,6 @@
 				</div>
 
 				<div class="layui-tab-item">
-
 					<form class="layui-form" action="" lay-filter="menu">
 						<table class="layui-table" id="info1">
 							<tr>
@@ -130,7 +128,8 @@
 				layer = layui.layer;
 				layedit = layui.layedit;
 				laydate = layui.laydate;
-
+				var id = 0 ;
+				var method = 'post';
 				form.on('submit(demo1)', function(data) {
 					layer.alert(JSON.stringify(data.field), {
 						title: '最终的提交信息'
@@ -142,26 +141,36 @@
 					layer = layui.layer,
 					admin = layui.admin;
 				form = layui.form;
-				var method = 'post';
 				var data = admin.getTempData('group');
+				method = data ? 'put' : 'post';
 				if(data) {
+					for(var key in data){
+					    console.log(key,data[key]);
+					}
+					id = data.id;
 					form.val('group',data);
-				} else {
-					form.val('incment', null);
+				}else{
+					form.val('group',null);
 				}
-				form.on('submit(mang)', function(data) {
-					var arr = new Array();      
-					if(method == 'put') {
+				//提交保存
+				form.on('submit(group)', function(data) {
+					var arr = new Array();   
+					console.log('提交前的数据是:' + JSON.stringify(data.field))
+					if(method == 'put'){
 						data.field.id = id;
 					}
-					console.log('提交前的数据是:' + JSON.stringify(data.field))
-					admin.aj("/web/incment/incment", data.field, function(data) {
-						var index = parent.layer.getFrameIndex(window.name);
-						parent.layer.close(index);
-						parent.layer.msg(data.msg, {
-							icon: 1,
-							time: 1000,
-						});
+					admin.aj("web/groupmanager/group", data.field, function(data) {
+						if(data.code == 1){
+							$("#modifyGroup")[0].reset();
+							var index = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index);
+							//parent.table.reload('usermanger');
+							parent.location.reload();
+							parent.layer.msg(data.msg, {
+								icon: 1,
+								time: 1000,
+							});
+						}
 					}, method, null);
 					return false;
 				});
@@ -169,5 +178,4 @@
 			})
 		</script>
 	</body>
-
 </html>

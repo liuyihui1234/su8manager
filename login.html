@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -9,14 +8,11 @@
 		<link rel="stylesheet" href="assets/libs/layui/css/layui.css" />
 		<link rel="stylesheet" href="assets/css/login.css" media="all">
 	</head>
-
 	<body>
 		<div class="login-wrapper">
-
 			<div class="login-header">
-				<img src="assets/images/logo.jpg"> 快8速递
+				<img src="assets/images/logo.jpg">快8速递
 			</div>
-
 			<div class=" login-body">
 				<div class="layui-card">
 					<div class="layui-card-header">
@@ -78,12 +74,10 @@
 				form.on('submit(login-submit)', function(obj) {
 					var field = obj.field;
 					field.access_token = config.getCode();
-
 					layer.load(2);
 					console.log(JSON.stringify(config.getToken()))
-
 					$.ajax({
-						url: 'http://localhost:8081/login/login',
+						url: config.server +  'login/login',
 						data: field,
 						type: 'POST',
 						dataType: 'JSON',
@@ -112,10 +106,10 @@
 						}
 					});
 				});
-
+				
 				function getimage() {
 					$.ajax({
-						url: 'http://localhost:8081/auth/vCode',
+						url: config.server + 'auth/vCode',
 						success: function(data) {
 							$.each(data, function(key, value) {
 								config.putCode(key);
@@ -137,5 +131,4 @@
 			});
 		</script>
 	</body>
-
 </html>

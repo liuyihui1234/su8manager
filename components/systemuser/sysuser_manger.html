@@ -481,69 +481,71 @@
 				doajax(JSON.stringify(obj), 1)
 			});
 		};
+		
+		var url;
+		var nameSelect
+	
+		function select(parameter, nameSelect) {
+			if(nameSelect == 1) {
+				nameSelect = 'nameOne';
+			} else {
+				nameSelect = 'nameTwo';
+			}
+			if(parameter == null) {
+				url = 'web/incment/incment'
+			} else {
+				url = 'web/incment/incment?info1=' + parameter
+			}
+			layui.use(['table', 'config'], function() {
+				var config = layui.config;
+				var table = layui.table;
+				//var index = layer.getFrameIndex(window.name); //获取窗口索引
+	
+				table.render({
+						elem: '#test',
+						url: config.server +   url,
+						response: {
+							statusName: 'code',
+							statusCode: 1,
+							msgName: 'msg',
+							//countName: 'totalpage',
+							dataName: 'data'
+						},
+						headers: {
+							Authorization: config.getToken().access_token
+						},
+						limits: [10],
+						limit: 15,
+						page: true,
+						cols: [
+							[{
+								//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
+								title: '',
+								toolbar: '#role-table-select',
+							}, {
+								field: 'number',
+								title: '网点编号'
+							}, {
+								field: 'name',
+								title: '网点名称'
+							}]
+						]
+	
+					}),
+					table.on('tool(test)', function(obj) {
+						var data = obj.data;
+						if(obj.event === 'edit') {
+							parent.$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
+							layer.close(index);
+						}
+	
+					});
+			});
+	
+		}
 
 	});
-	var url;
-	var nameSelect
-
-	function select(parameter, nameSelect) {
-		if(nameSelect == 1) {
-			nameSelect = 'nameOne';
-		} else {
-			nameSelect = 'nameTwo';
-		}
-		if(parameter == null) {
-			url = 'http://localhost:8081/web/incment/incment'
-		} else {
-			url = 'http://localhost:8081/web/incment/incment?info1=' + parameter
-		}
-		layui.use(['table', 'config'], function() {
-			var config = layui.config;
-			var table = layui.table;
-			//var index = layer.getFrameIndex(window.name); //获取窗口索引
-
-			table.render({
-					elem: '#test',
-					url: url,
-					response: {
-						statusName: 'code',
-						statusCode: 1,
-						msgName: 'msg',
-						//countName: 'totalpage',
-						dataName: 'data'
-					},
-					headers: {
-						Authorization: config.getToken().access_token
-					},
-					limits: [10],
-					limit: 15,
-					page: true,
-					cols: [
-						[{
-							//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
-							title: '',
-							toolbar: '#role-table-select',
-						}, {
-							field: 'number',
-							title: '网点编号'
-						}, {
-							field: 'name',
-							title: '网点名称'
-						}]
-					]
-
-				}),
-				table.on('tool(test)', function(obj) {
-					var data = obj.data;
-					if(obj.event === 'edit') {
-						parent.$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
-						layer.close(index);
-					}
-
-				});
-		});
-
-	}
+	
 	
 	
 	/*小页面*/

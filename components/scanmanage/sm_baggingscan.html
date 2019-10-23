@@ -16,9 +16,11 @@
 			<div class="layui-input-inline">
 				<input id="nameOne" type="text" class="layui-input" name="baggingname" required lay-verify="required">
 			</div>
+			<input type="hidden" name="baggingid"  id="hidenameone"/>
 			<div class="layui-input-inline">
 				<a href="javascript:void(0)" onclick="select(1)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
 			</div>
+			
 			<span>袋内运单号:</span>
 			<div class="layui-input-inline">
       			<textarea placeholder="请输入订单号" class="layui-textarea" name="numberlist"></textarea>
@@ -58,6 +60,7 @@
 						<div class="layui-input-inline">
 							<input id="nameTwo" type="text" name="baggingname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 						</div>
+						<input type="hidden" name="baggingid"  id="hidenametwo"/>
 						<div class="layui-input-inline">
 							<a href="javascript:void(0)" onclick="select(2)">点击选择</a>
 						</div>
@@ -211,7 +214,6 @@
 			method = 'post';
 			console.log('提交前的数据是:' + JSON.stringify(data.field))
 			doajax(data.field, null);
-			document.getElementById("form-add").reset();
 			return false;
 
 		});
@@ -243,6 +245,7 @@
 					}
 					if(method=='post'){
 						$("#bagNumber").val(data.data);
+						document.getElementById("form-add").reset();
 					}
 					table.reload('usermanger');
 					layer.closeAll('page');
@@ -324,8 +327,10 @@
 	function managerselect(number) {
 		if(number == 1) {
 			nameSelect = 'nameOne';
+			nameIdSelect = 'hidenameone';
 		} else {
 			nameSelect = 'nameTwo';
+			nameIdSelect = 'hidenametwo';
 		}
 		layui.use(['tree', 'util', 'transfer', 'layer', 'admin'], function() {
 			var admin = layui.admin;
@@ -404,8 +409,8 @@
 									return;
 								}
 								parent.$('#' + nameSelect).val(getData[0].title);
+								parent.$('#' + nameIdSelect).val(getData[0].number);								
 								layer.close(index);
-								
 							}
 						})
 					}, 'post', 1);

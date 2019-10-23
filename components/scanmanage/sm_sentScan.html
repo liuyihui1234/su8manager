@@ -24,6 +24,7 @@
 							<input id="nameOne" type="text" class="layui-input" name="nextstopname" required lay-verify="required">
 							&nbsp;&nbsp;
 						</div>
+						<input type="hidden" id = "nameIdOne" name = 'nextstop'/>
 						<a href="javascript:void(0)" onclick="openSelect(1)">点击选择</a>
 					</td>
 					<td>
@@ -32,6 +33,7 @@
 							<input id="nameTwo" type="text" class="layui-input" name="nextstopname1" required lay-verify="required">
 							&nbsp;&nbsp;
 						</div>
+						<input type="hidden" id = "nameIdTwo" name = 'nextstop1'/>
 						<a href="javascript:void(0)" onclick="openSelect(2)">点击选择</a>
 
 					</td>
@@ -51,7 +53,6 @@
 						<span>物品类型:</span>
 						<div class="layui-input-inline">
 							<select name="goodstype" id="goodstype">
-							
 							</select>
 						</div>
 					</td>
@@ -87,7 +88,6 @@
 	</div>
 	<!-- 数据表格 -->
 	<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
-
 </div>
 
 <!-- 表单弹窗 -->
@@ -111,6 +111,7 @@
 						<div class="layui-input-inline">
 							<input id="nameThree"  type="text" name="nextstopname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 						</div>
+						<input type="hidden"  id= "nameIdThree" name = "nextstop" />
 						<a href="javascript:void(0)" onclick="openSelect(3)">点击选择</a>
 					</td>
 
@@ -125,6 +126,7 @@
 						<div class="layui-input-inline">
 							<input id="nameFour"  type="text" name="nextstopname1" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 						</div>
+						<input type="hidden"  id= "nameIdFour" name = "nextstop1" />
 						<a href="javascript:void(0)" onclick="openSelect(4)">点击选择</a>
 					</td>
 					<td>
@@ -142,7 +144,6 @@
 				</div>
 			</tr>
 			<tr>
-
 				<td>
 					<label for="username" class="layui-form-label">快件类型：</label>
 				</td>
@@ -205,8 +206,9 @@
 		<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
 	</div>
 	<div class="layui-input-inline">
-		<button class="layui-btn" onclick="select($('#add').val())">查找</button>
+		<button class="layui-btn" onclick="select($('#add').val(), $('#clickPositionNum').val())">查找</button>
 	</div>
+	<input type = "hidden" id = "clickPositionNum"/>
 	<table class="layui-hide" id="test" lay-filter="test"></table>
 </script>
 
@@ -419,34 +421,39 @@
 		});
 		select(null,number);	
 	}
-	
-
 	});
+	
+	
 	var url;
-	var nameSelect
+	var nameSelect;
+	var nameIdSelect;
 	function select(parameter,nameSelect) {
+		$('#clickPositionNum').val(nameSelect);		
 		if(nameSelect==1){
 			nameSelect='nameOne';
+			nameIdSelect = "nameIdOne";
 		}else if(nameSelect==2){
 			nameSelect='nameTwo';
+			nameIdSelect = 'nameIdTwo';
 		}else if(nameSelect==3){
 			nameSelect='nameThree';
+			nameIdSelect = 'nameIdThree';
 		}else{
 			nameSelect='nameFour';
+			nameIdSelect = 'nameIdFour';
 		}
 		if(parameter == null) {
-			url = 'http://localhost:8081/web/incment/incment'
+			url = 'web/incment/incment'
 		} else {
-			url = 'http://localhost:8081/web/incment/incment?info1=' + parameter
+			url = 'web/incment/incment?info1=' + parameter
 		}
 		layui.use(['table','config'],function() {
 			var config = layui.config;
 			var table = layui.table;
 			//var index = layer.getFrameIndex(window.name); //获取窗口索引
-
 			table.render({
 					elem: '#test',
-					url: url,
+					url: config.server  + url,
 					response: {
 						statusName: 'code',
 						statusCode: 1,
@@ -479,6 +486,7 @@
 					var data = obj.data;
 					if(obj.event === 'edit') {
 						parent.$('#'+nameSelect).val(eval(JSON.stringify(data.name)));
+						parent.$('#' + nameIdSelect ).val(eval(JSON.stringify(data.number)));
 						layer.close(index);
 					}
 
@@ -486,4 +494,5 @@
 		});
 
 	}
+	
 </script>

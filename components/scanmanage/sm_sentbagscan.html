@@ -315,9 +315,7 @@
 		});
 		select(null,number);	
 	}
-	
-
-	});
+		
 	var url;
 	var nameSelect
 	function select(parameter,nameSelect) {
@@ -331,9 +329,9 @@
 			nameSelect='nameFour';
 		}
 		if(parameter == null) {
-			url = 'http://localhost:8081/web/incment/incment'
+			url = 'web/incment/incment'
 		} else {
-			url = 'http://localhost:8081/web/incment/incment?info1=' + parameter
+			url = 'web/incment/incment?info1=' + parameter
 		}
 		layui.use(['table','config'],function() {
 			var config = layui.config;
@@ -342,7 +340,7 @@
 
 			table.render({
 					elem: '#test',
-					url: url,
+					url: config.server  + url,
 					response: {
 						statusName: 'code',
 						statusCode: 1,
@@ -380,6 +378,8 @@
 
 				});
 		});
-
 	}
+
+	});
+	
 </script>

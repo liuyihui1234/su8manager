@@ -294,7 +294,6 @@
 					form = layui.form;
 					var method = 'post';
 					var id = admin.getTempData('incid');
-					alert(id);
 					if(id) {
 						admin.aj("web/incment/getincmentById?id=" + id, null, function(data) {
 							console.log(data)

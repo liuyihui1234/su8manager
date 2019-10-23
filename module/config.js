@@ -2,7 +2,7 @@ layui.define(function (exports) {
 
     var config = {
         base_server: 'json/', // 接口地址，实际项目请换成http形式的地址
-        server: 'http://localhost:8081/',
+        server: 'http://127.0.0.1:8081/',//http://www.k8yz.com/
         tableName: 'easyweb',  // 存储表名
         autoRender: false,  // 窗口大小改变后是否自动重新渲染表格，解决layui数据表格非响应式的问题
         // 获取缓存的token
@@ -43,7 +43,7 @@ layui.define(function (exports) {
             url: 'javascript:;',
             icon: 'layui-icon-home',
             subMenus: [{
-                name: '主页一',
+                name: '主页',
                 url: '#!console',
                 path: 'console.html'
             }]
@@ -122,24 +122,24 @@ layui.define(function (exports) {
             }, {
                 name: '转运扫描',
                 url: '#!transferscan',
-                path: 'system/authorities.html',
+                path: 'scanmanage/sm_transportScan.html',
                 auth: 'get:/loginRecord'
             }, {
                 name: '转运追踪扫描',
                 url: '#!bagscan',
                 path: 'system/login_record.html',
-                auth: 'get:/loginRecord'
-            },{
-                name: '客户签收扫描',
-                url: '#!customersignscan',
-                path: 'scanmanage/customsign_scan.html',
-                auth: 'get:/loginRecord'
+                auth: 'post:/authorities'
             },{
                 name: '派件扫描',
                 url: '#!deliveryscan',  
                 path: 'scanmanage/distributed_scan.html',
-                auth: 'post:/loginRecord'
-            },  {
+                auth: 'get:/loginRecord'
+            }, {
+                name: '客户签收扫描',
+                url: '#!customersignscan',
+                path: 'scanmanage/customsign_scan.html',
+                auth: 'get:/loginRecord'
+            }, {
                 name: '留仓件、问题件扫描',
                 url: '#!problemscan',
                 path: 'scanmanage/problem_scan.html',

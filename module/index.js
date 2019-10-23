@@ -131,6 +131,5 @@ layui.define(['config', 'admin', 'layer', 'laytpl', 'element'], function (export
             });
         }
     };
-
     exports('index', index);
 });

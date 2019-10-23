@@ -213,18 +213,16 @@
 			admin.aj(uri, data, function(data) {
 				//layer.closeAll('loading');
 				console.log(data)
-				alert(data.code);
 				if(data.code == 1) {
 					layer.msg(data.msg, {
 						icon: 1,
 						time: 1000
 					});
-					table.reload('usermanger');
-					layer.closeAll('page');
 					if(method == 'post'){
 						document.getElementById("form-add").reset();
 					}
-					
+					table.reload('usermanger');
+					layer.closeAll('page');
 				} else {
 					//layer.closeAll('page');
 					layer.msg(data.msg, {

@@ -16,6 +16,7 @@
 			<div class="layui-input-inline">
 				<input id="nameOne" type="text" class="layui-input" name="postmanname" required lay-verify="required">
 			</div>
+			<input type="hidden" name="postmanid"  id="hidenameone"/>
 			<div class="layui-input-inline">
 				<a href="javascript:void(0)" onclick="select(1)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
 			</div>
@@ -96,6 +97,7 @@
 						<div class="layui-input-inline">
 							<a href="javascript:void(0)" onclick="select(2)">点击选择</a>
 						</div>
+						<input type="hidden" name="postmanid"  id="hidenameTwo"/>
 					</td>
 
 				</div>
@@ -133,7 +135,6 @@
 
 <!-- 小页面 -->
 <script type="text/html" id="role-select">
-
 	<div class="layui-input-inline">
 		<div id="test12" class="demo-tree-more"></div>
 	</div>
@@ -144,7 +145,6 @@
 	<div class="layui-input-inline">
 		<button type="button" class="layui-btn" lay-demotransferactive="getData">保存</button>
 	</div>
-
 </script>
 
 <script type="text/html" id="role-table-bar">
@@ -281,7 +281,6 @@
 						return;
 					}else if(method == 'post'){
 						document.getElementById("form-add").reset();
-						return; 
 					}
 					table.reload('usermanger');
 					layer.closeAll('page');
@@ -370,12 +369,15 @@
 	var index;
 	var data1;
 	var nameSelect;
+	var nameIdSelect;
 
 	function managerselect(number) {
 		if(number == 1) {
  			nameSelect = 'nameOne';
+ 			nameIdSelect = 'hidenameone';
 		} else {
 			nameSelect = 'nameTwo';
+			nameIdSelect = 'hidenameTwo';
 		}
 		layui.use(['tree', 'util', 'transfer', 'layer','admin' ], function() {
 			var admin = layui.admin;
@@ -422,7 +424,6 @@
 			transfer.render({
 				elem: '#test1',
 				data: data1
-
 			})
 			//基本演示
 			tree.render({
@@ -453,9 +454,10 @@
 									layer.close(index);
 									return;
 								}
-								parent.$('#' + nameSelect).val(getData[0].title);
-								layer.close(index);
 								
+								parent.$('#' + nameSelect).val(getData[0].title);
+								parent.$('#' + nameIdSelect).val(getData[0].number);
+								layer.close(index);
 							}
 						})
 					}, 'post', 1);

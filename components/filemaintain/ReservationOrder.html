@@ -6,49 +6,27 @@
           <a><cite>预约订单管理</cite></a>
         </span>
 	</div>
+	
 	<!-- 表单弹窗 -->
 	<div class="layui-row">
-		<form class="layui-form" lay-filter="manger" action="" id="form-add">
-			<table class="layui-table" id="info">
-				<tr>
-					<div class="layui-form-item">
-						<td>
-							<label class="layui-form-label">预约人姓名：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" class="layui-input" style="width: 200px;height: 38px;" name="fromname" id= "appointmentName">
-							</div>
-						</td>
-						<td>
-							<label class="layui-form-label">预约人电话:</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text"  class="layui-input" style="width: 200px;height: 38px;" name="fromtel" id = "appointTel">
-							</div>
-						</td>
-					</div>
-				</tr>
-				<tr>
-					<td>
-						<label class="layui-form-label">订单号:</label>
-					</td>
-					<td>
-						<div class="layui-input-inline" style="width: 80px;">
-							<input type="text"  class="layui-input" style="width: 200px;height: 38px;" name="number" id="number">
-						</div>
-					</td>
-					
-					<td colspan="2">
-						<div class="layui-input-block">
-							<center>
-								<button class="layui-btn" lay-submit="" lay-filter="seach"  >查询</button>
-							</center>
-						</div>
-					</td>
-				</tr>
-			</table>
+		<form class="layui-form" lay-filter="manger" action="" id="form-add">							
+			<span>预约人姓名：</span>	
+			<div class="layui-input-inline" >
+				<input type="text" class="layui-input"  name="fromname" id= "appointmentName">
+			</div>
+		
+			<span>预约人电话:</span>		
+			<div class="layui-input-inline" >
+				<input type="text"  class="layui-input" s name="fromtel" id = "appointTel">
+			</div>	
+			<span>订单号:</span>		
+			<div class="layui-input-inline" >
+				<input type="text"  class="layui-input"  name="number" id="number">
+			</div>
+			
+			<button class="layui-btn" lay-submit="" lay-filter="seach"  >查询</button>
+			
+				
 		</form>
 	</div>
 	<div class="layui-card-body">
@@ -78,6 +56,7 @@
 		var method = 'get';
 		var uri = 'web/reservation/getAppointment';
 		//渲染表格
+		
 		table.render({
 			elem: '#table_view',
 			url: config.server + uri,
@@ -228,7 +207,7 @@
 				
 				}
 				);
-			document.getElementById("form-add").reset();
+			//document.getElementById("form-add").reset();
 			return false;
 
 		});

@@ -1,9 +1,9 @@
 <div class="layui-card">
 	<div class="layui-card-header">
-		<h2 class="header-title">系统用户管理</h2>
+		<h2 class="header-title">用户组管理</h2>
 		<span class="layui-breadcrumb pull-right">
           <a href="#!console">首页</a>
-          <a><cite>系统用户管理</cite></a>
+          <a><cite>用户组管理</cite></a>
         </span>
 	</div>
 	<div class="layui-card-body">
@@ -20,177 +20,6 @@
 	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-
-<!-- 表单弹窗 -->
-<script type="text/html" id="role-model">
-	<form class="layui-form" id="role-form" action="" lay-filter="manger">
-		<table class="layui-table" id="info">
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label for="username" class="layui-form-label">员工编号：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input id="myView" type="text" name="number" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-					<td>
-						<label for="username" class="layui-form-label">编号方式：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="text" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-				</div>
-			</tr>
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">姓名：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="text" name="name" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-					<td>
-						<label class="layui-form-label">密码：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="password" name="password" lay-verify="pass" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-						<div class="layui-inline">
-							<p style="color: red;">(密码为空时表示不修改)</p>
-						</div>
-					</td>
-				</div>
-			</tr>
-
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">所属网点:</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="text" name="incname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-					<td>
-						<label class="layui-form-label">所属部门:</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<select name="departname" lay-filter="depart">
-								<option value=""></option>
-								<option value="行政部">行政部</option>
-								<option value="仓储部">仓储部</option> 
-								<option value="研发部">研发部</option>
-								<option value="总经理室">总经理室</option>
-								<option value="财务部">财务部</option>
-								<option value="运输部">运输部</option>
-								<option value="运营中心">运营中心</option>
-							</select>
-						</div>
-					</td>
-				</div>
-			</tr>
-
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">所属主管:</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="text" name="departadminname" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-				</div>
-			</tr>
-
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">手机：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="text" name="mobile" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-					<td>
-						<label class="layui-form-label">电话：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="text" name="tel" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-				</div>
-			</tr>
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">收件区域:</label>
-					</td>
-					<td colspan="3">
-						<div class="layui-input-block">
-							<textarea placeholder="请输入内容" class="layui-textarea" name="recipient"></textarea>
-						</div>
-					</td>
-				</div>
-			</tr>
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">地址:</label>
-					</td>
-					<td colspan="3">
-						<div class="layui-input-block">
-							<textarea placeholder="请输入内容" class="layui-textarea" name="address"></textarea>
-						</div>
-					</td>
-				</div>
-			</tr>
-
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">所属用户组:</label>
-					</td>
-					<td colspan="3">
-						<div class="layui-input-block">
-							<input type="checkbox" name="a1" lay-skin="primary" value="1" title="管理员">
-							<input type="checkbox" name="a2" lay-skin="primary" value="2" title="扫描人员">
-							<input type="checkbox" name="a3" lay-skin="primary" value="3" title="业务人员">
-							<input type="checkbox" name="a4" lay-skin="primary" value="4" title="城市经理">
-							<input type="checkbox" name="a5" lay-skin="primary" value="5" title="客服人员">
-							<input type="checkbox" name="a7" lay-skin="primary" value="7" title="行政人员">
-							<input type="checkbox" name="a8" lay-skin="primary" value="8" title="部门经理">
-							<input type="checkbox" name="a9" lay-skin="primary" value="9" title="系统查看">
-							<input type="checkbox" name="a10" lay-skin="primary" value="10" title="省总经理">
-						</div>
-					</td>
-				</div>
-			</tr>
-
-			<tr>
-				<td colspan="5">
-					<div class="layui-input-block">
-						<center>
-							<!--<button class="layui-btn">保存信息</button>-->
-							<button class="layui-btn" lay-submit="" lay-filter="mang">保存信息</button>
-						</center>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</form>
-</script>
 <script>
 	layui.use(['form', 'table', 'util', 'config', 'admin'], function() {
 		var form = layui.form;
@@ -201,10 +30,11 @@
 		var admin = layui.admin;
 		var id = 0;
 		var method = 'get';
-		var uri = 'web/usermanger/getallgroup';
+		var uri = 'web/groupmanager/group';
 		//渲染表格
 		table.render({
 			elem: '#usermanger',
+			id: 'usermanger',
 			url: config.server + uri,
 			response: {
 				statusName: 'code',
@@ -260,27 +90,13 @@
 			doDelete(arr);
 		});
 
-		form.on('submit(mang)', function(data) {
-			var arr = new Array();         
-			$("input:checkbox:checked").each(function(i) {    
-				if(!isNaN($(this).val())) {
-					arr[i] = $(this).val(); 
-				}
-			});
-			if(method == 'put') {
-				data.field.id = id;
-			}
-			data.field.groupid = arr.join(",");
-			console.log('提交前的数据是:' + JSON.stringify(data.field))
-			doajax(data.field, null);
-			return false;
-		});
+		
 		form.verify({
 			pass: [
 				/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
 			]
 		});
-
+		
 		//请求公用方法
 		function doajax(data, cont) {
 			admin.aj(uri, data, function(data) {
@@ -302,7 +118,7 @@
 				}
 			}, method, cont);
 		}
-
+		
 		// 工具条点击事件
 		table.on('tool(role-table)', function(obj) {
 			var data = obj.data;
@@ -333,6 +149,8 @@
 				success: function() {
 					if(data) {
 						admin.putTempData('group', data);
+					}else{
+						admin.putTempData('group', null);
 					}
 				}
 			});

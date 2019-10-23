@@ -1,9 +1,9 @@
 <div class="layui-card">
 	<div class="layui-card-header">
-		<h2 class="header-title">派件扫描</h2>
+		<h2 class="header-title">转运扫描</h2>
 		<span class="layui-breadcrumb pull-right">
           <a href="#!console">首页</a>
-          <a><cite>派件扫描</cite></a>
+          <a><cite>转运扫描</cite></a>
         </span>
 	</div>
 	<div class="layui-row">
@@ -16,27 +16,24 @@
 					</div>
 				</div>
 				<div class="layui-inline">
-					<label class="layui-form-label">班次:</label>
+					<label class="layui-form-label">转运公司:</label>
 					<div class="layui-input-inline">
-						<select name="flightsnumber" lay-filter="depart">
-							<option value="第一班">第一班</option>
-							<option value="第二班">第二班</option>
-							<option value="第三班">第三班</option>
-							<option value="第四班">第四班</option>
-							<option value="第五班">第五班</option>
-							<option value="第六班">第六班</option>
+						<select name="nextcorpid" lay-filter="nextcorpid" id ="nextcorpid">
 						</select>
 					</div>
 				</div>
 				<div class="layui-inline">
-					<label class="layui-form-label">派件员:</label>
+					<label class="layui-form-label">转运单号:</label>
 					<div class="layui-input-inline">
-						<input type="text" name="postman" id="nameOne" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+						<input type="text" name="nextnumber" id="nextnumber" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
 					</div>
-					<input type="hidden" name="postmanid"  id="hidenameone"/>
-					<label class="layui-form-label">
-						<a href="javascript:void(0)" onclick="select(1)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
-					</label>					
+				</div>
+				<input type="hidden" name= "nextcorpname" id = "nextcorpname"/>
+				<div class="layui-inline">
+					<label class="layui-form-label">派件员电话:</label>
+					<div class="layui-input-inline">
+						<input type="text" name="sendertel"  required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					</div>
 				</div>
 				<button class="layui-btn" lay-submit="" lay-filter="top">保存</button>
 			</div>
@@ -44,7 +41,9 @@
 	</div>
 	<div class="layui-card-body">
 		<div class="layui-form toolbar">
+			<!--
 			<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+			-->
 			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
 		</div>
 		<!-- 数据表格 -->
@@ -81,27 +80,24 @@
 				</div>
 			</div>
 			<div class="layui-inline">
-				<label class="layui-form-label">班次:</label>
+				<label class="layui-form-label">转运公司:</label>
 				<div class="layui-input-inline">
-					<select name="flightsnumber" lay-filter="depart">
-						<option value="第一班">第一班</option>
-						<option value="第二班">第二班</option>
-						<option value="第三班">第三班</option>
-						<option value="第四班">第四班</option>
-						<option value="第五班">第五班</option>
-						<option value="第六班">第六班</option>
+					<select name="nextcorpid" lay-filter="nextcorpupdate" id = "nextcorpupdate">
 					</select>
 				</div>
 			</div>
+			<input type="hidden" name= "nextcorpname" id = "nextcorpnameupdate"/>
 			<div class="layui-inline">
-				<label class="layui-form-label">派件员:</label>
+				<label class="layui-form-label">转运单号:</label>
 				<div class="layui-input-inline">
-					<input type="text" name="postman" id="nameTwo" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+					<input type="text" name="nextnumber" id="nextnumber" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
 				</div>
-				<input type="hidden" name="postmanid"  id="hidenametwo"/>
-				<label class="layui-form-label">
-					<a href="javascript:void(0)" onclick="select(2)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
-				</label>	
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label">派件员电话:</label>
+				<div class="layui-input-inline">
+					<input type="text" name="sendertel"  required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+				</div>
 			</div>
 			<center>
 				<button class="layui-btn" lay-submit="" lay-filter="pop">保存</button>
@@ -119,7 +115,7 @@
 		var admin = layui.admin;
 		var id = 0;
 		var method = 'get';
-		var uri = 'web/distributed/distributedScan';
+		var uri = 'web/Transportedscan/scan';
 		//渲染表格
 		table.render({
 			elem: '#usermanger',
@@ -165,13 +161,17 @@
 						title: '扫描网点'
 					},
 					{
-						field: 'flightsnumber',
+						field: 'nextcorpname',
 						sort: true,
-						title: '派件班次'
-					}, {
-						field: 'postman',
+						title: '转运公司'
+					},{
+						field: 'nextnumber',
 						sort: true,
-						title: '派件员'
+						title: '转运公司的订单号'
+					},{
+						field: 'sendertel',
+						sort: true,
+						title: '派单员电话'
 					},
 					{
 						align: 'center',
@@ -181,6 +181,12 @@
 				]
 			]
 		});
+		
+		$(function() {// 初始化内容	
+			initCorpDict1(admin.aj, "web/Diction/getAllCrop", "nextcorpid", -1);
+	    }); 
+		
+		
 		// 添加按钮点击事件
 		$('#role-btn-add').click(function() {
 			showEditModel();
@@ -251,21 +257,8 @@
 					});
 				}
 			}, method, cont);
-		}
+		}		
 		
-		window.select = function select(number) {
-			index = layer.open({
-				type: 1,
-				shadeClose: true,
-				shade: false,
-				offset: 'auto',
-				maxmin: true, //开启最大化最小化按钮
-				area: [65, '600px'],
-				content: $('#role-select').html()
-			});
-			managerselect(number);
-		}
-
 		// 工具条点击事件
 		table.on('tool(role-table)', function(obj) {
 			var data = obj.data;
@@ -275,7 +268,6 @@
 			} else if(obj.event === 'del') { //删除
 				var arr = new Array();
 				arr.push(id)
-
 				doDelete(arr);
 			}
 		});
@@ -294,7 +286,10 @@
 				success: function() {
 					$('#role-form').attr('method', 'GET');
 					if(data) {
-						form.val("pop", data)
+						form.val("pop", data);
+						initCorpDict1(admin.aj, "web/Diction/getAllCrop", "nextcorpupdate", data.nextcorpid);
+					}else{
+						initCorpDict1(admin.aj, "web/Diction/getAllCrop", "nextcorpupdate", -1);
 					}
 					form.val("pop", null)
 					$('#role-form .close').click(function() {
@@ -311,105 +306,16 @@
 				doajax(JSON.stringify(obj), 1)
 			});
 		};
+		
+		form.on('select(nextcorpid)', function(data){   
+			var val=data.value;
+			$("#nextcorpname").val(data.elem[data.elem.selectedIndex].text);
+		});
+		
+		form.on('select(nextcorpupdate)',function(data){
+			$("#nextcorpnameupdate").val(data.elem[data.elem.selectedIndex].text);
+		});
+		
 	});
 	
-	var index;
-	var data1;
-	var nameSelect;
-	var idNameSelect;
-	function managerselect(number) {
-		if(number == 1) {
-			nameSelect = 'nameOne';
-			idNameSelect = 'hidenameone';
-		} else {
-			nameSelect = 'nameTwo';
-			idNameSelect = 'hidenametwo';
-		}
-		layui.use(['tree', 'util', 'transfer', 'layer', 'admin'], function() {
-			var admin = layui.admin;
-			var $ = layui.$,
-				transfer = layui.transfer,
-				layer = layui.layer,
-				util = layui.util;
-			var tree = layui.tree,
-				layer = layui.layer,
-				util = layui.util,
-				data = [{
-					title: '全部部门',
-					id: 1,
-					spread: true,
-					children: [{
-							title: '行政部'
-
-						},
-						{
-							title: '仓储部'
-
-						},
-						{
-							title: '研发部'
-
-						},
-						{
-							title: '总经理室'
-
-						},
-						{
-							title: '财务部'
-
-						},
-						{
-							title: '运输部'
-
-						}
-					]
-				}]
-				data1 = null;
-			//基础效果
-			transfer.render({
-				elem: '#test1',
-				data: data1
-
-			})
-			//基本演示
-			tree.render({
-				elem: '#test12',
-				data: data,
-
-				click: function(obj) {
-					var data = obj.data; //获取当前点击的节点数据
-					uri = 'web/user/getByDepartName';
-					var data=JSON.stringify(data.title);
-					admin.aj(uri,data , function(json) {
-						console.log(json.data)
-						data1 = json.data
-
-						transfer.render({
-							elem: '#test1',
-							data: data1,
-							showSearch: true,
-							id: 'key123'
-						})
-						util.event('lay-demoTransferActive', {
-							getData: function(othis) {
-								var getData = transfer.getData('key123'); //获取右侧数据
-								if(getData.length > 1) {
-									layer.msg("抱歉！最多只能选择一名用户")
-									return;
-								}								
-								if(getData.length == 0) {
-									layer.close(index);
-									return;
-								}
-								parent.$('#' + nameSelect).val(getData[0].title);
-								parent.$('#' + idNameSelect).val(getData[0].number);								
-								layer.close(index);								
-							}
-						})
-					}, 'post', 1);
-				}
-			});
-
-		});
-	}
 </script>

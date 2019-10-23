@@ -25,8 +25,8 @@
 			<span>上一站:</span>
 			<div class="layui-input-inline">
 				<input id="nameOne" type="text" class="layui-input" name="laststopname" required lay-verify="required">
-
 			</div>
+			<input type= "hidden" name="laststop" id="nameIdOne"/>
 			<div class="layui-input-inline">
 				<a href="javascript:void(0)" onclick="openSelect(1)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
 			</div>
@@ -104,6 +104,7 @@
 						<div class="layui-input-inline">
 							<input id="nameTwo" type="text" name="laststopname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 						</div>
+						<input type= "hidden" name="laststop" id="nameIdTwo"/>
 						<div class="layui-input-inline">
 							<a href="javascript:void(0)" onclick="openSelect(2)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
 						</div>
@@ -146,7 +147,7 @@
 					<div class="layui-input-block">
 						<center>
 							<!--<button class="layui-btn">保存信息</button>-->
-							<button id="add" class="layui-btn" lay-submit="" lay-filter="mang">保存信息</button>
+							<button id="" class="layui-btn" lay-submit="" lay-filter="mang">保存信息</button>
 						</center>
 					</div>
 				</td>
@@ -382,72 +383,68 @@
 			initDictShowName(admin.aj, "web/Shift/getAllShift", "flightsnumber", -1);
 			initDictShowName(admin.aj, "web/Goods/Goods", "goodstype", -1);
 	    }); 
-
 	});
-
+	
 	var url;
-	var nameSelect
-
-	function select(parameter, nameSelect) {
-		if(nameSelect == 1) {
-			nameSelect = 'nameOne';
-		} else if(nameSelect == 2) {
-			nameSelect = 'nameTwo';
-		} else if(nameSelect == 3) {
-			nameSelect = 'nameThree';
-		} else {
-			nameSelect = 'nameFour';
+		var nameSelect;
+		var nameIdSelect;
+		function select(parameter, nameSelect) {
+			if(nameSelect == 1) {
+				nameSelect = 'nameOne';
+				nameIdSelect = "nameIdOne";
+			} else if(nameSelect == 2) {
+				nameSelect = 'nameTwo';
+				nameIdSelect = "nameIdTwo";
+			} 
+			if(parameter == null) {
+				url = 'web/incment/incment'
+			} else {
+				url = 'web/incment/incment?info1=' + parameter
+			}
+			layui.use(['table', 'config'], function() {
+				var config = layui.config;
+				var table = layui.table;
+				//var index = layer.getFrameIndex(window.name); //获取窗口索引
+				table.render({
+						elem: '#test',
+						url: config.server  + url,
+						response: {
+							statusName: 'code',
+							statusCode: 1,
+							msgName: 'msg',
+							//countName: 'totalpage',
+							dataName: 'data'
+						},
+						headers: {
+							Authorization: config.getToken().access_token
+						},
+						limits: [10],
+						limit: 15,
+						page: true,
+						cols: [
+							[{
+								//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
+								title: '',
+								toolbar: '#role-table-select',
+							}, {
+								field: 'number',
+								title: '网点编号'
+							}, {
+								field: 'name',
+								title: '网点名称'
+							}]
+						]
+	
+					}),
+					table.on('tool(test)', function(obj) {
+						var data = obj.data;
+						if(obj.event === 'edit') {
+							parent.$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
+							parent.$('#' + nameIdSelect).val(eval(JSON.stringify(data.number)));
+							layer.close(index);
+						}
+	
+					});
+			});
 		}
-		if(parameter == null) {
-			url = 'http://localhost:8081/web/incment/incment'
-		} else {
-			url = 'http://localhost:8081/web/incment/incment?info1=' + parameter
-		}
-		layui.use(['table', 'config'], function() {
-			var config = layui.config;
-			var table = layui.table;
-			//var index = layer.getFrameIndex(window.name); //获取窗口索引
-
-			table.render({
-					elem: '#test',
-					url: url,
-					response: {
-						statusName: 'code',
-						statusCode: 1,
-						msgName: 'msg',
-						//countName: 'totalpage',
-						dataName: 'data'
-					},
-					headers: {
-						Authorization: config.getToken().access_token
-					},
-					limits: [10],
-					limit: 15,
-					page: true,
-					cols: [
-						[{
-							//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
-							title: '',
-							toolbar: '#role-table-select',
-						}, {
-							field: 'number',
-							title: '网点编号'
-						}, {
-							field: 'name',
-							title: '网点名称'
-						}]
-					]
-
-				}),
-				table.on('tool(test)', function(obj) {
-					var data = obj.data;
-					if(obj.event === 'edit') {
-						parent.$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
-						layer.close(index);
-					}
-
-				});
-		});
-
-	}
 </script>

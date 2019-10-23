@@ -13,204 +13,77 @@
 			<table class="layui-table" id="info">
 				<tr>
 					<div class="layui-form-item">
-						<td rowspan="9" width="20px">
+						<td rowspan="5" width="20px">
 							<label for="username"  width="20px">运单编号：</label>
 						</td>
-						<td rowspan="9" width="180px">
+						<td rowspan="5" width="180px">
 							<div class="layui-input-inline" style="width: 80px;">
-								<textarea rows="20"  cols="20" name = "billsnumber"></textarea>
+								<textarea rows="20"  cols="20" name = "billsNum" id= "billsNum"></textarea>
 							</div>
 						</td>
 						
-						<td>
+						<td  width="45px">
 							<label for="username" class="layui-form-label">寄件日期：</label>
 						</td>
 						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" class="layui-input" id="test6" placeholder=" - " lay-key="7" id= "sendTime"/>
+							<div class="layui-input-inline" style="width: 240px;">
+								<input type="text" class="layui-input"  placeholder=" - " id= "sendTime" name='sendTime'/>
 							</div>
 						</td>
 						
-						<td>
+						<td  width="45px">
 							<label for="username" class="layui-form-label">备注：</label>
 						</td>
 						<td>
 							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" v-model="number" name="remark"  autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								<input type="text" v-model="number" name="remark" id = 'remark'  autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
 							</div>
 						</td>
 					</div>
 					</tr>
 					<tr>
 					<div class="layui-form-item">	
-						<td>
+						<td width="45px">
 							<label for="username" class="layui-form-label">录单日期：</label>
 						</td>
 						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" class="layui-input" id="test6" placeholder=" - " lay-key="7" id= "sendTime"/>
+							<div class="layui-input-inline" style="width: 240px;">
+								<input type="text" class="layui-input"  placeholder=" - " id= "inputTime" name="inputTime"/>
 							</div>
 						</td>
 						
-						<td>
-							<label for="username" class="layui-form-label">代收货款金额：</label>
+						<td  width="45px">
+							<label for="username" class="layui-form-label">运费：</label>
 						</td>
 						<td>
 							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" v-model="number" name="amount"  autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								<input type="text" v-model="number" name="modeprice"  id = "modeprice"  autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
 							</div>
 						</td>
 					</div>
 				</tr>
 				<tr>
 					<div class="layui-form-item">
-						<td>
-							<div class="layui-input-inline" style="width: 80px;"> <label class="layui-form-label">提件人：</label></div>
+						<td width="45px">
+							<label class="layui-form-label">发件人：</label>
 						</td>
 						<td>
 							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" v-model="mnemonic" name="Fromcityname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								<input type="text" name = "fromName" id="fromName" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;" />
 							</div>
 						</td>
-						<td>
-							<label class="layui-form-label">班次：</label>
+						<td  width="45px">
+							<label class="layui-form-label">收件人:</label>
 						</td>
 						<td>
 							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" v-model="mnemonic" name="tocityname" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								<input type="text" name = "toName" id="toName"  autocomplete="off" class="layui-input" style="width: 200px;height: 38px;" />
 							</div>
 						</td>
 					</div>
-				</tr>
+				</tr>			
 				<tr>
-					<div class="layui-form-item">
-						<td>
-							<label for="username" class="layui-form-label">目的地：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" v-model="tel" name="province"  style="width: 200px;height: 38px;">
-							</div>
-						</td>
-						<td>
-							<label for="username" class="layui-form-label">目的地省份：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" required lay-verify="required" name="province" style="width: 200px;height: 38px;">
-							</div>
-						</td>
-						
-					</div>
-				</tr>
-	
-				<tr>
-					<div class="layui-form-item">
-						<td>
-							<label class="layui-form-label">寄件客户：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" v-model="mobile" name="customer"  style="width: 200px;height: 38px;">
-							</div>
-						</td>
-						<td>
-							<label class="layui-form-label">付款类型：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" name= "payType" style="width: 200px;height: 38px;">
-							</div>
-						</td>
-					</div>
-				</tr>
-				
-				<tr>
-					<div class="layui-form-item">
-						<td>
-							<label class="layui-form-label">部门：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" v-model="mobile" name="department"  style="width: 200px;height: 38px;">
-							</div>
-						</td>
-						<td>
-							<label class="layui-form-label">支付方式：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" required lay-verify="required" name="zhifu" style="width: 200px;height: 38px;">
-							</div>
-					</div>
-					</td>
-					</div>
-				</tr>
-				<tr>
-					<div class="layui-form-item">
-						<td>
-							<label class="layui-form-label">寄件网点：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
-							</div>
-						</td>
-						<td>
-							<label class="layui-form-label">运单类型:</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
-							</div>
-						</td>
-					</div>
-				</tr>
-	
-				<tr>
-					<div class="layui-form-item">
-						<td>
-							<label class="layui-form-label">录单员：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
-							</div>
-						</td>
-						<td>
-							<label class="layui-form-label">快件类型:</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
-							</div>
-						</td>
-					</div>
-				</tr>
-	
-				<tr>
-					<div class="layui-form-item">
-						<td>
-							<label class="layui-form-label">收件客户：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
-							</div>
-						</td>
-						<td>
-							<label class="layui-form-label">自取件:</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
-							</div>
-						</td>
-					</div>
-				</tr>
-				
-				<tr>
-					<td colspan="6">
+					<td colspan="4">
 						<div class="layui-input-block">
 							<center>
 								<button id = "user-btn-search" class="layui-btn" type="button">查询</button>
@@ -231,20 +104,38 @@
 		<table class="layui-table" id="role-table" lay-filter="role-table"></table>
 	</div>
 </div>
+
+<script type="text/html" id="role-model-branchSelect">
+
+	<div class="layui-input-inline">
+		<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
+	</div>
+	<div class="layui-input-inline">
+		<button class="layui-btn" onclick="select($('#add').val())">查找</button>
+	</div>
+	<table class="layui-hide" id="test" lay-filter="test"></table>
+</script>
+
+<script type="text/html" id="role-table-select">
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">点我选择</a>
+</script>
+
 <!-- 表格操作列 -->
 <script type="text/html" id="role-table-bar">
 	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-
 <script>
-	layui.use(['form', 'table', 'util', 'config', 'admin'], function() {
+	
+	
+	layui.use(['form', 'table', 'util', 'config', 'admin','laydate'], function() {
 		var form = layui.form;
 		var table = layui.table;
 		var config = layui.config;
 		var layer = layui.layer;
 		var util = layui.util;
 		var admin = layui.admin;
+		var laydate = layui.laydate;
 		var id = 0;
 		var method = 'get';
 		var uri = 'web/order/order';
@@ -294,12 +185,12 @@
 					}, {
 						field: 'fromname',
 						sort: 'true',
-						title: '收件人姓名'
+						title: '寄件人姓名'
 					},
 					{
 						field: 'toname',
 						sort: 'true',
-						title: '寄件人姓名'
+						title: '收件人姓名'
 					},
 					{
 						field: 'price',
@@ -323,6 +214,8 @@
 		$('#role-btn-add').click(function() {
 			showEditModel();
 		});
+		
+		
 
 		//删除按钮点击事件
 		$('#role-btn-del').click(function() {
@@ -362,6 +255,20 @@
 					});
 				}
 			}, method, cont);
+		}
+		
+		window.openSelect=function openSelect(number){
+	 		index=layer.open({
+				type: 1,
+				title: "选择",
+				shadeClose: true,
+				shade: false,
+				offset: 'auto',
+				maxmin: true, //开启最大化最小化按钮
+				area: [700, '800px'],
+				content: $('#role-model-branchSelect').html()				
+			});
+			select(null,number);	
 		}
 
 		// 工具条点击事件
@@ -424,6 +331,110 @@
 				doajax(JSON.stringify(obj), 1)
 			});
 		};
-
+		
+		laydate.render({
+			elem : '#sendTime',
+			type : 'date',
+			range : true,
+			done: function(value, date, endDate){
+				var start = turnDate(JSON.parse(JSON.stringify(date)));
+				var end = turnDate(JSON.parse(JSON.stringify(endDate)));
+			}
+		});
+		
+		laydate.render({
+			elem : '#inputTime',
+			type : 'date',
+			range : true,
+			done : function(value, date, endDate){
+				var start = turnDate(JSON.parse(JSON.stringify(date)));
+				var end = turnDate(JSON.parse(JSON.stringify(endDate)));
+			}
+		});
+		
+		function turnDate(obj){
+			var FullYear = obj.year;
+			var Month = obj.month;
+			var day = obj.date;
+			return FullYear + '-' + Month + '-' + day ;
+		}
+		
+		$('#user-btn-search').click(function() {
+            //获得参数列表            
+			var billsNum = $('#billsNum').val();
+            var sendTime = $('#sendTime').val();
+            var inputTime =  $('#inputTime').val();
+            var remark = $('#remark').val();
+            var modeprice = $('#modeprice').val();	
+            var fromname = $('#fromName').val();
+            var toname = $('#toName').val();
+            table.reload('role-table', {where: {'billsNum':billsNum, 'sendTime':sendTime,'inputTime':inputTime,'remark':remark,'modeprice':modeprice,
+            	'fromname': fromname, 'toname':toname}});
+       });        
+        window.clearIncInfo =  function clearIncInfo(){
+        	$("#nameIdValue").val('');
+        	$("#nameOne").val('');
+        }        
+        var url;
+		var nameSelect;
+		var nameIdSelect;
+		function select(parameter, nameSelect) {
+			if(nameSelect == 1) {
+				nameSelect = 'nameOne';
+				nameIdSelect = 'nameIdValue'
+			} else if(nameSelect == 2) {
+				nameSelect = 'nameTwo';
+			} 
+			if(parameter == null) {
+				url = 'web/incment/incment'
+			} else {
+				url = 'web/incment/incment?info1=' + parameter
+			}
+			layui.use(['table', 'config'], function() {
+				var config = layui.config;
+				var table = layui.table;
+				//var index = layer.getFrameIndex(window.name); //获取窗口索引
+				table.render({
+						elem: '#test',
+						url: config.server  + url,
+						response: {
+							statusName: 'code',
+							statusCode: 1,
+							msgName: 'msg',
+							//countName: 'totalpage',
+							dataName: 'data'
+						},
+						headers: {
+							Authorization: config.getToken().access_token
+						},
+						limits: [10],
+						limit: 15,
+						page: true,
+						cols: [
+							[{
+								//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
+								title: '',
+								toolbar: '#role-table-select',
+							}, {
+								field: 'number',
+								title: '网点编号'
+							}, {
+								field: 'name',
+								title: '网点名称'
+							}]
+						]
+	
+					}),
+					table.on('tool(test)', function(obj) {
+						var data = obj.data;
+						if(obj.event === 'edit') {
+							parent.$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
+							parent.$('#' + nameIdSelect).val(eval(JSON.stringify(data.number)));
+							layer.close(index);
+						}
+	
+					});
+			});
+		}
 	});
 </script>

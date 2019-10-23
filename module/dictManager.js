@@ -38,7 +38,26 @@ function initCorpDict(request , uri, itemId, defaultValue){
 						$.each(itemList, function (index, item) {
 							$('#' + itemId ).append(new Option(item.Name, item.Id));// 下拉菜单里添加元素
 						});
+						$("#" + itemId ).val(defaultValue);
+						layui.form.render("select");	
 						
+					}
+				}, method, cont);			
+		}
+
+	function initCorpDict1(request , uri, itemId, defaultValue){
+			var data = {}; 
+			var method = "post";
+			var cont = null ;			
+			request(uri, data, function(data) {
+
+					if(data.code == 1) {						
+						var itemList = data.data;								
+						$('#' + itemId ).html("");
+						layui.form.render("select");
+						$.each(itemList, function (index, item) {
+							$('#' + itemId ).append(new Option(item.name, item.id));// 下拉菜单里添加元素
+						});
 						$("#" + itemId ).val(defaultValue);
 						layui.form.render("select");	
 						
