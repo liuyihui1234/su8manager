@@ -27,7 +27,7 @@
 				<select id="departname" name="departname" lay-filter="depart">
 				</select>
 			</div>
-			<button id="add" class="layui-btn" lay-submit="" lay-filter="addnew">查询</button>
+			<button class="layui-btn" lay-submit="" lay-filter="addnew">查询</button>
 		</form>
 	</div>
 	<div class="layui-card-body">
@@ -244,7 +244,8 @@
 		<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
 	</div>
 	<div class="layui-input-inline">
-		<button class="layui-btn" onclick="select($('#add').val())">查找</button>
+		<button class="layui-btn" onclick="select($('#add').val(), $('#clickPositionNum').val())">查找</button>
+		<input type = "hidden" id = "clickPositionNum"/>
 	</div>
 	<table class="layui-hide" id="test" lay-filter="test"></table>
 </script>
@@ -367,14 +368,11 @@
 			return false;
 
 		});
-		
-		
 		form.verify({
 			pass: [
 				/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
 			]
 		});
-
 		//请求公用方法
 		function doajax(data, cont) {
 			admin.aj(uri, data, function(data) {
@@ -424,7 +422,7 @@
 			});
 			managerselect();
 		}
-
+		
 		// 工具条点击事件
 		table.on('tool(role-table)', function(obj) {
 			var data = obj.data;
@@ -481,70 +479,68 @@
 				doajax(JSON.stringify(obj), 1)
 			});
 		};
-		
-		var url;
-		var nameSelect
-	
-		function select(parameter, nameSelect) {
-			if(nameSelect == 1) {
-				nameSelect = 'nameOne';
-			} else {
-				nameSelect = 'nameTwo';
-			}
-			if(parameter == null) {
-				url = 'web/incment/incment'
-			} else {
-				url = 'web/incment/incment?info1=' + parameter
-			}
-			layui.use(['table', 'config'], function() {
-				var config = layui.config;
-				var table = layui.table;
-				//var index = layer.getFrameIndex(window.name); //获取窗口索引
-	
-				table.render({
-						elem: '#test',
-						url: config.server +   url,
-						response: {
-							statusName: 'code',
-							statusCode: 1,
-							msgName: 'msg',
-							//countName: 'totalpage',
-							dataName: 'data'
-						},
-						headers: {
-							Authorization: config.getToken().access_token
-						},
-						limits: [10],
-						limit: 15,
-						page: true,
-						cols: [
-							[{
-								//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
-								title: '',
-								toolbar: '#role-table-select',
-							}, {
-								field: 'number',
-								title: '网点编号'
-							}, {
-								field: 'name',
-								title: '网点名称'
-							}]
-						]
-	
-					}),
-					table.on('tool(test)', function(obj) {
-						var data = obj.data;
-						if(obj.event === 'edit') {
-							parent.$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
-							layer.close(index);
-						}
-	
-					});
-			});
-	
-		}
 
 	});
+	
+	var url;
+	var nameSelect;
+
+	function select(parameter, nameSelect) {
+		$('#clickPositionNum').val(nameSelect);	
+		if(nameSelect == 1) {
+			nameSelect = 'nameOne';
+		} else {
+			nameSelect = 'nameTwo';
+		}
+		if(parameter == null) {
+			url = 'web/incment/incment'
+		} else {
+			url = 'web/incment/incment?info1=' + parameter
+		}
+		layui.use(['table', 'config'], function() {
+			var config = layui.config;
+			var table = layui.table;
+			//var index = layer.getFrameIndex(window.name); //获取窗口索引
+
+			table.render({
+					elem: '#test',
+					url: config.server +   url,
+					response: {
+						statusName: 'code',
+						statusCode: 1,
+						msgName: 'msg',
+						//countName: 'totalpage',
+						dataName: 'data'
+					},
+					headers: {
+						Authorization: config.getToken().access_token
+					},
+					limits: [10],
+					limit: 15,
+					page: true,
+					cols: [
+						[{
+							//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
+							title: '',
+							toolbar: '#role-table-select',
+						}, {
+							field: 'number',
+							title: '网点编号'
+						}, {
+							field: 'name',
+							title: '网点名称'
+						}]
+					]
+				}),
+				table.on('tool(test)', function(obj) {
+					var data = obj.data;
+					if(obj.event === 'edit') {
+						$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
+						layer.close(index);
+					}
+				});
+		});
+	}
 	
 	
 	

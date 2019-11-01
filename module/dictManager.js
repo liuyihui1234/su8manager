@@ -198,3 +198,27 @@ function initIncShowName(request , uri, itemId, parentId ,defaultValue){
 			}, method, cont);			
 		}
 
+
+/*    
+ * 根据父节点查询菜单信息
+ * web/Menus/getMenuByParentId  
+ * -1
+ */
+function initMenuInfo(request , uri, itemId, parentId ,defaultValue){
+			var data = {}; 
+			data['parentId']  = parentId;
+			var method = "post";
+			var cont = null ;			
+			request(uri, data, function(data) {
+				if(data.code == 1) {						
+					var itemList = data.data;								
+					$('#' + itemId ).html("");
+					$('#' + itemId ).append(new Option('请选择（如果不选择默认为一级菜单）', -1));
+					$.each(itemList, function (index, item) {
+						$('#' + itemId ).append(new Option(item.text, item.id));// 下拉菜单里添加元素
+					});
+					$("#" + itemId ).val(defaultValue);
+					layui.form.render("select");
+				}
+			}, method, cont);			
+		}

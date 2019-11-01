@@ -8,7 +8,8 @@ layui.define(['config', 'admin', 'layer', 'laytpl', 'element'], function (export
     
     var index = {
         // 渲染左侧导航栏
-        initLeftNav: function () {
+        initLeftNav: function (menus) {
+        	config.menus = menus;
             // 判断权限
             for (var i = config.menus.length - 1; i >= 0; i--) {
                 var tempMenu = config.menus[i];
@@ -64,8 +65,8 @@ layui.define(['config', 'admin', 'layer', 'laytpl', 'element'], function (export
             });
         },
         // 路由注册
-        initRouter: function () {
-            index.regRouter(config.menus);
+        initRouter: function (menus) {
+            index.regRouter(menus);
             Q.init({
                 index: 'console'
             });

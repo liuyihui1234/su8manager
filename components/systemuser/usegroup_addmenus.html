@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<link rel="stylesheet" href="../../assets/libs/layui/css/layui.css">
+		<script src="../../assets/libs/jquery.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
+	</head>
+
+	<body>
+<div class="layui-card">
+	<div class="layui-card-body">		
+		<div class="layui-btn-group">
+	        <button class="layui-btn" id="btn-expand">全部展开</button>
+	        <button class="layui-btn" id="btn-fold">全部折叠</button>
+	        <button class="layui-btn" id="btn-refresh">刷新表格</button>
+	        <button class="layui-btn" id="btn-save">保存</button>
+	   </div>
+		<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
+	</div>
+</div>
+<script>
+	layui.config({
+				base: '../../module/'
+			}).extend({
+        treetable: 'treetable-lay/treetable'
+    }).use(['form', 'table', 'util', 'config', 'admin','treetable'], function() {
+		var form = layui.form;
+		var table = layui.table;
+		var config = layui.config;
+		var layer = layui.layer;
+		var util = layui.util;
+		var admin = layui.admin;
+		var treetable = layui.treetable;
+		var id = 0;
+		var data = admin.getTempData('group');
+		var method = 'post';
+		var uri = 'web/Menus/groupmodule?groupId=' + data.id;
+		table =  $.extend(table, {config: {checkName: 'checked'}});
+		//渲染表格
+		var renderTable = function () {
+            layer.load(2);
+            treetable.render({
+                treeColIndex: 1,
+                treeSpid: -1,
+                treeIdName: 'id',
+                treePidName: 'parentid',
+                treeDefaultClose: true,
+                treeLinkage: false,
+                is_checkbox:true,
+                elem: '#usermanger',
+                checkboxName:'aa[]',
+                url: config.server + uri,
+                page: false,
+                cols: [[
+                    {type:'checkbox'},
+                	{
+						field: 'text',
+						sort: true,
+						title: '模块名称'
+					},
+					{
+						field: 'parentid',
+						sort: true,
+						title: '父级编码'
+					},					
+					{
+						field: 'leaf',
+						sort: true,
+						title: '是否子节点'
+					},
+					{
+						field: 'number',
+						sort: true,
+						title: '排序号'
+					},{
+						field: 'path',
+						sort: true,
+						title: '访问地址'
+					},
+					{
+						field: 'url',
+						sort: true,
+						title: '链接地址'
+					},
+					{
+						field: 'number',
+						sort: true,
+						title: '序号'
+					}
+                ]],
+                done: function () {
+                    layer.closeAll('loading');
+                }
+            });
+      };
+       renderTable();
+		// 添加按钮点击事件
+		form.verify({
+			pass: [
+				/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
+			]
+		});
+		
+		$('#btn-expand').click(function () {
+            treetable.expandAll('#usermanger');
+        });
+
+        $('#btn-fold').click(function () {
+            treetable.foldAll('#usermanger');
+        });
+
+        $('#btn-refresh').click(function () {
+            renderTable();
+        })
+		//请求公用方法
+		function doajax(data, cont) {
+			uri = "web/Menus/saveGroupModule";
+			admin.aj(uri, data, function(data) {
+				layer.closeAll('loading');
+				console.log(data)
+				if(data.code == 1) {
+					var index = parent.layer.getFrameIndex(window.name);
+					parent.layer.close(index);
+					parent.layer.msg(data.msg, {
+						icon: 1,
+						time: 1000,
+					});
+				} 
+			}, method, cont);
+		}
+		$('#btn-save').click(function(){
+        	var checkStatus = table.checkStatus('usermanger'),
+				data = checkStatus.data;
+			var arr = new Array();
+			for(var i = 0; i < data.length; i++) {
+				arr.push(data[i].id)
+			}
+			var data = admin.getTempData('group');
+			var groupId = data.id;
+			var param = {};
+			param.groupId = groupId;
+			param.jsonStr = JSON.stringify(arr);
+			doajax(param,null);
+        });
+	});
+</script>
+</body>
+</html>

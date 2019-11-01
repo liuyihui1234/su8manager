@@ -69,13 +69,20 @@
 						flag++;
 					}
 				}
-
 				// 获取当前用户信息
 				index.getUser(function(user) {
 					$('.layui-layout-admin .layui-header').vm(user);
-					index.initLeftNav();
-					element.render('nav');
-					index.initRouter();
+					/*
+					 * 发送异步请求，获得用户的菜单
+					 */
+					admin.aj('web/userpower/getuserMenu', {}, function(data) {
+							if(data.code == 1) {
+								//alert(data.data);
+								index.initLeftNav(data.data);
+								index.initRouter(data.data);
+							}
+						}, "post", null);
+					element.render('nav');					
 					index.bindEvent();
 				});
 

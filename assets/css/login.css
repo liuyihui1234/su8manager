@@ -1,11 +1,22 @@
+
 /** EasyWeb */
 
 body {
-    background-image: url("../images/bg_login.png");
+    background-image: url("../images/bg_login.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
+.clear:after{
+    content: "";
+    height:0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
 
+.clear{
+    clear: both;
+}
 .login-wrapper, body, html {
     height: 100%
 }
@@ -19,10 +30,53 @@ body {
     right: 0;
 }
 
-.login-body {
-    padding: 10px 10px 40px 10px;
+
+.login_img{
+	float:left;
+	/*margin-right:80px;*/
 }
 
+
+.login-body {
+	width: 1000px;
+	margin: 0 auto;
+    /*padding: 10px 10px 40px 10px;*/
+}
+
+ .layui-card{
+ 	width: 380px;
+ 	float:right;
+ 	border-radius: 10px;
+ 	box-shadow: 3px 3px 3px #a5a5a5;
+ 	background: url("../images/login-bg.png");
+ 	
+ }
+ 
+ 
+ 
+.login_logot img{
+	width: 280px;
+	
+ 	margin:0 0 30px 150px;
+ }
+
+.login_ma{
+	float: right;
+}
+
+.login_ma p{
+	width: 180px;
+	text-align: center;
+	margin-top: 20px;
+	color: #ffffff;
+	font-size: 18px;
+}
+
+.login_ma img{
+	width:140px;
+	height:140px;
+	margin:40px 100px 0 0;
+}
 .login-body > .layui-card {
     max-width: 360px;
     margin: 0 auto;

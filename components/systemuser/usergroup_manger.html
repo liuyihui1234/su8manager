@@ -19,6 +19,7 @@
 <script type="text/html" id="role-table-bar">
 	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="menu">分配权限</a>
 </script>
 <script>
 	layui.use(['form', 'table', 'util', 'config', 'admin'], function() {
@@ -129,8 +130,31 @@
 				var arr = new Array();
 				arr.push(id)
 				doDelete(arr);
+			}else if(obj.event === 'menu'){  //分配权限
+				showAddMenu(data);
 			}
 		});
+		// 显示增加权限页面
+		var  showAddMenu = function (data){
+			layer.open({
+				type: 2,
+				offset: '40px',
+				title:  '修改权限',
+				shade: [0.8, '#393D49'],
+				shadeClose: true,
+				shade: false,
+				maxmin: true, //开启最大化最小化按钮
+				area: ['70%', '90%'],
+				content: 'components/systemuser/usegroup_addmenus.html',
+				success: function() {
+					if(data) {
+						admin.putTempData('group', data);
+					}
+				}
+			});
+		}
+		
+		
 		// 显示编辑弹窗
 		var showEditModel = function(data) {
 			method = data ? 'put' : 'post';

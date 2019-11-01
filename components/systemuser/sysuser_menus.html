@@ -11,12 +11,21 @@
 			<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
 			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
 		</div>
+		
+		
+		<div class="layui-btn-group">
+	        <button class="layui-btn" id="btn-expand">全部展开</button>
+	        <button class="layui-btn" id="btn-fold">全部折叠</button>
+	        <button class="layui-btn" id="btn-refresh">刷新表格</button>
+	    </div>
 
-		<!-- 数据表格 -->
+		<!-- 数据表格 
+			<table id="usermanger" class="layui-table" lay-filter="table1"></table>			
+		-->
 		<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
+		
 	</div>
 </div>
-
 <!-- 表单弹窗 -->
 <script type="text/html" id="role-model">
 	<form class="layui-form" action="" lay-filter="manger" id="role-form">
@@ -37,7 +46,7 @@
 					</td>
 					<td>
 						<div class="layui-input-inline">
-							<select name="parentid" lay-filter="depart">
+							<select name="parentid" lay-filter="depart" id="parentid">
 								<option value="18">单证录入</option>
 								<option value="19">扫描管理</option>
 								<option value="52">发放管理</option>
@@ -81,7 +90,6 @@
 
 			<tr>
 				<div class="layui-form-item">
-
 					<td>
 						<label class="layui-form-label">链接地址:</label>
 					</td>
@@ -90,10 +98,26 @@
 							<input type="text" name="url"  class="layui-input" style="width: 400px;height: 38px;">
 						</div>
 					</td>
+					<td>
+						<label class="layui-form-label">访问地址:</label>
+					</td>
+					<td>
+						<div class="layui-input-inline">
+							<input type="text" name="path"  class="layui-input" style="width: 400px;height: 38px;">
+						</div>
+					</td>
 				</div>
 			</tr>
 			<tr>
-				<td colspan="5">
+				<td>
+						<label class="layui-form-label">序号:</label>
+					</td>
+					<td>
+						<div class="layui-input-inline">
+							<input type="text" name="number"  class="layui-input" style="width: 400px;height: 38px;">
+						</div>
+					</td>
+				<td colspan="2">
 					<div class="layui-input-block">
 						<center>
 							<!--<button class="layui-btn">保存信息</button>-->
@@ -110,51 +134,48 @@
 	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-
 <script>
-	layui.use(['form', 'table', 'util', 'config', 'admin'], function() {
+	layui.extend({
+        treetable: 'treetable-lay/treetable'
+    }).use(['form', 'table', 'util', 'config', 'admin','treetable'], function() {
 		var form = layui.form;
 		var table = layui.table;
 		var config = layui.config;
 		var layer = layui.layer;
 		var util = layui.util;
 		var admin = layui.admin;
+		var treetable = layui.treetable;
 		var id = 0;
 		var method = 'get';
 		var uri = 'web/Menus/module';
+		table =  $.extend(table, {config: {checkName: 'checked'}});
 		//渲染表格
-		table.render({
-			elem: '#usermanger',
-			url: config.server + uri,
-			response: {
-				statusName: 'code',
-				statusCode: 1,
-				msgName: 'msg',
-				//countName: 'totalpage',
-				dataName: 'data'
-			},
-			headers: {
-				Authorization: config.getToken().access_token
-			},
-			limits: [10, 15, 20, 25, 50, 100],
-			limit: 15,
-			page: true,
-			cols: [
-				[{
-						type: "checkbox",
-						width: 50,
-						fixed: "left"
+		var renderTable = function () {
+            layer.load(2);
+            treetable.render({
+                treeColIndex: 1,
+                treeSpid: -1,
+                treeIdName: 'id',
+                treePidName: 'parentid',
+                treeDefaultClose: true,
+                treeLinkage: false,
+                is_checkbox:true,
+                elem: '#usermanger',
+                checkboxName:'aa[]',
+                url: config.server + uri,
+                page: false,
+                cols: [[
+                    {type:'checkbox'},
+                	{
+						field: 'text',
+						sort: true,
+						title: '模块名称'
 					},
 					{
 						field: 'parentid',
 						sort: true,
 						title: '父级编码'
-					},
-					{
-						field: 'text',
-						sort: true,
-						title: '模块名称'
-					},
+					},					
 					{
 						field: 'leaf',
 						sort: true,
@@ -164,6 +185,10 @@
 						field: 'number',
 						sort: true,
 						title: '排序号'
+					},{
+						field: 'path',
+						sort: true,
+						title: '访问地址'
 					},
 					{
 						field: 'url',
@@ -171,14 +196,22 @@
 						title: '链接地址'
 					},
 					{
+						field: 'number',
+						sort: true,
+						title: '序号'
+					},
+					{
 						align: 'center',
 						toolbar: '#role-table-bar',
 						title: '操作'
 					}
-				]
-			]
-		});
-
+                ]],
+                done: function () {
+                    layer.closeAll('loading');
+                }
+            });
+      };
+       renderTable();
 		// 添加按钮点击事件
 		$('#role-btn-add').click(function() {
 			showEditModel();
@@ -193,6 +226,20 @@
 				arr.push(data[i].id)
 			}
 			doDelete(arr);
+		});
+		
+		
+		$('#role-btn-checked').click(function() {
+			var checkStatus = treetable.checkStatus('usermanger'),
+				data = checkStatus.data;
+			var arr = new Array();
+			for(var i = 0; i < data.length; i++) {
+				arr.push(data[i].id)
+			}
+			alert(arr);
+			
+			console.log(arr);
+			//doDelete(arr);
 		});
 
 		form.on('submit(mang)', function(data) {
@@ -210,7 +257,19 @@
 				/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
 			]
 		});
+		
+		$('#btn-expand').click(function () {
+            treetable.expandAll('#usermanger');
+        });
 
+        $('#btn-fold').click(function () {
+            treetable.foldAll('#usermanger');
+        });
+
+        $('#btn-refresh').click(function () {
+            renderTable();
+        })
+        
 		//请求公用方法
 		function doajax(data, cont) {
 			admin.aj(uri, data, function(data) {
@@ -221,7 +280,7 @@
 						icon: 1,
 						time: 1000
 					});
-					table.reload('usermanger');
+					renderTable();
 					layer.closeAll('page');
 				} else {
 					//layer.closeAll('page');
@@ -262,10 +321,13 @@
 					$('#role-form').attr('method', 'GET');
 					if(data) {
 						form.val('manger', data);
+						initMenuInfo(admin.aj, 'web/Menus/getMenuByParentId','parentid', '-1',data.parentid);
 						$('#role-form').attr('method', 'GET');
-
+					}else{
+						form.val('manger', null);
+						initMenuInfo(admin.aj, 'web/Menus/getMenuByParentId','parentid', '-1','-1');
 					}
-					form.val('manger', null);
+					
 					$('#role-form .close').click(function() {
 						layer.closeAll('page');
 					});
