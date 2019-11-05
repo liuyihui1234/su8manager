@@ -372,7 +372,7 @@
 				table.on('tool(test)', function(obj) {
 					var data = obj.data;
 					if(obj.event === 'edit') {
-						parent.$('#'+nameSelect).val(eval(JSON.stringify(data.name)));
+						$('#'+nameSelect).val(eval(JSON.stringify(data.name)));
 						layer.close(index);
 					}
 

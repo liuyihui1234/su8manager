@@ -1,510 +1,294 @@
-<div class="layui-card">
-	<div class="layui-card-header">
-		<h2 class="header-title">系统用户管理</h2>
-		<span class="layui-breadcrumb pull-right">
-          <a href="#!console">首页</a>
-          <a><cite>系统用户管理</cite></a>
-        </span>
-	</div>
-	<div class="layui-row">
-		<form id="form-add" class="layui-form layui-col-md12 x-so">
+<!DOCTYPE html>
+<html>
 
-			<span>用户姓名:</span>
-			<div class="layui-input-inline">
-				<input type="text" class="layui-input" name="name">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8" />
+		<title>EasyWeb</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../assets/libs/layui/css/layui.css" />
+		<link rel="stylesheet" href="../../assets/css/admin.css" />
+		<link rel="stylesheet" href="../../module/formSelects/formSelects-v4.css" />
+		<!--<link rel="stylesheet" href="assets/css/theme-blue.css"/>-->
+		<!-- 自定义主题，使用EasyWeb主题生成器生成 -->
+	</head>
+
+	<body class="layui-layout-body">
+		<div class="layui-card">
+			<div class="layui-card-header">
+				<h2 class="header-title">系统用户管理</h2>
+				<span class="layui-breadcrumb pull-right">
+		          <a href="#!console">首页</a>
+		          <a><cite>系统用户管理</cite></a>
+		        </span>
 			</div>
-			<span>所属网点:</span>
-			<div class="layui-input-inline">
-				<input type="text" class="layui-input" name="incname" id="nameOne">
-				</input>
-			</div>
-			<div class="layui-input-inline">
-				<a href="javascript:void(0)" onclick="openSelect(1)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
-			</div>
-
-			<span>所属部门:</span>
-			<div class="layui-input-inline">
-				<select id="departname" name="departname" lay-filter="depart">
-				</select>
-			</div>
-			<button class="layui-btn" lay-submit="" lay-filter="addnew">查询</button>
-		</form>
-	</div>
-	<div class="layui-card-body">
-		<div class="layui-form toolbar">
-			<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
-			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
-		</div>
-		<!-- 数据表格 -->
-		<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
-	</div>
-</div>
-<!-- 表格操作列 -->
-<script type="text/html" id="role-table-bar">
-	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
-
-<!-- 表单弹窗 -->
-<script type="text/html" id="role-model">
-	<form class="layui-form" id="role-form" action="" lay-filter="manger">
-		<table class="layui-table" id="info">
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label for="username" class="layui-form-label">员工编号：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input id="myView" type="text" name="number" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-					<td>
-						<label for="username" class="layui-form-label">编号方式：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="text" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-				</div>
-			</tr>
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">姓名：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="text" name="name" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-					<td>
-						<label class="layui-form-label">密码：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="password" name="password" lay-verify="pass" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-						<div class="layui-inline">
-							<p style="color: red;">(密码为空时表示不修改)</p>
-						</div>
-					</td>
-				</div>
-			</tr>
-
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">所属网点:</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="text" name="incname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-						<div class="layui-input-inline">
-							<a href="javascript:void(0)" onclick="openSelect(2)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
-						</div>
-					</td>
-					<td>
-						<label class="layui-form-label">所属部门:</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<select name="departname" lay-filter="depart" id="departname1">
-							
-							</select>
-						</div>
-					</td>
-				</div>
-			</tr>
-
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">所属主管:</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input id="parameterOne" type="text" name="departadminname" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-						<div class="layui-input-inline">
-							<a href="javascript:void(0)" onclick="selectOne()">点击选择</a>
-						</div>
-					</td>
-				</div>
-			</tr>
-
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">手机：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="text" name="mobile" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-					<td>
-						<label class="layui-form-label">电话：</label>
-					</td>
-					<td>
-						<div class="layui-input-inline">
-							<input type="text" name="tel" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-						</div>
-					</td>
-				</div>
-			</tr>
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">收件区域:</label>
-					</td>
-					<td colspan="3">
-						<div class="layui-input-block">
-							<textarea placeholder="请输入内容" class="layui-textarea" name="recipient"></textarea>
-						</div>
-					</td>
-				</div>
-			</tr>
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">地址:</label>
-					</td>
-					<td colspan="3">
-						<div class="layui-input-block">
-							<textarea placeholder="请输入内容" class="layui-textarea" name="address"></textarea>
-						</div>
-					</td>
-				</div>
-			</tr>
-
-			<tr>
-				<div class="layui-form-item">
-					<td>
-						<label class="layui-form-label">所属用户组:</label>
-					</td>
-					<td colspan="3">
-						<div class="layui-input-block">
-							<input type="checkbox" name="a1" lay-skin="primary" value="1" title="管理员">
-							<input type="checkbox" name="a2" lay-skin="primary" value="2" title="扫描人员">
-							<input type="checkbox" name="a3" lay-skin="primary" value="3" title="业务人员">
-							<input type="checkbox" name="a4" lay-skin="primary" value="4" title="城市经理">
-							<input type="checkbox" name="a5" lay-skin="primary" value="5" title="客服人员">
-							<input type="checkbox" name="a7" lay-skin="primary" value="7" title="行政人员">
-							<input type="checkbox" name="a8" lay-skin="primary" value="8" title="部门经理">
-							<input type="checkbox" name="a9" lay-skin="primary" value="9" title="系统查看">
-							<input type="checkbox" name="a10" lay-skin="primary" value="10" title="省总经理">
-						</div>
-					</td>
-				</div>
-			</tr>
-
-			<tr>
-				<td colspan="5">
-					<div class="layui-input-block">
-						<center>
-							<!--<button class="layui-btn">保存信息</button>-->
-							<button class="layui-btn" lay-submit="" lay-filter="mang">保存信息</button>
-						</center>
+			<div class="layui-row">
+				<form id="form-add" class="layui-form layui-col-md12 x-so">
+					<span>用户姓名:</span>
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input" name="name">
 					</div>
-				</td>
-			</tr>
-		</table>
-	</form>
-</script>
-
-<!-- 小页面 -->
-<script type="text/html" id="role-select">
-
-	<div class="layui-input-inline">
-		<div id="test12" class="demo-tree-more"></div>
-	</div>
-
-	<div class="layui-input-inline">
-		<div id="test1" class="demo-transfer"></div>
-	</div>
-	<div class="layui-input-inline">
-		<button type="button" class="layui-btn" lay-demotransferactive="getData">保存</button>
-	</div>
-
-</script>
-
-
-
-
-<script type="text/html" id="role-table-select">
-	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">点我选择</a>
-</script>
-
-<script type="text/html" id="role-model-branchSelect">
-
-	<div class="layui-input-inline">
-		<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
-	</div>
-	<div class="layui-input-inline">
-		<button class="layui-btn" onclick="select($('#add').val(), $('#clickPositionNum').val())">查找</button>
-		<input type = "hidden" id = "clickPositionNum"/>
-	</div>
-	<table class="layui-hide" id="test" lay-filter="test"></table>
-</script>
-
-<script>
-	layui.use(['form', 'table', 'util', 'config', 'admin'], function() {
-		var form = layui.form;
-		var table = layui.table;
-		var config = layui.config;
-		var layer = layui.layer;
-		var util = layui.util;
-		var admin = layui.admin;
-		var id = 0;
-		var method = 'get';
-		var uri = 'web/usermanger/user';
-		//渲染表格
-		table.render({
-			elem: '#usermanger',
-			url: config.server + uri,
-			response: {
-				statusName: 'code',
-				statusCode: 1,
-				msgName: 'msg',
-				//countName: 'totalpage',
-				dataName: 'data'
-			},
-			headers: {
-				Authorization: config.getToken().access_token
-			},
-			limits: [10, 15, 20, 25, 50, 100],
-			limit: 15,
-			page: true,
-			cols: [
-				[{
-						type: "checkbox",
-						width: 50,
-						fixed: "left"
-					},
-					{
-						field: 'number',
-						sort: true,
-						title: '编码'
-					},
-					{
-						field: 'name',
-						sort: true,
-						title: '姓名'
-					},
-					{
-						field: 'incname',
-						sort: true,
-						title: '所属网点名'
-					},
-					{
-						field: 'departname',
-						sort: true,
-						title: '所属部门'
-					},
-					{
-						field: 'departadminname',
-						sort: true,
-						title: '所属主管名'
-					},
-					{
-						align: 'center',
-						toolbar: '#role-table-bar',
-						title: '操作'
-					}
-				]
-			]
-		});
-		// 添加按钮点击事件
-		$('#role-btn-add').click(function() {
-			showEditModel();
-		});
-
-		//删除按钮点击事件
-		$('#role-btn-del').click(function() {
-			method = 'delete';
-			var checkStatus = table.checkStatus('usermanger'),
-				data = checkStatus.data;
-			var arr = new Array();
-			for(var i = 0; i < data.length; i++) {
-				arr.push(data[i].id)
-			}
-			doDelete(arr);
-		});
+					<span>所属网点:</span>
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input" name="incname" id="nameOne">
+						</input>
+					</div>
+					<div class="layui-input-inline">
+						<a href="javascript:void(0)" onclick="openSelect(1)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					</div>
 		
-		$(function() {// 初始化内容
-			initDictShowNameOne(admin.aj, "web/Department/getListTwo", "departname", -1);	
-	    });
-
-		form.on('submit(mang)', function(data) {
-			var arr = new Array();         
-			$("input:checkbox:checked").each(function(i) {    
-				if(!isNaN($(this).val())) {
-					arr[i] = $(this).val(); 
-				}
-			});
-			if(method == 'put') {
-				data.field.id = id;
-			}
-			data.field.groupid = arr.join(",");
-			console.log('提交前的数据是:' + JSON.stringify(data.field))
-			doajax(data.field, null);
-			return false;
-		});
+					<span>所属部门:</span>
+					<div class="layui-input-inline">
+						<select id="departname" name="departname" lay-filter="depart">
+						</select>
+					</div>
+					<button class="layui-btn" lay-submit="" lay-filter="addnew">查询</button>
+				</form>
+			</div>
+			<div class="layui-card-body">
+				<div class="layui-form toolbar">
+					<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+					<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
+				</div>
+				<!-- 数据表格 -->
+				<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
+			</div>
+		</div>
+		<!-- 表格操作列 -->
+		<script type="text/html" id="role-table-bar">
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
 		
-		form.on('submit(addnew)', function(data) {
-			console.log('提交前的数据是:' + JSON.stringify(data.field))
-				table.reload('usermanger',			
-				{where:
-					{'name':data.field.name,
-					'incname':data.field.incname,
-					'departname':data.field.departname}
-				
-				}
-				);
-			document.getElementById("form-add").reset();
-			return false;
-
-		});
-		form.verify({
-			pass: [
-				/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
-			]
-		});
-		//请求公用方法
-		function doajax(data, cont) {
-			admin.aj(uri, data, function(data) {
-				//layer.closeAll('loading');
-				console.log(data)
-				if(data.code == 1) {
-					layer.msg(data.msg, {
-						icon: 1,
-						time: 1000,
-					});
-					table.reload('usermanger');
-					layer.closeAll('page');
-				} else {
-					//layer.closeAll('page');
-					layer.msg(data.msg, {
-						icon: 2,
-						time: 1000,
-					});
-				}
-			}, method, cont);
-		}
-
-		window.openSelect = function openSelect(number) {
-			index = layer.open({
-				type: 1,
-				title: "选择",
-				shadeClose: true,
-				shade: false,
-				offset: 'auto',
-				maxmin: true, //开启最大化最小化按钮
-				area: [700, '800px'],
-				content: $('#role-model-branchSelect').html()
-			});
-			select(null, number);
-		}
+		<!-- 表单弹窗 -->
+		<script type="text/html" id="role-model">
+			<form class="layui-form" id="role-form" action="" lay-filter="manger">
+				<table class="layui-table" id="info">
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label for="username" class="layui-form-label">员工编号：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input id="myView" type="text" name="number" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label for="username" class="layui-form-label">编号方式：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">姓名：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="name" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">密码：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="password" name="password" lay-verify="pass" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+								<div class="layui-inline">
+									<p style="color: red;">(密码为空时表示不修改)</p>
+								</div>
+							</td>
+						</div>
+					</tr>
+		
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">所属网点:</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="incname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+								<div class="layui-input-inline">
+									<a href="javascript:void(0)" onclick="openSelect(2)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">所属部门:</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<select name="departname" lay-filter="depart" id="departname1">
+									
+									</select>
+								</div>
+							</td>
+						</div>
+					</tr>
+		
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">所属主管:</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input id="parameterOne" type="text" name="departadminname" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+								<div class="layui-input-inline">
+									<a href="javascript:void(0)" onclick="selectOne()">点击选择</a>
+								</div>
+							</td>
+						</div>
+					</tr>
+		
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">手机：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="mobile" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">电话：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="tel" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">收件区域:</label>
+							</td>
+							<td colspan="3">
+								<div class="layui-input-block">
+									<textarea placeholder="请输入内容" class="layui-textarea" name="recipient"></textarea>
+								</div>
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">地址:</label>
+							</td>
+							<td colspan="3">
+								<div class="layui-input-block">
+									<textarea placeholder="请输入内容" class="layui-textarea" name="address"></textarea>
+								</div>
+							</td>
+						</div>
+					</tr>
+		
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label class="layui-form-label">所属用户组:</label>
+							</td>
+							<td colspan="3">
+								<div class="layui-input-block">
+									<input type="checkbox" name="a1" lay-skin="primary" value="1" title="管理员">
+									<input type="checkbox" name="a2" lay-skin="primary" value="2" title="扫描人员">
+									<input type="checkbox" name="a3" lay-skin="primary" value="3" title="业务人员">
+									<input type="checkbox" name="a4" lay-skin="primary" value="4" title="城市经理">
+									<input type="checkbox" name="a5" lay-skin="primary" value="5" title="客服人员">
+									<input type="checkbox" name="a7" lay-skin="primary" value="7" title="行政人员">
+									<input type="checkbox" name="a8" lay-skin="primary" value="8" title="部门经理">
+									<input type="checkbox" name="a9" lay-skin="primary" value="9" title="系统查看">
+									<input type="checkbox" name="a10" lay-skin="primary" value="10" title="省总经理">
+								</div>
+							</td>
+						</div>
+					</tr>
+		
+					<tr>
+						<td colspan="5">
+							<div class="layui-input-block">
+								<center>
+									<!--<button class="layui-btn">保存信息</button>-->
+									<button class="layui-btn" lay-submit="" lay-filter="mang">保存信息</button>
+								</center>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</script>
+		
+		<!-- 小页面 -->
+		<script type="text/html" id="role-select">
+		
+			<div class="layui-input-inline">
+				<div id="test12" class="demo-tree-more"></div>
+			</div>
+		
+			<div class="layui-input-inline">
+				<div id="test1" class="demo-transfer"></div>
+			</div>
+			<div class="layui-input-inline">
+				<button type="button" class="layui-btn" lay-demotransferactive="getData">保存</button>
+			</div>
+		
+		</script>
 		
 		
-		window.selectOne = function selectOne() {
-			index = layer.open({
-				type: 1,
-				shadeClose: true,
-				shade: false,
-				offset: 'auto',
-				maxmin: true, //开启最大化最小化按钮
-				area: [65, '600px'],
-				content: $('#role-select').html()
-			});
-			managerselect();
-		}
 		
-		// 工具条点击事件
-		table.on('tool(role-table)', function(obj) {
-			var data = obj.data;
-			id = data.id;
-			if(obj.event === 'edit') { //修改
-				showEditModel(data);
-			} else if(obj.event === 'del') { //删除
-				var arr = new Array();
-				arr.push(id)
-				doDelete(arr);
-			}
-		});
-		// 显示编辑弹窗
-		var showEditModel = function(data) {
-			method = data ? 'put' : 'post';
-			console.log('当前的方法是' + method)
-			form.val('manger', null);
-			layer.open({
-				type: 1,
-				title: data ? '修改角色' : '添加角色',
-				shadeClose: true,
-				shade: false,
-				offset: 'auto',
-				maxmin: true, //开启最大化最小化按钮
-				area: [65, '600px'],
-				content: $('#role-model').html(),
-				success: function() {
-					$('#role-form').attr('method', 'GET');
-					if(data) {
-						admin.aj("web/usermanger/getUserById?id=" + id, null, function(data) {
-							if(data.data.groupid) {
-								var ids = data.data.groupid.split(',')
-								for(var i = 0; i < ids.length; i++) {
-									var c = 'a' + ids[i]
-									data.data[c] = 1
-								}
-							}
-							form.val('manger', data.data);
-							initDictShowNameOne(admin.aj, "web/Department/getListTwo", "departname1", data.data.departname);
-							
-						}, 'get', null);
-					}
-					$('#role-form .close').click(function() {
-						layer.closeAll('page');
-					});
-				}
-			});
-		};
-		// 删除
-		var doDelete = function(obj) {
-			method = 'delete';
-			layer.confirm('确定要删除吗？', function(i) {
-				layer.close(i);
-				doajax(JSON.stringify(obj), 1)
-			});
-		};
-
-	});
-	
-	var url;
-	var nameSelect;
-
-	function select(parameter, nameSelect) {
-		$('#clickPositionNum').val(nameSelect);	
-		if(nameSelect == 1) {
-			nameSelect = 'nameOne';
-		} else {
-			nameSelect = 'nameTwo';
-		}
-		if(parameter == null) {
-			url = 'web/incment/incment'
-		} else {
-			url = 'web/incment/incment?info1=' + parameter
-		}
-		layui.use(['table', 'config'], function() {
-			var config = layui.config;
-			var table = layui.table;
-			//var index = layer.getFrameIndex(window.name); //获取窗口索引
-
-			table.render({
-					elem: '#test',
-					url: config.server +   url,
+		
+		<script type="text/html" id="role-table-select">
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">点我选择</a>
+		</script>
+		
+		<script type="text/javascript" src="../../assets/libs/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/q.js"></script>
+		<script type="text/javascript" src="../../assets/libs/pandyle.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
+		<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
+		<script type="text/javascript" src="../../module/dictManager.js"></script>
+		
+		<script type="text/html" id="role-model-branchSelect">
+			<div class="layui-input-inline">
+				<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
+			</div>
+			<div class="layui-input-inline">
+				<button class="layui-btn" onclick="select($('#add').val(), $('#clickPositionNum').val())">查找</button>
+				<input type = "hidden" id = "clickPositionNum"/>
+			</div>
+			<table class="layui-hide" id="test" lay-filter="test"></table>
+		</script>
+		
+		
+		<script>
+			layui.config({
+				base: '../../module/'
+			}).use(['form', 'table', 'util', 'config', 'admin'], function() {
+				var form = layui.form;
+				var table = layui.table;
+				var config = layui.config;
+				var layer = layui.layer;
+				var util = layui.util;
+				var admin = layui.admin;
+				var id = 0;
+				var method = 'get';
+				var uri = 'web/usermanger/user';
+				//渲染表格
+				table.render({
+					elem: '#usermanger',
+					url: config.server + uri,
 					response: {
 						statusName: 'code',
 						statusCode: 1,
@@ -515,126 +299,368 @@
 					headers: {
 						Authorization: config.getToken().access_token
 					},
-					limits: [10],
+					limits: [10, 15, 20, 25, 50, 100],
 					limit: 15,
 					page: true,
 					cols: [
 						[{
-							//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
-							title: '',
-							toolbar: '#role-table-select',
-						}, {
-							field: 'number',
-							title: '网点编号'
-						}, {
-							field: 'name',
-							title: '网点名称'
-						}]
+								type: "checkbox",
+								width: 50,
+								fixed: "left"
+							},
+							{
+								field: 'number',
+								sort: true,
+								title: '编码'
+							},
+							{
+								field: 'name',
+								sort: true,
+								title: '姓名'
+							},
+							{
+								field: 'incname',
+								sort: true,
+								title: '所属网点名'
+							},
+							{
+								field: 'departname',
+								sort: true,
+								title: '所属部门'
+							},
+							{
+								field: 'departadminname',
+								sort: true,
+								title: '所属主管名'
+							},
+							{
+								align: 'center',
+								toolbar: '#role-table-bar',
+								title: '操作'
+							}
+						]
 					]
-				}),
-				table.on('tool(test)', function(obj) {
+				});
+				// 添加按钮点击事件
+				$('#role-btn-add').click(function() {
+					showEditModel();
+				});
+		
+				//删除按钮点击事件
+				$('#role-btn-del').click(function() {
+					method = 'delete';
+					var checkStatus = table.checkStatus('usermanger'),
+						data = checkStatus.data;
+					var arr = new Array();
+					for(var i = 0; i < data.length; i++) {
+						arr.push(data[i].id)
+					}
+					doDelete(arr);
+				});
+				
+				$(function() {// 初始化内容
+					initDictShowNameOne(admin.aj, "web/Department/getListTwo", "departname", -1);	
+			    });
+		
+				form.on('submit(mang)', function(data) {
+					var arr = new Array();         
+					$("input:checkbox:checked").each(function(i) {    
+						if(!isNaN($(this).val())) {
+							arr[i] = $(this).val(); 
+						}
+					});
+					if(method == 'put') {
+						data.field.id = id;
+					}
+					data.field.groupid = arr.join(",");
+					console.log('提交前的数据是:' + JSON.stringify(data.field))
+					doajax(data.field, null);
+					return false;
+				});
+				
+				form.on('submit(addnew)', function(data) {
+					console.log('提交前的数据是:' + JSON.stringify(data.field))
+						table.reload('usermanger',			
+						{where:
+							{'name':data.field.name,
+							'incname':data.field.incname,
+							'departname':data.field.departname}
+						
+						}
+						);
+					document.getElementById("form-add").reset();
+					return false;
+		
+				});
+				form.verify({
+					pass: [
+						/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
+					]
+				});
+				//请求公用方法
+				function doajax(data, cont) {
+					admin.aj(uri, data, function(data) {
+						//layer.closeAll('loading');
+						console.log(data)
+						if(data.code == 1) {
+							layer.msg(data.msg, {
+								icon: 1,
+								time: 1000,
+							});
+							table.reload('usermanger');
+							layer.closeAll('page');
+						} else {
+							//layer.closeAll('page');
+							layer.msg(data.msg, {
+								icon: 2,
+								time: 1000,
+							});
+						}
+					}, method, cont);
+				}
+		
+				window.openSelect = function openSelect(number) {
+					index = layer.open({
+						type: 1,
+						title: "选择",
+						shadeClose: true,
+						shade: false,
+						offset: 'auto',
+						maxmin: true, //开启最大化最小化按钮
+						area: [700, '800px'],
+						content: $('#role-model-branchSelect').html()
+					});
+					select(null, number);
+				}
+				
+				
+				window.selectOne = function selectOne() {
+					index = layer.open({
+						type: 1,
+						shadeClose: true,
+						shade: false,
+						offset: 'auto',
+						maxmin: true, //开启最大化最小化按钮
+						area: [65, '600px'],
+						content: $('#role-select').html()
+					});
+					managerselect();
+				}
+				
+				// 工具条点击事件
+				table.on('tool(role-table)', function(obj) {
 					var data = obj.data;
-					if(obj.event === 'edit') {
-						$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
-						layer.close(index);
+					id = data.id;
+					if(obj.event === 'edit') { //修改
+						showEditModel(data);
+					} else if(obj.event === 'del') { //删除
+						var arr = new Array();
+						arr.push(id)
+						doDelete(arr);
 					}
 				});
-		});
-	}
-	
-	
-	
-	/*小页面*/
-	var index;
-	var data1;
-	function managerselect() {
-		nameSelect = 'parameterOne';
-		layui.use(['tree', 'util', 'transfer', 'layer', 'admin'], function() {
-			var admin = layui.admin;
-			var $ = layui.$,
-				transfer = layui.transfer,
-				layer = layui.layer,
-				util = layui.util;
-			var tree = layui.tree,
-				layer = layui.layer,
-				util = layui.util,
-				data = [{
-					title: '全部部门',
-					id: 1,
-					spread: true,
-					children: [{
-							title: '行政部'
-
-						},
-						{
-							title: '仓储部'
-
-						},
-						{
-							title: '研发部'
-
-						},
-						{
-							title: '总经理室'
-
-						},
-						{
-							title: '财务部'
-
-						},
-						{
-							title: '运输部'
-
-						}
-					]
-				}]
-				
-			data1 = null;
-			//基础效果
-			transfer.render({
-				elem: '#test1',
-				data: data1
-
-			})
-			//基本演示
-			tree.render({
-				elem: '#test12',
-				data: data,
-
-				click: function(obj) {
-					var data = obj.data; //获取当前点击的节点数据
-					uri = 'web/user/getByDepartName';
-					var data=JSON.stringify(data.title);
-					admin.aj(uri,data , function(json) {
-						console.log(json.data)
-						data1 = json.data
-
-						transfer.render({
-							elem: '#test1',
-							data: data1,
-							showSearch: true,
-							id: 'key123'
-						})
-						util.event('lay-demoTransferActive', {
-							getData: function(othis) {
-								var getData = transfer.getData('key123'); //获取右侧数据
-								if(getData.length > 1) {
-									layer.msg("抱歉！最多只能选择一名用户")
-									return;
-								}
-								if(getData.length == 0) {
-									layer.close(index);
-									return;
-								}
-								parent.$('#' + nameSelect).val(getData[0].title);
-								layer.close(index);
-								
+				// 显示编辑弹窗
+				var showEditModel = function(data) {
+					method = data ? 'put' : 'post';
+					console.log('当前的方法是' + method)
+					form.val('manger', null);
+					layer.open({
+						type: 1,
+						title: data ? '修改角色' : '添加角色',
+						shadeClose: true,
+						shade: false,
+						offset: 'auto',
+						maxmin: true, //开启最大化最小化按钮
+						area: [65, '600px'],
+						content: $('#role-model').html(),
+						success: function() {
+							$('#role-form').attr('method', 'GET');
+							if(data) {
+								admin.aj("web/usermanger/getUserById?id=" + id, null, function(data) {
+									if(data.data.groupid) {
+										var ids = data.data.groupid.split(',')
+										for(var i = 0; i < ids.length; i++) {
+											var c = 'a' + ids[i]
+											data.data[c] = 1
+										}
+									}
+									form.val('manger', data.data);
+									initDictShowNameOne(admin.aj, "web/Department/getListTwo", "departname1", data.data.departname);
+									
+								}, 'get', null);
 							}
-						})
-					}, 'post', 1);
-				}
+							$('#role-form .close').click(function() {
+								layer.closeAll('page');
+							});
+						}
+					});
+				};
+				// 删除
+				var doDelete = function(obj) {
+					method = 'delete';
+					layer.confirm('确定要删除吗？', function(i) {
+						layer.close(i);
+						doajax(JSON.stringify(obj), 1)
+					});
+				};
+		
 			});
-
-		});
-	}
-</script>
+			
+			var url;
+			var nameSelect;
+		
+			function select(parameter, nameSelect) {
+				$('#clickPositionNum').val(nameSelect);	
+				if(nameSelect == 1) {
+					nameSelect = 'nameOne';
+				} else {
+					nameSelect = 'nameTwo';
+				}
+				if(parameter == null) {
+					url = 'web/incment/incment'
+				} else {
+					url = 'web/incment/incment?info1=' + parameter
+				}
+				layui.use(['table', 'config'], function() {
+					var config = layui.config;
+					var table = layui.table;
+					//var index = layer.getFrameIndex(window.name); //获取窗口索引
+		
+					table.render({
+							elem: '#test',
+							url: config.server +   url,
+							response: {
+								statusName: 'code',
+								statusCode: 1,
+								msgName: 'msg',
+								//countName: 'totalpage',
+								dataName: 'data'
+							},
+							headers: {
+								Authorization: config.getToken().access_token
+							},
+							limits: [10],
+							limit: 15,
+							page: true,
+							cols: [
+								[{
+									//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
+									title: '',
+									toolbar: '#role-table-select',
+								}, {
+									field: 'number',
+									title: '网点编号'
+								}, {
+									field: 'name',
+									title: '网点名称'
+								}]
+							]
+						}),
+						table.on('tool(test)', function(obj) {
+							var data = obj.data;
+							if(obj.event === 'edit') {
+								$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
+								layer.close(index);
+							}
+						});
+				});
+			}
+			
+			
+			
+			/*小页面*/
+			var index;
+			var data1;
+			function managerselect() {
+				nameSelect = 'parameterOne';
+				layui.use(['tree', 'util', 'transfer', 'layer', 'admin'], function() {
+					var admin = layui.admin;
+					var $ = layui.$,
+						transfer = layui.transfer,
+						layer = layui.layer,
+						util = layui.util;
+					var tree = layui.tree,
+						layer = layui.layer,
+						util = layui.util,
+						data = [{
+							title: '全部部门',
+							id: 1,
+							spread: true,
+							children: [{
+									title: '行政部'
+		
+								},
+								{
+									title: '仓储部'
+		
+								},
+								{
+									title: '研发部'
+		
+								},
+								{
+									title: '总经理室'
+		
+								},
+								{
+									title: '财务部'
+		
+								},
+								{
+									title: '运输部'
+		
+								}
+							]
+						}]
+						
+					data1 = null;
+					//基础效果
+					transfer.render({
+						elem: '#test1',
+						data: data1
+		
+					})
+					//基本演示
+					tree.render({
+						elem: '#test12',
+						data: data,
+		
+						click: function(obj) {
+							var data = obj.data; //获取当前点击的节点数据
+							uri = 'web/user/getByDepartName';
+							var data=JSON.stringify(data.title);
+							admin.aj(uri,data , function(json) {
+								console.log(json.data)
+								data1 = json.data
+		
+								transfer.render({
+									elem: '#test1',
+									data: data1,
+									showSearch: true,
+									id: 'key123'
+								})
+								util.event('lay-demoTransferActive', {
+									getData: function(othis) {
+										var getData = transfer.getData('key123'); //获取右侧数据
+										if(getData.length > 1) {
+											layer.msg("抱歉！最多只能选择一名用户")
+											return;
+										}
+										if(getData.length == 0) {
+											layer.close(index);
+											return;
+										}
+										$('#' + nameSelect).val(getData[0].title);
+										layer.close(index);
+										
+									}
+								})
+							}, 'post', 1);
+						}
+					});
+		
+				});
+			}
+		</script>
+	</body>
+</html>

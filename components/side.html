@@ -1,41 +1,55 @@
-<div class="layui-side-scroll">
-    <ul class="layui-nav layui-nav-tree" style="margin-top: 15px;">
 
-        <script id="sideNav" type="text/html">
-            {{#  layui.each(d, function(index, item){ }}
-            <li class="layui-nav-item">
-                <a href="{{item.url}}"><i class="layui-icon {{item.icon}}"></i>&emsp;<cite>{{ item.name }}</cite></a>
-                {{# if(item.subMenus&&item.subMenus.length>0){ }}
-                <dl class="layui-nav-child">
-                    {{# layui.each(item.subMenus, function(index, subItem){ }}
-                    <dd>
-                        <a href="{{ subItem.url }}">{{ subItem.name }}</a>
-
-                        {{# if(subItem.subMenus&&subItem.subMenus.length>0){ }}
-                        <dl class="layui-nav-child">
-                            {{# layui.each(subItem.subMenus, function(index, thrItem){ }}
-                            <dd>
-                                <a href="{{ thrItem.url }}">{{ thrItem.name }}</a>
-                            </dd>
-                            {{# }); }}
-                        </dl>
-                        {{# } }}
-                    </dd>
-                    {{# }); }}
-                </dl>
-                {{# } }}
-            </li>
-            {{#  }); }}
+	<div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">        
+        <script id="sideNav"  type="text/html">
+        	{{#  layui.each(d, function(index, item){ }}
+        	<li class="layui-nav-item layui-nav-itemed">
+        		<a href="javascript:;"><i class="layui-icon {{item.icon}}"></i>&emsp;<cite>{{ item.name }}</cite></a>
+        		{{# if(item.subMenus&&item.subMenus.length>0){ }}
+        			<dl class="layui-nav-child">
+        				{{# layui.each(item.subMenus, function(index, thrItem){ }}
+        				<dd>
+        					<a data-url="{{ thrItem.path }}" data-id="{{ thrItem.id }}" data-title="{{ thrItem.name }}" href="#" class="site-demo-active"    data-type="ltabAdd">{{ thrItem.name }}</a>
+        				</dd>
+        				{{# }); }}
+        			</dl>
+        		{{# } }}
+        	</li>	
+        	{{#  }); }}
         </script>
-
-        <li class="layui-nav-item">
-            <a href="javascript:;"><i class="layui-icon layui-icon-senior"></i>&emsp;<cite>系统监控</cite></a>
-            <dl class="layui-nav-child">
-                <dd><a href="javascript:;" target="_blank">API文档</a></dd>
-            </dl>
-            <dl class="layui-nav-child">
-                <dd><a href="javascript:;" target="_blank">Druid监控</a></dd>
-            </dl>
+         <!--
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">所有商品</a>
+          <dl class="layui-nav-child">
+            <dd>
+                <a data-url="filemaintain/Department" data-id="99" data-title="列表一" href="#" class="site-demo-active"    data-type="ltabAdd">列表一</a>
+            </dd>
+            <dd>
+                <a data-url="a"  data-id="88" data-title="列表二" href="#" class="site-demo-active"    data-type="ltabAdd">列表二</a>
+            </dd>
+            <dd>    
+                <a data-url="a" data-id="77" data-title="列表三" href="#" class="site-demo-active"    data-type="ltabAdd">列表三</a>
+            </dd>
+            <dd>
+                <a data-url="a" data-id="66" data-title="列表四" href="#" class="site-demo-active" data-type="ltabAdd">列表四</a>
+            </dd>
+          </dl>
         </li>
-    </ul>
-</div>
+       
+        	作者：liuyihui21919@163.com
+        	时间：2019-11-05
+        	描述：
+        <li class="layui-nav-item ">
+          <a href="javascript:;">解决方案</a>
+          <dl class="layui-nav-child">
+            <dd><a data-url="a" data-id="77" data-title="解决方案1" href="#" class="site-demo-active"  data-type="ltabAdd">列表一</a></dd>
+            <dd><a href="javascript:;">列表二</a></dd>
+            <dd><a href="">超链接</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">云市场</a></li>
+        <li class="layui-nav-item"><a href="">发布商品</a></li>
+        -->
+      </ul>
+   </div>

@@ -2,7 +2,7 @@ layui.define(function (exports) {
 
     var config = {
         base_server: 'json/', // 接口地址，实际项目请换成http形式的地址
-        server: 'http://127.0.0.1:8088/',//http://www.k8yz.com/
+        server: 'http://127.0.0.1:8081/',//http://www.k8yz.com/
         tableName: 'easyweb',  // 存储表名
         autoRender: false,  // 窗口大小改变后是否自动重新渲染表格，解决layui数据表格非响应式的问题
         // 获取缓存的token
@@ -18,7 +18,7 @@ layui.define(function (exports) {
                 value: JSON.stringify(code)
             });
         },
-         getCode: function () {
+        getCode: function () {
             var t = layui.sessionData(config.tableName).code;
             if (t) {
                 return JSON.parse(t);

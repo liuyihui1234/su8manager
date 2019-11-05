@@ -1,192 +1,217 @@
-<div class="layui-card">
-	<div class="layui-card-header">
-		<h2 class="header-title">用户组管理</h2>
-		<span class="layui-breadcrumb pull-right">
-          <a href="#!console">首页</a>
-          <a><cite>用户组管理</cite></a>
-        </span>
-	</div>
-	<div class="layui-card-body">
-		<div class="layui-form toolbar">
-			<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
-			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8" />
+		<title>EasyWeb</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../assets/libs/layui/css/layui.css" />
+		<link rel="stylesheet" href="../../assets/css/admin.css" />
+		<link rel="stylesheet" href="../../module/formSelects/formSelects-v4.css" />
+		<!--<link rel="stylesheet" href="assets/css/theme-blue.css"/>-->
+		<!-- 自定义主题，使用EasyWeb主题生成器生成 -->
+	</head>
+
+	<body class="layui-layout-body">
+		<div class="layui-card">
+			<div class="layui-card-header">
+				<span class="layui-breadcrumb pull-right">
+		          <a href="#!console">首页</a>
+		          <a><cite>用户组管理</cite></a>
+		        </span>
+			</div>
+			<div class="layui-card-body">
+				<div class="layui-form toolbar">
+					<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+					<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
+				</div>
+				<!-- 数据表格 -->
+				<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
+			</div>
 		</div>
-		<!-- 数据表格 -->
-		<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
-	</div>
-</div>
-<!-- 表格操作列 -->
-<script type="text/html" id="role-table-bar">
-	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="menu">分配权限</a>
-</script>
-<script>
-	layui.use(['form', 'table', 'util', 'config', 'admin'], function() {
-		var form = layui.form;
-		var table = layui.table;
-		var config = layui.config;
-		var layer = layui.layer;
-		var util = layui.util;
-		var admin = layui.admin;
-		var id = 0;
-		var method = 'get';
-		var uri = 'web/groupmanager/group';
-		//渲染表格
-		table.render({
-			elem: '#usermanger',
-			id: 'usermanger',
-			url: config.server + uri,
-			response: {
-				statusName: 'code',
-				statusCode: 1,
-				msgName: 'msg',
-				//countName: 'totalpage',
-				dataName: 'data'
-			},
-			headers: {
-				Authorization: config.getToken().access_token
-			},
-			limits: [10, 15, 20, 25, 50, 100],
-			limit: 15,
-			page: true,
-			cols: [
-				[{
-						type: "checkbox",
-						width: 50,
-						fixed: "left"
+		<!-- 表格操作列 -->
+		<script type="text/html" id="role-table-bar">
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="menu">分配权限</a>
+		</script>
+		<script type="text/javascript" src="../../assets/libs/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/q.js"></script>
+		<script type="text/javascript" src="../../assets/libs/pandyle.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
+		<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
+		<script type="text/javascript" src="../../module/dictManager.js"></script>
+		<script>
+			layui.config({
+				base: '../../module/'
+			}).use(['form', 'table', 'util', 'config', 'admin'], function() {
+				var form = layui.form;
+				var table = layui.table;
+				var config = layui.config;
+				var layer = layui.layer;
+				var util = layui.util;
+				var admin = layui.admin;
+				var id = 0;
+				var method = 'get';
+				var uri = 'web/groupmanager/group';
+				//渲染表格
+				table.render({
+					elem: '#usermanger',
+					id: 'usermanger',
+					url: config.server + uri,
+					response: {
+						statusName: 'code',
+						statusCode: 1,
+						msgName: 'msg',
+						//countName: 'totalpage',
+						dataName: 'data'
 					},
-					{
-						field: 'groupname',
-						sort: true,
-						title: '用户组名称'
+					headers: {
+						Authorization: config.getToken().access_token
 					},
-					{
-						field: 'groupinfo',
-						sort: true,
-						title: '用户组描述'
-					},
-					{
-						align: 'center',
-						toolbar: '#role-table-bar',
-						title: '操作'
+					limits: [10, 15, 20, 25, 50, 100],
+					limit: 15,
+					page: true,
+					cols: [
+						[{
+								type: "checkbox",
+								width: 50,
+								fixed: "left"
+							},
+							{
+								field: 'groupname',
+								sort: true,
+								title: '用户组名称'
+							},
+							{
+								field: 'groupinfo',
+								sort: true,
+								title: '用户组描述'
+							},
+							{
+								align: 'center',
+								toolbar: '#role-table-bar',
+								title: '操作'
+							}
+						]
+					]
+				});
+				// 添加按钮点击事件
+				$('#role-btn-add').click(function() {
+					showEditModel();
+				});
+		
+				//删除按钮点击事件
+				$('#role-btn-del').click(function() {
+					method = 'delete';
+					var checkStatus = table.checkStatus('usermanger'),
+						data = checkStatus.data;
+					var arr = new Array();
+					for(var i = 0; i < data.length; i++) {
+						arr.push(data[i].id)
 					}
-				]
-			]
-		});
-		// 添加按钮点击事件
-		$('#role-btn-add').click(function() {
-			showEditModel();
-		});
-
-		//删除按钮点击事件
-		$('#role-btn-del').click(function() {
-			method = 'delete';
-			var checkStatus = table.checkStatus('usermanger'),
-				data = checkStatus.data;
-			var arr = new Array();
-			for(var i = 0; i < data.length; i++) {
-				arr.push(data[i].id)
-			}
-			doDelete(arr);
-		});
-
+					doDelete(arr);
+				});
 		
-		form.verify({
-			pass: [
-				/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
-			]
-		});
-		
-		//请求公用方法
-		function doajax(data, cont) {
-			admin.aj(uri, data, function(data) {
-				//layer.closeAll('loading');
-				console.log(data)
-				if(data.code == 1) {
-					layer.msg(data.msg, {
-						icon: 1,
-						time: 1000,
+				
+				form.verify({
+					pass: [
+						/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
+					]
+				});
+				
+				//请求公用方法
+				function doajax(data, cont) {
+					admin.aj(uri, data, function(data) {
+						//layer.closeAll('loading');
+						console.log(data)
+						if(data.code == 1) {
+							layer.msg(data.msg, {
+								icon: 1,
+								time: 1000,
+							});
+							table.reload('usermanger');
+							layer.closeAll('page');
+						} else {
+							//layer.closeAll('page');
+							layer.msg(data.msg, {
+								icon: 2,
+								time: 1000,
+							});
+						}
+					}, method, cont);
+				}
+				
+				// 工具条点击事件
+				table.on('tool(role-table)', function(obj) {
+					var data = obj.data;
+					id = data.id;
+					if(obj.event === 'edit') { //修改
+						showEditModel(data);
+					} else if(obj.event === 'del') { //删除
+						var arr = new Array();
+						arr.push(id)
+						doDelete(arr);
+					}else if(obj.event === 'menu'){  //分配权限
+						showAddMenu(data);
+					}
+				});
+				// 显示增加权限页面
+				var  showAddMenu = function (data){
+					layer.open({
+						type: 2,
+						offset: '40px',
+						title:  '修改权限',
+						shade: [0.8, '#393D49'],
+						shadeClose: true,
+						shade: false,
+						maxmin: true, //开启最大化最小化按钮
+						area: ['70%', '90%'],
+						content: 'usegroup_addmenus.html',
+						success: function() {
+							if(data) {
+								admin.putTempData('group', data);
+							}
+						}
 					});
-					table.reload('usermanger');
-					layer.closeAll('page');
-				} else {
-					//layer.closeAll('page');
-					layer.msg(data.msg, {
-						icon: 2,
-						time: 1000,
+				}
+				
+				
+				// 显示编辑弹窗
+				var showEditModel = function(data) {
+					method = data ? 'put' : 'post';
+					console.log('当前的方法是' + method)
+					form.val('manger', null);
+					layer.open({
+						type: 2,
+						offset: '40px',
+						title: data ? '修改' : '添加',
+						shade: [0.8, '#393D49'],
+						shadeClose: true,
+						shade: false,
+						maxmin: true, //开启最大化最小化按钮
+						area: ['70%', '90%'],
+						content: 'usegroup_edit.html',
+						success: function() {
+							if(data) {
+								admin.putTempData('group', data);
+							}else{
+								admin.putTempData('group', null);
+							}
+						}
 					});
-				}
-			}, method, cont);
-		}
+				};
+				// 删除
+				var doDelete = function(obj) {
+					method = 'delete';
+					layer.confirm('确定要删除吗？', function(i) {
+						layer.close(i);
+						doajax(JSON.stringify(obj), 1)
+					});
+				};
 		
-		// 工具条点击事件
-		table.on('tool(role-table)', function(obj) {
-			var data = obj.data;
-			id = data.id;
-			if(obj.event === 'edit') { //修改
-				showEditModel(data);
-			} else if(obj.event === 'del') { //删除
-				var arr = new Array();
-				arr.push(id)
-				doDelete(arr);
-			}else if(obj.event === 'menu'){  //分配权限
-				showAddMenu(data);
-			}
-		});
-		// 显示增加权限页面
-		var  showAddMenu = function (data){
-			layer.open({
-				type: 2,
-				offset: '40px',
-				title:  '修改权限',
-				shade: [0.8, '#393D49'],
-				shadeClose: true,
-				shade: false,
-				maxmin: true, //开启最大化最小化按钮
-				area: ['70%', '90%'],
-				content: 'components/systemuser/usegroup_addmenus.html',
-				success: function() {
-					if(data) {
-						admin.putTempData('group', data);
-					}
-				}
 			});
-		}
-		
-		
-		// 显示编辑弹窗
-		var showEditModel = function(data) {
-			method = data ? 'put' : 'post';
-			console.log('当前的方法是' + method)
-			form.val('manger', null);
-			layer.open({
-				type: 2,
-				offset: '40px',
-				title: data ? '修改' : '添加',
-				shade: [0.8, '#393D49'],
-				shadeClose: true,
-				shade: false,
-				maxmin: true, //开启最大化最小化按钮
-				area: ['70%', '90%'],
-				content: 'components/systemuser/usegroup_edit.html',
-				success: function() {
-					if(data) {
-						admin.putTempData('group', data);
-					}else{
-						admin.putTempData('group', null);
-					}
-				}
-			});
-		};
-		// 删除
-		var doDelete = function(obj) {
-			method = 'delete';
-			layer.confirm('确定要删除吗？', function(i) {
-				layer.close(i);
-				doajax(JSON.stringify(obj), 1)
-			});
-		};
-
-	});
-</script>
+		</script>
+	</body>
+</html>

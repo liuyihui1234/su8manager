@@ -11,58 +11,58 @@ layui.define(['config', 'admin', 'layer', 'laytpl', 'element'], function (export
         initLeftNav: function (menus) {
         	config.menus = menus;
             // 判断权限
-            for (var i = config.menus.length - 1; i >= 0; i--) {
-                var tempMenu = config.menus[i];
-                if (tempMenu.auth && !admin.hasPerm(tempMenu.auth)) {
-                    config.menus.splice(i, 1);
-                    continue;
-                }
-                if (!tempMenu.subMenus) {
-                    continue;
-                }
-                for (var j = tempMenu.subMenus.length - 1; j >= 0; j--) {
-                    var jMenus = tempMenu.subMenus[j];
-                    if (jMenus.auth && !admin.hasPerm(jMenus.auth)) {
-                        tempMenu.subMenus.splice(j, 1);
-                        continue;
-                    }
-                    if (!jMenus.subMenus) {
-                        continue;
-                    }
-                    for (var k = jMenus.subMenus.length - 1; k >= 0; k--) {
-                        if (jMenus.subMenus[k].auth && !admin.hasPerm(jMenus.subMenus[k].auth)) {
-                            jMenus.subMenus.splice(k, 1);
-                            continue;
-                        }
-                    }
-                }
-            }
-            // 去除空的目录
-            for (var i = config.menus.length - 1; i >= 0; i--) {
-                var tempMenu = config.menus[i];
-                if (tempMenu.subMenus && tempMenu.subMenus.length <= 0) {
-                    config.menus.splice(i, 1);
-                    continue;
-                }
-                if (!tempMenu.subMenus) {
-                    continue;
-                }
-                for (var j = tempMenu.subMenus.length - 1; j >= 0; j--) {
-                    var jMenus = tempMenu.subMenus[j];
-                    if (jMenus.subMenus && jMenus.subMenus.length <= 0) {
-                        tempMenu.splice(j, 1);
-                        continue;
-                    }
-                }
-            }
+//          for (var i = config.menus.length - 1; i >= 0; i--) {
+//              var tempMenu = config.menus[i];
+//              if (tempMenu.auth && !admin.hasPerm(tempMenu.auth)) {
+//                  config.menus.splice(i, 1);
+//                  continue;
+//              }
+//              if (!tempMenu.subMenus) {
+//                  continue;
+//              }
+//              for (var j = tempMenu.subMenus.length - 1; j >= 0; j--) {
+//                  var jMenus = tempMenu.subMenus[j];
+//                  if (jMenus.auth && !admin.hasPerm(jMenus.auth)) {
+//                      tempMenu.subMenus.splice(j, 1);
+//                      continue;
+//                  }
+//                  if (!jMenus.subMenus) {
+//                      continue;
+//                  }
+//                  for (var k = jMenus.subMenus.length - 1; k >= 0; k--) {
+//                      if (jMenus.subMenus[k].auth && !admin.hasPerm(jMenus.subMenus[k].auth)) {
+//                          jMenus.subMenus.splice(k, 1);
+//                          continue;
+//                      }
+//                  }
+//              }
+//          }
+//          // 去除空的目录
+//          for (var i = config.menus.length - 1; i >= 0; i--) {
+//              var tempMenu = config.menus[i];
+//              if (tempMenu.subMenus && tempMenu.subMenus.length <= 0) {
+//                  config.menus.splice(i, 1);
+//                  continue;
+//              }
+//              if (!tempMenu.subMenus) {
+//                  continue;
+//              }
+//              for (var j = tempMenu.subMenus.length - 1; j >= 0; j--) {
+//                  var jMenus = tempMenu.subMenus[j];
+//                  if (jMenus.subMenus && jMenus.subMenus.length <= 0) {
+//                      tempMenu.splice(j, 1);
+//                      continue;
+//                  }
+//              }
+//          }
             // 渲染
-            $('.layui-layout-admin .layui-side').load('components/side.html', function () {
-                laytpl(sideNav.innerHTML).render(config.menus, function (html) {
-                    $('#sideNav').after(html);
-                });
-                element.render('nav');
-                admin.activeNav(Q.lash);
-            });
+//          $('.layui-layout-admin .layui-side').load('components/side.html', function () {
+//              laytpl(sideNav.innerHTML).render(config.menus, function (html) {
+//                  $('#sideNav').after(html);
+//              });
+//              element.render('nav');
+//              admin.activeNav(Q.lash);
+//          });
         },
         // 路由注册
         initRouter: function (menus) {

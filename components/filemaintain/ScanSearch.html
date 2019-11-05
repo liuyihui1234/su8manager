@@ -1,440 +1,464 @@
-<div class="layui-card">
-	<div class="layui-card-header">
-		<h2 class="header-title">扫描查询</h2>
-		<span class="layui-breadcrumb pull-right">
-          <a href="#!console">首页</a>
-          <a><cite>扫描查询</cite></a>
-        </span>
-	</div>
-	
-	<!-- 表单弹窗 -->
-	<div class="layui-row">
-		<form class="layui-form" lay-filter="manger" action="" id="form-update">
-			<table class="layui-table" id="info">
-				<tr>
-					<div class="layui-form-item">
-						<td rowspan="5" width="20px">
-							<label for="username"  width="20px">运单编号：</label>
-						</td>
-						<td rowspan="5" width="180px">
-							<div class="layui-input-inline" style="width: 80px;">
-								<textarea rows="20"  cols="20" name = "billsNum" id= "billsNum"></textarea>
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8" />
+		<title>EasyWeb</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../assets/libs/layui/css/layui.css" />
+		<link rel="stylesheet" href="../../assets/css/admin.css" />
+		<link rel="stylesheet" href="../../module/formSelects/formSelects-v4.css" />
+		<!--<link rel="stylesheet" href="assets/css/theme-blue.css"/>-->
+		<!-- 自定义主题，使用EasyWeb主题生成器生成 -->
+	</head>
+	<body class="layui-layout-body">		
+		<div class="layui-card">
+			<div class="layui-card-header">
+				<h2 class="header-title">扫描查询</h2>
+				<span class="layui-breadcrumb pull-right">
+		          <a href="#!console">首页</a>
+		          <a><cite>扫描查询</cite></a>
+		        </span>
+			</div>
+			
+			<!-- 表单弹窗 -->
+			<div class="layui-row">
+				<form class="layui-form" lay-filter="manger" action="" id="form-update">
+					<table class="layui-table" id="info">
+						<tr>
+							<div class="layui-form-item">
+								<td rowspan="5" width="20px">
+									<label for="username"  width="20px">运单编号：</label>
+								</td>
+								<td rowspan="5" width="180px">
+									<div class="layui-input-inline" style="width: 80px;">
+										<textarea rows="20"  cols="20" name = "billsNum" id= "billsNum"></textarea>
+									</div>
+								</td>
+								
+								<td  width="45px">
+									<label for="username" class="layui-form-label">寄件日期：</label>
+								</td>
+								<td>
+									<div class="layui-input-inline" style="width: 240px;">
+										<input type="text" class="layui-input"  placeholder=" - " id= "sendTime" name='sendTime'/>
+									</div>
+								</td>
+								
+								<td  width="45px">
+									<label for="username" class="layui-form-label">备注：</label>
+								</td>
+								<td>
+									<div class="layui-input-inline" style="width: 80px;">
+										<input type="text" v-model="number" name="remark" id = 'remark'  autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+									</div>
+								</td>
 							</div>
-						</td>
-						
-						<td  width="45px">
-							<label for="username" class="layui-form-label">寄件日期：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 240px;">
-								<input type="text" class="layui-input"  placeholder=" - " id= "sendTime" name='sendTime'/>
+							</tr>
+							<tr>
+							<div class="layui-form-item">	
+								<td width="45px">
+									<label for="username" class="layui-form-label">录单日期：</label>
+								</td>
+								<td>
+									<div class="layui-input-inline" style="width: 240px;">
+										<input type="text" class="layui-input"  placeholder=" - " id= "inputTime" name="inputTime"/>
+									</div>
+								</td>
+								
+								<td  width="45px">
+									<label for="username" class="layui-form-label">运费：</label>
+								</td>
+								<td>
+									<div class="layui-input-inline" style="width: 80px;">
+										<input type="text" v-model="number" name="modeprice"  id = "modeprice"  autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+									</div>
+								</td>
 							</div>
-						</td>
-						
-						<td  width="45px">
-							<label for="username" class="layui-form-label">备注：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" v-model="number" name="remark" id = 'remark'  autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+						</tr>
+						<tr>
+							<div class="layui-form-item">
+								<td width="45px">
+									<label class="layui-form-label">发件人：</label>
+								</td>
+								<td>
+									<div class="layui-input-inline" style="width: 80px;">
+										<input type="text" name = "fromName" id="fromName" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;" />
+									</div>
+								</td>
+								<td  width="45px">
+									<label class="layui-form-label">收件人:</label>
+								</td>
+								<td>
+									<div class="layui-input-inline" style="width: 80px;">
+										<input type="text" name = "toName" id="toName"  autocomplete="off" class="layui-input" style="width: 200px;height: 38px;" />
+									</div>
+								</td>
 							</div>
-						</td>
-					</div>
-					</tr>
-					<tr>
-					<div class="layui-form-item">	
-						<td width="45px">
-							<label for="username" class="layui-form-label">录单日期：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 240px;">
-								<input type="text" class="layui-input"  placeholder=" - " id= "inputTime" name="inputTime"/>
-							</div>
-						</td>
-						
-						<td  width="45px">
-							<label for="username" class="layui-form-label">运费：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" v-model="number" name="modeprice"  id = "modeprice"  autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
-							</div>
-						</td>
-					</div>
-				</tr>
-				<tr>
-					<div class="layui-form-item">
-						<td width="45px">
-							<label class="layui-form-label">发件人：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" name = "fromName" id="fromName" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;" />
-							</div>
-						</td>
-						<td  width="45px">
-							<label class="layui-form-label">收件人:</label>
-						</td>
-						<td>
-							<div class="layui-input-inline" style="width: 80px;">
-								<input type="text" name = "toName" id="toName"  autocomplete="off" class="layui-input" style="width: 200px;height: 38px;" />
-							</div>
-						</td>
-					</div>
-				</tr>			
-				<tr>
-					<td colspan="4">
-						<div class="layui-input-block">
-							<center>
-								<button id = "user-btn-search" class="layui-btn" type="button">查询</button>
-							</center>
-						</div>
-					</td>
-				</tr>
-			</table>
-		</form>
-	</div>
-	
-	<div class="layui-card-body">
-		<div class="layui-form toolbar">
-			<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
-			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
+						</tr>			
+						<tr>
+							<td colspan="4">
+								<div class="layui-input-block">
+									<center>
+										<button id = "user-btn-search" class="layui-btn" type="button">查询</button>
+									</center>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			
+			<div class="layui-card-body">
+				<div class="layui-form toolbar">
+					<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+					<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
+				</div>
+				<!-- 数据表格 -->
+				<table class="layui-table" id="role-table" lay-filter="role-table"></table>
+			</div>
 		</div>
-		<!-- 数据表格 -->
-		<table class="layui-table" id="role-table" lay-filter="role-table"></table>
-	</div>
-</div>
-
-<script type="text/html" id="role-model-branchSelect">
-
-	<div class="layui-input-inline">
-		<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
-	</div>
-	<div class="layui-input-inline">
-		<button class="layui-btn" onclick="select($('#add').val())">查找</button>
-	</div>
-	<table class="layui-hide" id="test" lay-filter="test"></table>
-</script>
-
-<script type="text/html" id="role-table-select">
-	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">点我选择</a>
-</script>
-
-<!-- 表格操作列 -->
-<script type="text/html" id="role-table-bar">
-	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
-<script>
-	
-	
-	layui.use(['form', 'table', 'util', 'config', 'admin','laydate'], function() {
-		var form = layui.form;
-		var table = layui.table;
-		var config = layui.config;
-		var layer = layui.layer;
-		var util = layui.util;
-		var admin = layui.admin;
-		var laydate = layui.laydate;
-		var id = 0;
-		var method = 'get';
-		var uri = 'web/order/order';
-		//渲染表格
-		table.render({
-			elem: '#role-table',
-			url: config.server + uri,
-			response: {
-				statusName: 'code',
-				statusCode: 1,
-				msgName: 'msg',
-				//countName: 'totalpage',
-				dataName: 'data'
-			},
-			headers: {
-				Authorization: config.getToken().access_token
-			},
-			limits: [10, 15, 20, 25, 50, 100],
-			limit: 15,
-			page: true,
-			cols: [
-				[{
-						type: "checkbox",
-						width: 50,
-						fixed: "left"
+		
+		<script type="text/html" id="role-model-branchSelect">
+		
+			<div class="layui-input-inline">
+				<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
+			</div>
+			<div class="layui-input-inline">
+				<button class="layui-btn" onclick="select($('#add').val())">查找</button>
+			</div>
+			<table class="layui-hide" id="test" lay-filter="test"></table>
+		</script>
+		
+		<script type="text/html" id="role-table-select">
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">点我选择</a>
+		</script>
+		
+		<!-- 表格操作列 -->
+		<script type="text/html" id="role-table-bar">
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
+		<script type="text/javascript" src="../../assets/libs/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/q.js"></script>
+		<script type="text/javascript" src="../../assets/libs/pandyle.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
+		<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
+		<script type="text/javascript" src="../../module/dictManager.js"></script>
+		
+		<script>
+			layui.config({
+						base: '../../module/'
+					}).use(['form', 'table', 'util', 'config', 'admin','laydate'], function() {
+				var form = layui.form;
+				var table = layui.table;
+				var config = layui.config;
+				var layer = layui.layer;
+				var util = layui.util;
+				var admin = layui.admin;
+				var laydate = layui.laydate;
+				var id = 0;
+				var method = 'get';
+				var uri = 'web/order/order';
+				//渲染表格
+				table.render({
+					elem: '#role-table',
+					url: config.server + uri,
+					response: {
+						statusName: 'code',
+						statusCode: 1,
+						msgName: 'msg',
+						//countName: 'totalpage',
+						dataName: 'data'
 					},
-					{
-						field: 'number',
-						sort: 'true',
-						title: '快递单号',
-						event: 'clickNumber'
+					headers: {
+						Authorization: config.getToken().access_token
 					},
-					{
-						field: 'fromcityname',
-						sort: 'true',
-						title: '始发地城市'
-					},
-					{
-						field: 'tocityname',
-						sort: 'true',
-						title: '目的地城市'
-					},
-					{
-						field: 'sendusername',
-						sort: 'true',
-						title: '取件员'
-					}, {
-						field: 'fromname',
-						sort: 'true',
-						title: '寄件人姓名'
-					},
-					{
-						field: 'toname',
-						sort: 'true',
-						title: '收件人姓名'
-					},
-					{
-						field: 'price',
-						sort: 'true',
-						title: '运费'
-					},
-					{
-						field: 'sumprice',
-						sort: 'true',
-						title: '费用合计'
-					},
-					{
-						align: 'center',
-						toolbar: '#role-table-bar',
-						title: '操作'
+					limits: [10, 15, 20, 25, 50, 100],
+					limit: 15,
+					page: true,
+					cols: [
+						[{
+								type: "checkbox",
+								width: 50,
+								fixed: "left"
+							},
+							{
+								field: 'number',
+								sort: 'true',
+								title: '快递单号',
+								event: 'clickNumber'
+							},
+							{
+								field: 'fromcityname',
+								sort: 'true',
+								title: '始发地城市'
+							},
+							{
+								field: 'tocityname',
+								sort: 'true',
+								title: '目的地城市'
+							},
+							{
+								field: 'sendusername',
+								sort: 'true',
+								title: '取件员'
+							}, {
+								field: 'fromname',
+								sort: 'true',
+								title: '寄件人姓名'
+							},
+							{
+								field: 'toname',
+								sort: 'true',
+								title: '收件人姓名'
+							},
+							{
+								field: 'price',
+								sort: 'true',
+								title: '运费'
+							},
+							{
+								field: 'sumprice',
+								sort: 'true',
+								title: '费用合计'
+							},
+							{
+								align: 'center',
+								toolbar: '#role-table-bar',
+								title: '操作'
+							}
+						]
+					]
+				});
+				// 添加按钮点击事件
+				$('#role-btn-add').click(function() {
+					showEditModel();
+				});
+				
+				
+		
+				//删除按钮点击事件
+				$('#role-btn-del').click(function() {
+					var checkStatus = table.checkStatus('usermanger'),
+						data = checkStatus.data;
+					var arr = new Array();
+					for(var i = 0; i < data.length; i++) {
+						arr.push(data[i].id)
 					}
-				]
-			]
-		});
-		// 添加按钮点击事件
-		$('#role-btn-add').click(function() {
-			showEditModel();
-		});
+					doDelete(arr);
+				});
 		
+				form.on('submit(mang)', function(data) {
+					var arr = new Array();         
+					if(method == 'put') {
+						data.field.id = id;
+					}
+					console.log('提交前的数据是:' + JSON.stringify(data.field))
+					doajax(data.field, null);
+					return false;
+				});
 		
-
-		//删除按钮点击事件
-		$('#role-btn-del').click(function() {
-			var checkStatus = table.checkStatus('usermanger'),
-				data = checkStatus.data;
-			var arr = new Array();
-			for(var i = 0; i < data.length; i++) {
-				arr.push(data[i].id)
-			}
-			doDelete(arr);
-		});
-
-		form.on('submit(mang)', function(data) {
-			var arr = new Array();         
-			if(method == 'put') {
-				data.field.id = id;
-			}
-			console.log('提交前的数据是:' + JSON.stringify(data.field))
-			doajax(data.field, null);
-			return false;
-		});
-
-		//请求公用方法
-		function doajax(data, cont) {
-			admin.aj(uri, data, function(data) {
-				console.log(data)
-				if(data.code == 1) {
-					layer.msg(data.msg, {
-						icon: 1
-					});
-					table.reload('usermanger');
-					layer.closeAll('page');
-				} else {
-					//layer.closeAll('page');
-					layer.msg(data.msg, {
-						icon: 2
-					});
+				//请求公用方法
+				function doajax(data, cont) {
+					admin.aj(uri, data, function(data) {
+						console.log(data)
+						if(data.code == 1) {
+							layer.msg(data.msg, {
+								icon: 1
+							});
+							table.reload('usermanger');
+							layer.closeAll('page');
+						} else {
+							//layer.closeAll('page');
+							layer.msg(data.msg, {
+								icon: 2
+							});
+						}
+					}, method, cont);
 				}
-			}, method, cont);
-		}
+				
+				window.openSelect=function openSelect(number){
+			 		index=layer.open({
+						type: 1,
+						title: "选择",
+						shadeClose: true,
+						shade: false,
+						offset: 'auto',
+						maxmin: true, //开启最大化最小化按钮
+						area: [700, '800px'],
+						content: $('#role-model-branchSelect').html()				
+					});
+					select(null,number);	
+				}
 		
-		window.openSelect=function openSelect(number){
-	 		index=layer.open({
-				type: 1,
-				title: "选择",
-				shadeClose: true,
-				shade: false,
-				offset: 'auto',
-				maxmin: true, //开启最大化最小化按钮
-				area: [700, '800px'],
-				content: $('#role-model-branchSelect').html()				
-			});
-			select(null,number);	
-		}
-
-		// 工具条点击事件
-		table.on('tool(role-table)', function(obj) {
-			var data = obj.data;
-			id = data.id;
-			if(obj.event === 'edit') { //修改
-				showEditModel(data);
-			} else if(obj.event === 'del') { //删除
-				var arr = new Array();
-				arr.push(id);
-				doDelete(arr);
-			} else if(obj.event === 'clickNumber') { //单机运单编号显示详情信息
-				layer.open({
-					type: 2,
-					shadeClose: true,
-					shade: false,
-					maxmin: true, //开启最大化最小化按钮
-					area: ['90%', '900px'],
-					content: 'components/filemaintain/sendOrderShow.html',
-					success: function(layero, index) {
-                    admin.putTempData('id',id) 
+				// 工具条点击事件
+				table.on('tool(role-table)', function(obj) {
+					var data = obj.data;
+					id = data.id;
+					if(obj.event === 'edit') { //修改
+						showEditModel(data);
+					} else if(obj.event === 'del') { //删除
+						var arr = new Array();
+						arr.push(id);
+						doDelete(arr);
+					} else if(obj.event === 'clickNumber') { //单机运单编号显示详情信息
+						layer.open({
+							type: 2,
+							shadeClose: true,
+							shade: false,
+							maxmin: true, //开启最大化最小化按钮
+							area: ['90%', '900px'],
+							content: 'components/filemaintain/sendOrderShow.html',
+							success: function(layero, index) {
+		                    admin.putTempData('id',id) 
+							}
+						});
+					}
+		
+				});
+				// 显示编辑弹窗
+				var showEditModel = function(data) {
+					method = data ? 'put' : 'post';
+					console.log('当前的方法是' + method)
+					layer.open({
+						type: 2,
+						shadeClose: true,
+						shade: false,
+						maxmin: true, //开启最大化最小化按钮
+						area: ['90%', '900px'],
+						content: 'components/filemaintain/sendOrderShow.html',
+						success: function(layero, index) {
+							if(data) {
+								layui.sessionData('tempData', {
+									key: 't_user',
+									value: data
+								});
+							} else {
+								layui.sessionData('tempData', {
+									key: 't_user',
+									remove: true
+								});
+							}
+						}
+					});
+				};
+				// 删除
+				var doDelete = function(obj) {
+					method = 'delete';
+					layer.confirm('确定要删除吗？', function(i) {
+						layer.close(i);
+						//layer.load(2);
+						doajax(JSON.stringify(obj), 1)
+					});
+				};
+				
+				laydate.render({
+					elem : '#sendTime',
+					type : 'date',
+					range : true,
+					done: function(value, date, endDate){
+						var start = turnDate(JSON.parse(JSON.stringify(date)));
+						var end = turnDate(JSON.parse(JSON.stringify(endDate)));
 					}
 				});
-			}
-
-		});
-		// 显示编辑弹窗
-		var showEditModel = function(data) {
-			method = data ? 'put' : 'post';
-			console.log('当前的方法是' + method)
-			layer.open({
-				type: 2,
-				shadeClose: true,
-				shade: false,
-				maxmin: true, //开启最大化最小化按钮
-				area: ['90%', '900px'],
-				content: 'components/filemaintain/sendOrderShow.html',
-				success: function(layero, index) {
-					if(data) {
-						layui.sessionData('tempData', {
-							key: 't_user',
-							value: data
-						});
-					} else {
-						layui.sessionData('tempData', {
-							key: 't_user',
-							remove: true
-						});
+				
+				laydate.render({
+					elem : '#inputTime',
+					type : 'date',
+					range : true,
+					done : function(value, date, endDate){
+						var start = turnDate(JSON.parse(JSON.stringify(date)));
+						var end = turnDate(JSON.parse(JSON.stringify(endDate)));
 					}
+				});
+				
+				function turnDate(obj){
+					var FullYear = obj.year;
+					var Month = obj.month;
+					var day = obj.date;
+					return FullYear + '-' + Month + '-' + day ;
+				}
+				
+				$('#user-btn-search').click(function() {
+		            //获得参数列表            
+					var billsNum = $('#billsNum').val();
+		            var sendTime = $('#sendTime').val();
+		            var inputTime =  $('#inputTime').val();
+		            var remark = $('#remark').val();
+		            var modeprice = $('#modeprice').val();	
+		            var fromname = $('#fromName').val();
+		            var toname = $('#toName').val();
+		            table.reload('role-table', {where: {'billsNum':billsNum, 'sendTime':sendTime,'inputTime':inputTime,'remark':remark,'modeprice':modeprice,
+		            	'fromname': fromname, 'toname':toname}});
+		       });        
+		        window.clearIncInfo =  function clearIncInfo(){
+		        	$("#nameIdValue").val('');
+		        	$("#nameOne").val('');
+		        }        
+		        var url;
+				var nameSelect;
+				var nameIdSelect;
+				function select(parameter, nameSelect) {
+					if(nameSelect == 1) {
+						nameSelect = 'nameOne';
+						nameIdSelect = 'nameIdValue'
+					} else if(nameSelect == 2) {
+						nameSelect = 'nameTwo';
+					} 
+					if(parameter == null) {
+						url = 'web/incment/incment'
+					} else {
+						url = 'web/incment/incment?info1=' + parameter
+					}
+					layui.use(['table', 'config'], function() {
+						var config = layui.config;
+						var table = layui.table;
+						//var index = layer.getFrameIndex(window.name); //获取窗口索引
+						table.render({
+								elem: '#test',
+								url: config.server  + url,
+								response: {
+									statusName: 'code',
+									statusCode: 1,
+									msgName: 'msg',
+									//countName: 'totalpage',
+									dataName: 'data'
+								},
+								headers: {
+									Authorization: config.getToken().access_token
+								},
+								limits: [10],
+								limit: 15,
+								page: true,
+								cols: [
+									[{
+										//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
+										title: '',
+										toolbar: '#role-table-select',
+									}, {
+										field: 'number',
+										title: '网点编号'
+									}, {
+										field: 'name',
+										title: '网点名称'
+									}]
+								]
+			
+							}),
+							table.on('tool(test)', function(obj) {
+								var data = obj.data;
+								if(obj.event === 'edit') {
+									$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
+									$('#' + nameIdSelect).val(eval(JSON.stringify(data.number)));
+									layer.close(index);
+								}
+			
+							});
+					});
 				}
 			});
-		};
-		// 删除
-		var doDelete = function(obj) {
-			method = 'delete';
-			layer.confirm('确定要删除吗？', function(i) {
-				layer.close(i);
-				//layer.load(2);
-				doajax(JSON.stringify(obj), 1)
-			});
-		};
-		
-		laydate.render({
-			elem : '#sendTime',
-			type : 'date',
-			range : true,
-			done: function(value, date, endDate){
-				var start = turnDate(JSON.parse(JSON.stringify(date)));
-				var end = turnDate(JSON.parse(JSON.stringify(endDate)));
-			}
-		});
-		
-		laydate.render({
-			elem : '#inputTime',
-			type : 'date',
-			range : true,
-			done : function(value, date, endDate){
-				var start = turnDate(JSON.parse(JSON.stringify(date)));
-				var end = turnDate(JSON.parse(JSON.stringify(endDate)));
-			}
-		});
-		
-		function turnDate(obj){
-			var FullYear = obj.year;
-			var Month = obj.month;
-			var day = obj.date;
-			return FullYear + '-' + Month + '-' + day ;
-		}
-		
-		$('#user-btn-search').click(function() {
-            //获得参数列表            
-			var billsNum = $('#billsNum').val();
-            var sendTime = $('#sendTime').val();
-            var inputTime =  $('#inputTime').val();
-            var remark = $('#remark').val();
-            var modeprice = $('#modeprice').val();	
-            var fromname = $('#fromName').val();
-            var toname = $('#toName').val();
-            table.reload('role-table', {where: {'billsNum':billsNum, 'sendTime':sendTime,'inputTime':inputTime,'remark':remark,'modeprice':modeprice,
-            	'fromname': fromname, 'toname':toname}});
-       });        
-        window.clearIncInfo =  function clearIncInfo(){
-        	$("#nameIdValue").val('');
-        	$("#nameOne").val('');
-        }        
-        var url;
-		var nameSelect;
-		var nameIdSelect;
-		function select(parameter, nameSelect) {
-			if(nameSelect == 1) {
-				nameSelect = 'nameOne';
-				nameIdSelect = 'nameIdValue'
-			} else if(nameSelect == 2) {
-				nameSelect = 'nameTwo';
-			} 
-			if(parameter == null) {
-				url = 'web/incment/incment'
-			} else {
-				url = 'web/incment/incment?info1=' + parameter
-			}
-			layui.use(['table', 'config'], function() {
-				var config = layui.config;
-				var table = layui.table;
-				//var index = layer.getFrameIndex(window.name); //获取窗口索引
-				table.render({
-						elem: '#test',
-						url: config.server  + url,
-						response: {
-							statusName: 'code',
-							statusCode: 1,
-							msgName: 'msg',
-							//countName: 'totalpage',
-							dataName: 'data'
-						},
-						headers: {
-							Authorization: config.getToken().access_token
-						},
-						limits: [10],
-						limit: 15,
-						page: true,
-						cols: [
-							[{
-								//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
-								title: '',
-								toolbar: '#role-table-select',
-							}, {
-								field: 'number',
-								title: '网点编号'
-							}, {
-								field: 'name',
-								title: '网点名称'
-							}]
-						]
-	
-					}),
-					table.on('tool(test)', function(obj) {
-						var data = obj.data;
-						if(obj.event === 'edit') {
-							parent.$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
-							parent.$('#' + nameIdSelect).val(eval(JSON.stringify(data.number)));
-							layer.close(index);
-						}
-	
-					});
-			});
-		}
-	});
-</script>
+		</script>
+	</body>
+</html>
