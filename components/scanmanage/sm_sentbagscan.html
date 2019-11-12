@@ -1,346 +1,241 @@
-<div class="layui-card">
-	<div class="layui-card-header">
-		<h2 class="header-title">发袋扫描</h2>
-		<span class="layui-breadcrumb pull-right">
-          <a href="#!console">首页</a>
-          <a><cite>发袋扫描</cite></a>
-        </span>
-	</div>
-	<div class="layui-row">
-		<form id="form-add" class="layui-form layui-col-md12 x-so" lay-filter="new" id="form-add">
-			<table>
-				<tr>
-					<td>
-						<span>运单编号:</span>
-						<div class="layui-input-inline">
-							<input type="text" class="layui-input" name="billsnumber" required lay-verify="required">	
-							&nbsp;&nbsp;
-						</div>
-						
-					</td>
-					<td>
-						<span>&nbsp;&nbsp;&nbsp;&nbsp;目的地1:</span>
-						<div class="layui-input-inline">
-							<input id="nameOne" type="text" class="layui-input" name="nextstopname" required lay-verify="required">
-							&nbsp;&nbsp;
-						</div>
-						<a href="javascript:void(0)" onclick="openSelect(1)">点击选择</a>
-					</td>
-					<td>
-						<span>&nbsp;&nbsp;&nbsp;&nbsp;目的地2:</span>
-						<div class="layui-input-inline">
-							<input id="nameTwo" type="text" class="layui-input" name="nextstopname1" required lay-verify="required">
-							&nbsp;&nbsp;
-						</div>
-						<a href="javascript:void(0)" onclick="openSelect(2)">点击选择</a>
+<!DOCTYPE html>
+<html>
 
-					</td>
-					<td>
-						<span>&nbsp;&nbsp; 班次:</span>
-						<div class="layui-input-inline">
-							<select name="flightsnumber">
-								<option>第一班</option>
-								<option>第二班</option>
-								<option>第三班</option>
-								<option>第四班</option>
-								<option>第五班</option>
-								<option>第六班</option>
-							</select>
-							&nbsp;&nbsp;
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<br>
-					<td>
-						<span>物品类型:</span>
-						<div class="layui-input-inline">
-							<select name="goodstype">
-								<option>物品</option>
-								<option>文件</option>
-							</select>
-						</div>
-					</td>
-					<td>
-						<span>&nbsp;&nbsp;快件类型:</span>
-						<div class="layui-input-inline">
-							<select name="expresstype">
-								<option>快递</option>
-								<option>快运</option>
-							</select>
-						</div>
-					</td>
-					<td>
-						<span>&nbsp;&nbsp;运输方式:</span>
-						<div class="layui-input-inline">
-							<select name="tranname">
-								<option>网络转运</option>
-								<option>第三方物流</option>
-							</select>
-						</div>
-					</td>
-					<td>
-						<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-						<button class="layui-btn" lay-submit="" lay-filter="addnew">保存信息</button>
-					</td>
-				</tr>
-		</form>
-		</table>
-	</div>
-	<div class="layui-card-body">
-		<div class="layui-form toolbar">
-			<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
-			<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8" />
+		<title>发袋扫描</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../assets/libs/layui/css/layui.css" />
+		<link rel="stylesheet" href="../../assets/css/admin.css" />
+		<link rel="stylesheet" href="../../module/formSelects/formSelects-v4.css" />
+	</head>
+	<body class="layui-layout-body">	
+		<div class="layui-card">
+			<div class="layui-card-header">
+				<h2 class="header-title">发件扫描</h2>
+				<span class="layui-breadcrumb pull-right">
+		          <a href="#!console">首页</a>
+		          <a><cite>发件扫描</cite></a>
+		        </span>
+			</div>
+			<div class="layui-row">
+				<form id="form-add" class="layui-form layui-col-md12 x-so" lay-filter="new" id="form-add">
+					<table>
+						<tr>
+							<td>
+								<span>袋编号:</span>
+								<div class="layui-input-inline">
+									<input placeholder="请输入袋编号" class="layui-input" name="bagNumber" id="bagNumber"></input>
+									&nbsp;&nbsp;
+								</div>
+							</td>
+							<td>
+								<span>&nbsp;&nbsp;&nbsp;&nbsp;目的地1:</span>
+								<div class="layui-input-inline">
+									<input id="nameOne" type="text" class="layui-input" name="nextstopname" required lay-verify="required">
+									&nbsp;&nbsp;
+								</div>
+								<input type="hidden" id = "nameIdOne" name = 'nextstop'/>
+								<a href="javascript:void(0)" onclick="openSelect(1)">点击选择</a>
+							</td>
+							<td>
+								<span>&nbsp;&nbsp;&nbsp;&nbsp;目的地2:</span>
+								<div class="layui-input-inline">
+									<input id="nameTwo" type="text" class="layui-input" name="nextstopname1" required lay-verify="required">
+									&nbsp;&nbsp;
+								</div>
+								<input type="hidden" id = "nameIdTwo" name = 'nextstop1'/>
+								<a href="javascript:void(0)" onclick="openSelect(2)">点击选择</a>
+		
+							</td>
+							<td>
+								<span>&nbsp;&nbsp; 班次:</span>
+								<div class="layui-input-inline">
+									<select name="flightsnumber" id="flightsnumber">
+									</select>
+									&nbsp;&nbsp;
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<br/>
+							<td>
+								<span>物品类型:</span>
+								<div class="layui-input-inline">
+									<select name="goodstype" id="goodstype">
+									</select>
+								</div>
+							</td>
+							<td>
+								<span>&nbsp;&nbsp;快件类型:</span>
+								<div class="layui-input-inline">
+									<select name="expresstype" id="expresstype">
+									</select>
+								</div>
+							</td>
+							<td>
+								<span>&nbsp;&nbsp;运输方式:</span>
+								<div class="layui-input-inline">
+									<select name="tranname" id="tranname">
+										
+									</select>
+								</div>
+							</td>
+							<td>
+								<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								<button class="layui-btn" lay-submit="" lay-filter="addnew">保存信息</button>
+							</td>
+						</tr>
+				</form>
+				</table>
+			</div>
+			<div class="layui-card-body">
+				<div class="layui-form toolbar">
+				</div>
+			</div>
+			<!-- 数据表格 -->
+			<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
 		</div>
-	</div>
-	<!-- 数据表格 -->
-	<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
-
-</div>
-<script type="text/html" id="role-table-select">
-	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">点我选择</a>
-</script>
-
-<script type="text/html" id="role-table-bar">
-	<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
-
-<script type="text/html" id="role-model-branchSelect">
-
-	<div class="layui-input-inline">
-		<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
-	</div>
-	<div class="layui-input-inline">
-		<button class="layui-btn" onclick="select($('#add').val())">查找</button>
-	</div>
-	<table class="layui-hide" id="test" lay-filter="test"></table>
-</script>
-
-<script>
-	var index;
-	layui.use(['form', 'table', 'util', 'config', 'admin', 'tree', 'transfer', 'layer'], function() {
-		var form = layui.form;
-		var table = layui.table;
-		var config = layui.config;
-		var layer = layui.layer;
-		var util = layui.util;
-		var admin = layui.admin;
-		var id = 0;
-		var method = 'get';
-		var uri = 'web/sentScan/scan';
+		<!-- 表单弹窗 -->
+		<script type="text/html" id="role-model">
+			<form class="layui-form" action="" lay-filter="manger" id="form-update">
+				<table class="layui-table" id="info">
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label for="username" class="layui-form-label">运单编号：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="billsnumber" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							<td>
+								<label  for="username" class="layui-form-label">目的地一：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input id="nameThree"  type="text" name="nextstopname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+								<input type="hidden"  id= "nameIdThree" name = "nextstop" />
+								<a href="javascript:void(0)" onclick="openSelect(3)">点击选择</a>
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="layui-form-item">
+							<td>
+								<label for="username" class="layui-form-label">目的地二：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input id="nameFour"  type="text" name="nextstopname1" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+								<input type="hidden"  id= "nameIdFour" name = "nextstop1" />
+								<a href="javascript:void(0)" onclick="openSelect(4)">点击选择</a>
+							</td>
+							<td>
+								<label for="username" class="layui-form-label">物品类型：</label>
+							</td>
+							<td>
+								<div class="layui-form-item">
+									<div class="layui-input-inline">
+										<select name="goodstype" id="goodstype1">
+											
+										</select>
+									</div>
+								</div>
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<td>
+							<label for="username" class="layui-form-label">快件类型：</label>
+						</td>
+						<td>
+							<div class="layui-form-item">
+								<div class="layui-input-inline">
+									<select name="expresstype" id="expresstype1">
+									</select>
+								</div>
+							</div>
+						</td>
+						<td>
+							<label for="username" class="layui-form-label">班次：</label>
+						</td>
+						<td>
+							<div class="layui-input-inline">
+								<select name="flightsnumber" id="flightsnumber1">
+								</select>
+							</div>
+						</td>
 		
-		//渲染表格
-		table.render({
-			elem: '#usermanger',
-			url: config.server + uri,
-			response: {
-				statusName: 'code',
-				statusCode: 1,
-				msgName: 'msg',
-				//countName: 'totalpage',
-				dataName: 'data'
-			},
-			headers: {
-				Authorization: config.getToken().access_token
-			},
-			limits: [10, 15, 20, 25, 50, 100],
-			limit: 15,
-			page: true,
-			cols: [
-				[{
-						type: "checkbox",
-						width: 50,
-						fixed: "left"
-					},
-					{
-						field: 'billsnumber',
-						sort: true,
-						title: '运单编号'
-					},
-					{
-						field: 'createtime',
-						sort: true,
-						title: '扫描时间'
-					},
-					{
-						field: 'incname',
-						sort: true,
-						title: '扫描网点'
-					},
-					{
-						field: 'scanners',
-						sort: true,
-						title: '扫描人员'
-					},
-					{
-						field: 'flightsnumber',
-						sort: true,
-						title: '班次'
-					},
-					{
-						field: 'nextstopname',
-						sort: true,
-						title: '下一班'
-					},
-					{
-						field: 'goodstype',
-						sort: true,
-						title: '物品类别'
-					},
-					{
-						align: 'center',
-						toolbar: '#role-table-bar',
-						title: '操作'
-					}
-				]
-			]
-		});
-
-		// 添加按钮点击事件
-		$('#role-btn-add').click(function() {
-			showEditModel();
-		});
-
-		//删除按钮点击事件
-		$('#role-btn-del').click(function() {
-			var checkStatus = table.checkStatus('usermanger'),
-				data = checkStatus.data;
-			var arr = new Array();
-			for(var i = 0; i < data.length; i++) {
-				arr.push(data[i].id)
-			}
-			doDelete(arr);
-		});
-
-		form.on('submit(mang)', function(data) {
-			if(method == 'put') {
-				data.field.id = id;
-			}
-			console.log('提交前的数据是:' + JSON.stringify(data.field))
-			doajax(data.field, null);
-
-			return false;
-		});
-		form.on('submit(addnew)', function(data) {
-			method = 'post';
-			console.log('提交前的数据是:' + JSON.stringify(data.field))
-			doajax(data.field, null);
-			document.getElementById("form-add").reset();
-			return false;
-		});
-
-		form.verify({
-			pass: [
-				/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
-			]
-		});
-
-		//请求公用方法
-		function doajax(data, cont) {
-			admin.aj(uri, data, function(data) {
-				//layer.closeAll('loading');
-				console.log(data)
-				if(data.code == 1) {
-					layer.msg(data.msg, {
-						icon: 1,
-						time: 1000
-					});
-					table.reload('usermanger');
-					layer.closeAll('page');
-				} else {
-					//layer.closeAll('page');
-					layer.msg(data.msg, {
-						icon: 2,
-						time: 1000
-					});
-				}
-			}, method, cont);
-		}
-
-		// 工具条点击事件
-		table.on('tool(role-table)', function(obj) {
-			var data = obj.data;
-			id = data.id;
-			if(obj.event === 'edit') { //修改
-				showEditModel(data);
-			} else if(obj.event === 'del') { //删除
-				var arr = new Array();
-				arr.push(id);
-				doDelete(arr);
-			}
-		});
-		// 显示编辑弹窗
-		var showEditModel = function(data) {
-			method = data ? 'put' : 'post';
-			console.log('当前的方法是' + method)
-			layer.open({
-				type: 1,
-				title: data ? '修改' : '添加',
-				shadeClose: true,
-				shade: false,
-				offset: 'auto',
-				maxmin: true, //开启最大化最小化按钮
-				area: [65, '600px'],
-				content: $('#role-model').html(),
-				success: function() {
-					if(data) {
-						form.val('manger', data);
-					}
-					form.val('manger', null);
-					$('#role-form .close').click(function() {
-						layer.closeAll('page');
-					});
-				}
-			});
-		};
-		// 删除
-		var doDelete = function(obj) {
-			method = 'delete';
-			layer.confirm('确定要删除吗？', function(i) {
-				layer.close(i);
-				doajax(JSON.stringify(obj), 1)
-			});
-		};
-		window.openSelect=function openSelect(number){
-	 		index=layer.open({
-				type: 1,
-				title: "选择",
-				shadeClose: true,
-				shade: false,
-				offset: 'auto',
-				maxmin: true, //开启最大化最小化按钮
-				area: [700, '800px'],
-				content: $('#role-model-branchSelect').html()				
-		});
-		select(null,number);	
-	}
+					</tr>
+					<tr>
+						<td>
+							<label for="username" class="layui-form-label">运输方式：</label>
+						</td>
+						<td>
+							<div class="layui-input-inline">
+								<select name="tranname" id="tranname1">
+								</select>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							<div class="layui-input-block">
+								<center>
+									<!--<button class="layui-btn">保存信息</button>-->
+									<button class="layui-btn" lay-submit="" lay-filter="mang">保存信息</button>
+								</center>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</script>
 		
-	var url;
-	var nameSelect
-	function select(parameter,nameSelect) {
-		if(nameSelect==1){
-			nameSelect='nameOne';
-		}else if(nameSelect==2){
-			nameSelect='nameTwo';
-		}else if(nameSelect==3){
-			nameSelect='nameThree';
-		}else{
-			nameSelect='nameFour';
-		}
-		if(parameter == null) {
-			url = 'web/incment/incment'
-		} else {
-			url = 'web/incment/incment?info1=' + parameter
-		}
-		layui.use(['table','config'],function() {
-			var config = layui.config;
-			var table = layui.table;
-			//var index = layer.getFrameIndex(window.name); //获取窗口索引
-
-			table.render({
-					elem: '#test',
-					url: config.server  + url,
+		<script type="text/html" id="role-table-select">
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">点我选择</a>
+		</script>
+		<script type="text/javascript" src="../../assets/libs/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/q.js"></script>
+		<script type="text/javascript" src="../../assets/libs/pandyle.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
+		<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
+		<script type="text/javascript" src="../../module/dictManager.js"></script>
+		
+		<script type="text/html" id="role-model-branchSelect">
+			<div class="layui-input-inline">
+				<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
+			</div>
+			<div class="layui-input-inline">
+				<button class="layui-btn" onclick="select($('#add').val(), $('#clickPositionNum').val())">查找</button>
+			</div>
+			<input type = "hidden" id = "clickPositionNum"/>
+			<table class="layui-hide" id="test" lay-filter="test"></table>
+		</script>
+		
+		<script>
+			var index;
+			layui.config({
+						base: '../../module/'
+					}).use(['form', 'table', 'util', 'config', 'admin', 'tree', 'transfer', 'layer'], function() {
+				var form = layui.form;
+				var table = layui.table;
+				var config = layui.config;
+				var layer = layui.layer;
+				var util = layui.util;
+				var admin = layui.admin;
+				var id = 0;
+				var method = 'get';
+				var uri = 'web/sentBaggingScan/scan';
+				//渲染表格
+				table.render({
+					elem: '#usermanger',
+					url: config.server + uri,
 					response: {
 						statusName: 'code',
 						statusCode: 1,
@@ -349,37 +244,191 @@
 						dataName: 'data'
 					},
 					headers: {
-					Authorization: config.getToken().access_token
+						Authorization: config.getToken().access_token
 					},
-					limits: [10],
+					limits: [10, 15, 20, 25, 50, 100],
 					limit: 15,
 					page: true,
 					cols: [
 						[{
-							//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
-							title: '',
-							toolbar: '#role-table-select',
-						}, {
-							field: 'number',
-							title: '网点编号'
-						}, {
-							field: 'name',
-							title: '网点名称'
-						}]
+								type: "checkbox",
+								width: 50,
+								fixed: "left"
+							},
+							{
+								field: 'code',
+								sort: true,
+								title: '袋编号'
+							},
+							{
+								field: 'billsnumber',
+								sort: true,
+								title: '运单编号'
+							},
+							{
+								field: 'scantime',
+								sort: true,
+								title: '扫描时间'
+							},
+							{
+								field: 'incname',
+								sort: true,
+								title: '扫描网点'
+							},
+							{
+								field: 'scanners',
+								sort: true,
+								title: '扫描人员'
+							},
+							{
+								field: 'flightsnumber',
+								sort: true,
+								title: '班次'
+							},
+							{
+								field: 'nextstopname',
+								sort: true,
+								title: '下一班'
+							},
+							{
+								field: 'goodstype',
+								sort: true,
+								title: '物品类别'
+							}
+						]
 					]
-
-				}),
-				table.on('tool(test)', function(obj) {
-					var data = obj.data;
-					if(obj.event === 'edit') {
-						$('#'+nameSelect).val(eval(JSON.stringify(data.name)));
-						layer.close(index);
-					}
-
 				});
-		});
-	}
-
-	});
-	
-</script>
+				$(function() {// 初始化内容
+					initDictShowName(admin.aj, "web/Detype/getAllRecord", "expresstype", -1);	
+					initDictShowName(admin.aj, "web/transport/getAllTransportmode", "tranname", -1);	
+					initDictShowName(admin.aj, "web/Shift/getAllShift", "flightsnumber", -1);
+					initDictShowName(admin.aj, "web/Goods/Goods", "goodstype", -1);
+			    }); 
+				form.on('submit(mang)', function(data) {
+					if(method == 'put') {
+						data.field.id = id;
+					}
+					console.log('提交前的数据是:' + JSON.stringify(data.field))
+					doajax(data.field, null);
+		
+					return false;
+				});
+				form.on('submit(addnew)', function(data) {
+					method = 'post';
+					console.log('提交前的数据是:' + JSON.stringify(data.field))
+					doajax(data.field, null);
+					$('#billsnumber').val('');
+					return false;
+				});
+		
+				form.verify({
+					pass: [
+						/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
+					]
+				});
+				//请求公用方法
+				function doajax(data, cont) {
+					admin.aj(uri, data, function(data) {
+						//layer.closeAll('loading');
+						console.log(data)
+						if(data.code == 1) {
+							layer.msg(data.msg, {
+								icon: 1,
+								time: 1000
+							});
+							table.reload('usermanger');
+							layer.closeAll('page');
+						} else {
+							//layer.closeAll('page');
+							layer.msg(data.msg, {
+								icon: 2,
+								time: 1000
+							});
+						}
+					}, method, cont);
+				}
+			window.openSelect=function openSelect(number){
+			 		index=layer.open({
+						type: 1,
+						title: "选择",
+						shadeClose: true,
+						shade: false,
+						offset: 'auto',
+						maxmin: true, //开启最大化最小化按钮
+						area: [700, '800px'],
+						content: $('#role-model-branchSelect').html()				
+				});
+				select(null,number);	
+				}
+			});
+			
+			var url;
+			var nameSelect;
+			var nameIdSelect;
+			function select(parameter,nameSelect) {
+				$('#clickPositionNum').val(nameSelect);		
+				if(nameSelect==1){
+					nameSelect='nameOne';
+					nameIdSelect = "nameIdOne";
+				}else if(nameSelect==2){
+					nameSelect='nameTwo';
+					nameIdSelect = 'nameIdTwo';
+				}else if(nameSelect==3){
+					nameSelect='nameThree';
+					nameIdSelect = 'nameIdThree';
+				}else{
+					nameSelect='nameFour';
+					nameIdSelect = 'nameIdFour';
+				}
+				if(parameter == null) {
+					url = 'web/incment/incment'
+				} else {
+					url = 'web/incment/incment?info1=' + parameter
+				}
+				layui.use(['table','config'],function() {
+					var config = layui.config;
+					var table = layui.table;
+					//var index = layer.getFrameIndex(window.name); //获取窗口索引
+					table.render({
+							elem: '#test',
+							url: config.server  + url,
+							response: {
+								statusName: 'code',
+								statusCode: 1,
+								msgName: 'msg',
+								//countName: 'totalpage',
+								dataName: 'data'
+							},
+							headers: {
+							Authorization: config.getToken().access_token
+							},
+							limits: [10],
+							limit: 15,
+							page: true,
+							cols: [
+								[{
+									//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
+									title: '',
+									toolbar: '#role-table-select',
+								}, {
+									field: 'number',
+									title: '网点编号'
+								}, {
+									field: 'name',
+									title: '网点名称'
+								}]
+							]
+						}),
+						table.on('tool(test)', function(obj) {
+							var data = obj.data;
+							if(obj.event === 'edit') {
+								$('#'+nameSelect).val(eval(JSON.stringify(data.name)));
+								$('#' + nameIdSelect ).val(eval(JSON.stringify(data.number)));
+								layer.close(index);
+							}
+						});
+				});
+			}
+		</script>
+	</body>
+</html>

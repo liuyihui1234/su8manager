@@ -4,7 +4,11 @@
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">        
         <script id="sideNav"  type="text/html">
         	{{#  layui.each(d, function(index, item){ }}
-        	<li class="layui-nav-item layui-nav-itemed">
+        		{{# if(index == 0){ }}
+        			<li class="layui-nav-item layui-nav-itemed">
+        		{{# } else {  }}
+        			<li class="layui-nav-item">        		
+        		{{# } }}
         		<a href="javascript:;"><i class="layui-icon {{item.icon}}"></i>&emsp;<cite>{{ item.name }}</cite></a>
         		{{# if(item.subMenus&&item.subMenus.length>0){ }}
         			<dl class="layui-nav-child">

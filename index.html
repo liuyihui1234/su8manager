@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta charset="utf-8" />
-		<title>EasyWeb</title>
+		<title>速8快递后台管理系统</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="assets/libs/layui/css/layui.css" />
 		<link rel="stylesheet" href="assets/css/admin.css" />
@@ -21,22 +21,22 @@
 			<div class="layui-side" p-com="side"></div>
 
 			<!-- 主体部分 -->
-			<div class="layui-body">
+			<div class="layui-body" style="overflow-y: hidden;">
 				<div>
 					<div id="colcse" class="layui-tab" lay-filter="demo" lay-allowclose="true" >
 			                <ul class="layui-tab-title">
 			                </ul>
-			                <ul class="rightmenu" style=" display: none;position: absolute;background: #6E6C79;font-family: '微软雅黑';">
+			                <ul class="rightmenu" style=" display: none;position: absolute;background: #6E6C79; opacity:0.8;font-family: '微软雅黑';">
 			                    <li id="yue" style="color: red;cursor:pointer;" data-id="" data-type="closethis">
-			                         <a href="#" id="colcse" style="color: white;cursor:pointer;"  data-type="closethis"  >   &nbsp;&nbsp;关闭当前&nbsp;&nbsp;</a>
+			                         <a href="#" id="colcse" style="color: white;cursor:pointer;height: 30px; line-height: 30px; display: block;"  data-type="closethis"  >   &nbsp;&nbsp;关闭当前&nbsp;&nbsp;</a>
 			                        </li>
 			                 
 			                    <li data-type="closeall">
-			                        <a href="#" id="colcse" style="color: white;cursor:pointer;" data-id=""  data-type="closeall">&nbsp;&nbsp;关闭所有&nbsp;&nbsp;</a>
+			                        <a href="#" id="colcse" style="color: white;cursor:pointer;height: 30px; line-height: 30px; display: block;" data-id=""  data-type="closeall">&nbsp;&nbsp;关闭所有&nbsp;&nbsp;</a>
 			                    </li>
 			                    
 			                    <li data-type="closeothe">
-			                        <a href="#" id="colcse" style="color: white;cursor:pointer;" data-id=""  data-type="closeothe">&nbsp;&nbsp;关闭其它&nbsp;&nbsp;</a>
+			                        <a href="#" id="colcse" style="color: white;cursor:pointer;height: 30px; line-height: 30px; display: block;" data-id=""  data-type="closeothe">&nbsp;&nbsp;关闭其它&nbsp;&nbsp;</a>
 			                    </li>
 			                </ul>
 			                <div class="layui-tab-content">
@@ -46,13 +46,12 @@
 			</div>
 
 			<!-- 底部 -->
-			<div class="layui-footer">Copyright © 2018 EasyWeb All rights reserved. <span class="pull-right">Version 2.0</span>
+			<div class="layui-footer">Copyright © 2019  德邦物流 速8快递. <span class="pull-right">Version 2.0</span>
 			</div>
 
 			<!-- 手机屏幕遮罩层 -->
 			<div class="site-mobile-shade"></div>
 		</div>
-
 		<script type="text/javascript" src="assets/libs/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="assets/libs/q.js"></script>
 		<script type="text/javascript" src="assets/libs/pandyle.min.js"></script>
@@ -133,7 +132,7 @@
 		                }else{
 		                	element.tabAdd('demo', {
 	                        title: name,
-	                        content: '<iframe data-frameid="'+id+'" scrolling="auto" frameborder="0" src="'+  'http://127.0.0.1:8020/su8manager/components/'+ url+'" style="width:100%;height:99%;"></iframe>',
+	                        content: '<iframe data-frameid="'+id+'" scrolling="auto" frameborder="0" src="'+  'http://127.0.0.1:8020/su8manager/components/'+ url+'" style="width:100%;height:99%;overflow-y:scroll"></iframe>',
 	                        id: id //规定好的id
 		                    })
 		                    CustomRightClick(id); //给tab绑定右击事件
@@ -198,7 +197,6 @@
                     return true;
                 }
                 popupmenu.find("li").attr("data-id",id); //在右键菜单中的标签绑定id属性
-
                 //判断右侧菜单的位置 
                 l = ($(document).width() - e.clientX) < popupmenu.width() ? (e.clientX - popupmenu.width()) : e.clientX;
                 t = ($(document).height() - e.clientY) < popupmenu.height() ? (e.clientY - popupmenu.height()) : e.clientY;
@@ -234,29 +232,26 @@
             }
             $('.rightmenu').hide(); //最后再隐藏右键菜单
         })	  
-				
 				// 获取当前用户信息
-				index.getUser(function(user) {
-					$('.layui-layout-admin .layui-header').vm(user);
-					/*
-					 * 发送异步请求，获得用户的菜单
-					 */
-					admin.aj('web/userpower/getuserMenu', {}, function(data) {
-							if(data.code == 1) {
-							$('.layui-layout-admin .layui-side').load('components/side.html', function () {
-				                laytpl(sideNav.innerHTML).render(data.data, function (html) {
-				                    $('#sideNav').after(html);
-				                    bindclick();
-				                    layui.element.render();
-				                });
-				           });
-						 }
-						}, "post", null);
-					element.render('nav');					
-					index.bindEvent();
-				});
-
-			});
+		index.getUser(function(user) {
+			$('.layui-layout-admin .layui-header').vm(user);
+			/*
+			 * 发送异步请求，获得用户的菜单
+			 */
+			admin.aj('web/userpower/getuserMenu', {}, function(data) {
+					if(data.code == 1) {
+					$('.layui-layout-admin .layui-side').load('components/side.html', function () {
+		                laytpl(sideNav.innerHTML).render(data.data, function (html) {
+		                    $('#sideNav').after(html);
+		                    bindclick();
+		                    layui.element.render();
+		                });
+		           });
+				 }
+				}, "post", null);					
+			index.bindEvent();
+		});
+	});
 		</script>
 	</body>
 </html>

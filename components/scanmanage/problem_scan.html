@@ -27,7 +27,7 @@
 						<div class="layui-inline">
 							<label class="layui-form-label">运单编号:</label>
 							<div class="layui-input-inline">
-								<textarea placeholder="请输入运单号" id="billnum" lay-verify="required" class="layui-textarea" name="billsnumber" style="height: 48px;min-height: 62px;  "></textarea>
+								<textarea placeholder="请输入运单号" id="billsnumber" lay-verify="required" class="layui-textarea" name="billsnumber" style="height: 148px;min-height: 62px;  "></textarea>
 							</div>
 						</div>
 						<div class="layui-inline">
@@ -57,7 +57,7 @@
 									<option value="破损件">破损件</option>
 									<option value="遗失件">遗失件</option>
 									<option value="客户拒付款">客户拒付款</option>
-									<option value="客户拒收">客户拒收</option>s
+									<option value="客户拒收">客户拒收</option>
 								</select>
 							</div>
 						</div>
@@ -80,15 +80,12 @@
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
 			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 		</script>
-		
 		<script type="text/javascript" src="../../assets/libs/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="../../assets/libs/q.js"></script>
 		<script type="text/javascript" src="../../assets/libs/pandyle.min.js"></script>
 		<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
 		<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
 		<script type="text/javascript" src="../../module/dictManager.js"></script>
-		
-		
 		<!-- 表单弹窗 -->
 		<script type="text/html" id="role-model">
 			<form class="layui-form" action="" lay-filter="pop" id="pop">
@@ -241,6 +238,32 @@
 					doajax(data.field, null);
 					return false;
 				});
+				
+				$('#billsnumber').on('keydown',  function (event) {
+		            if (event.keyCode == 13) {
+		                var billsNumber = $(this).val();
+		                var items = billsNumber.trim().split('\n');
+		                if(items.length > 1){
+		                	var newNumbers = items[items.length - 1];
+		                	for(i = 0 ; i < items.length - 1 ; i++){
+			                	if(items[i] === newNumbers){
+			                		var subIntem = billsNumber.trim();
+			                		var len = subIntem.length - newNumbers.trim().length;
+			                		var rstText = billsNumber.substring(0, len);
+			                		rstText = rstText.trim();
+			                		if(rstText.endsWith("\r\n")){
+			                			rstText = rstText.substring(0, rstText.length -2 );
+			                		}
+			                		$(this).val(rstText);
+			                		$(this)[0].setSelectionRange(rstText.length, rstText.length);
+			                	}
+		                	}
+		                }else{
+		                	$(this).val(billsNumber.trim());
+		                }
+		            }
+		        });
+				
 				form.on('submit(mang)', function(data) {
 					var arr = new Array();         
 					if(method == 'put') {

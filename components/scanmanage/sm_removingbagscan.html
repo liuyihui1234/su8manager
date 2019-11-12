@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta charset="utf-8" />
@@ -25,11 +24,12 @@
 				<form class="layui-form" lay-filter="new" id="form-add">
 					<span>袋号:</span>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" name="baggingid" required lay-verify="required">
+						<input type="text" class="layui-input" name="code" required lay-verify="required">
 					</div>
 					<span>解袋员:</span>
 					<div class="layui-input-inline">
 						<input id="nameOne" type="text" class="layui-input" name="baggingname" required lay-verify="required">
+						<input type="hidden" name="baggingid" id = "nameIdOne"/>
 					</div>
 					<div class="layui-input-inline">
 						<a href="javascript:void(0)" onclick="select(1)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -45,9 +45,7 @@
 			</div>
 			<!-- 数据表格 -->
 			<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
-		
 		</div>
-		
 		<!-- 表单弹窗 -->
 		<script type="text/html" id="role-model">
 			<form class="layui-form" action="" lay-filter="manger" id="form-update">
@@ -68,6 +66,7 @@
 							<td>
 								<div class="layui-input-inline">
 									<input id="nameTwo" type="text" name="baggingname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<input type="hidden" name="baggingid" id = "nameIdTwo"/>
 								</div>
 								<div class="layui-input-inline">
 									<a href="javascript:void(0)" onclick="select(2)">点击选择</a>
@@ -153,7 +152,7 @@
 								fixed: "left"
 							},
 							{
-								field: 'baggingid',
+								field: 'code',
 								sort: true,
 								title: '袋号'
 							},
@@ -215,17 +214,16 @@
 					method = 'post';
 					console.log('提交前的数据是:' + JSON.stringify(data.field))
 					doajax(data.field, null);
-					document.getElementById("form-add").reset();
+//					document.getElementById("form-add").reset();
+					$('#nameOne').val('');
+					$('#nameIdOne').val('');
 					return false;
-		
 				});
-		
 				form.verify({
 					pass: [
 						/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
 					]
 				});
-		
 				//请求公用方法
 				function doajax(data, cont) {
 					admin.aj(uri, data, function(data) {
@@ -316,17 +314,18 @@
 				};
 		
 			});
-		
 			/*小页面*/
 			var index;
 			var data1;
 			var nameSelect;
-		
+			var nameIdSelect; 
 			function managerselect(number) {
 				if(number == 1) {
 					nameSelect = 'nameOne';
+					nameIdSelect = "nameIdOne";
 				} else {
 					nameSelect = 'nameTwo';
+					nameIdSelect = "nameIdTwo";
 				}
 				layui.use(['tree', 'util', 'transfer', 'layer', 'admin'], function() {
 					var admin = layui.admin;
@@ -406,6 +405,7 @@
 											return;
 										}
 										$('#' + nameSelect).val(getData[0].title);
+										$('#' + nameIdSelect).val(getData[0].number);
 										layer.close(index);
 										
 									}

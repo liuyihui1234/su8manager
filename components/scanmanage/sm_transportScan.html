@@ -26,7 +26,7 @@
 						<div class="layui-inline">
 							<label class="layui-form-label">运单编号:</label>
 							<div class="layui-input-inline">
-								<input type="text" name="billsnumber" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								<input type="text" name="billsnumber" id="billsnumber" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
 							</div>
 						</div>
 						<div class="layui-inline">
@@ -109,7 +109,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">转运单号:</label>
 						<div class="layui-input-inline">
-							<input type="text" name="nextnumber" id="nextnumber" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+							<input type="text" name="nextnumber"  required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
 						</div>
 					</div>
 					<div class="layui-inline">
@@ -266,7 +266,9 @@
 								return;
 							}
 							if(method == 'post') {
-								$('#top')[0].reset();
+//								$('#top')[0].reset();
+								$('#billsnumber').val('');
+								$('#nextnumber').val('');
 							}
 							table.reload('usermanger');
 							layer.closeAll('page');
@@ -279,7 +281,6 @@
 						}
 					}, method, cont);
 				}		
-				
 				// 工具条点击事件
 				table.on('tool(role-table)', function(obj) {
 					var data = obj.data;
@@ -327,18 +328,14 @@
 						doajax(JSON.stringify(obj), 1)
 					});
 				};
-				
 				form.on('select(nextcorpid)', function(data){   
 					var val=data.value;
 					$("#nextcorpname").val(data.elem[data.elem.selectedIndex].text);
 				});
-				
 				form.on('select(nextcorpupdate)',function(data){
 					$("#nextcorpnameupdate").val(data.elem[data.elem.selectedIndex].text);
 				});
-				
 			});
-			
 		</script>
 	</body>
 </html>

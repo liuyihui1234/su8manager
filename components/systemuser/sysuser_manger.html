@@ -505,10 +505,8 @@
 				};
 		
 			});
-			
 			var url;
 			var nameSelect;
-		
 			function select(parameter, nameSelect) {
 				$('#clickPositionNum').val(nameSelect);	
 				if(nameSelect == 1) {
@@ -525,7 +523,6 @@
 					var config = layui.config;
 					var table = layui.table;
 					//var index = layer.getFrameIndex(window.name); //获取窗口索引
-		
 					table.render({
 							elem: '#test',
 							url: config.server +   url,
@@ -565,9 +562,6 @@
 						});
 				});
 			}
-			
-			
-			
 			/*小页面*/
 			var index;
 			var data1;
@@ -612,19 +606,16 @@
 								}
 							]
 						}]
-						
 					data1 = null;
 					//基础效果
 					transfer.render({
 						elem: '#test1',
 						data: data1
-		
 					})
 					//基本演示
 					tree.render({
 						elem: '#test12',
 						data: data,
-		
 						click: function(obj) {
 							var data = obj.data; //获取当前点击的节点数据
 							uri = 'web/user/getByDepartName';
@@ -632,7 +623,6 @@
 							admin.aj(uri,data , function(json) {
 								console.log(json.data)
 								data1 = json.data
-		
 								transfer.render({
 									elem: '#test1',
 									data: data1,
@@ -652,13 +642,11 @@
 										}
 										$('#' + nameSelect).val(getData[0].title);
 										layer.close(index);
-										
 									}
 								})
 							}, 'post', 1);
 						}
 					});
-		
 				});
 			}
 		</script>

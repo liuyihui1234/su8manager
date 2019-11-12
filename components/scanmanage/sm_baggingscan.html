@@ -38,7 +38,7 @@
 					
 					<span>袋内运单号:</span>
 					<div class="layui-input-inline">
-		      			<textarea placeholder="请输入订单号" class="layui-textarea" name="numberlist"></textarea>
+		      			<textarea placeholder="请输入订单号" class="layui-textarea" name="numberlist" id="numberlist"></textarea>
 		    		</div>
 					<button class="layui-btn" lay-submit="" lay-filter="addnew">保存信息</button>
 				</form>
@@ -266,8 +266,10 @@
 								return;
 							}
 							if(method=='post'){
+								alert(data.data);
 								$("#bagNumber").val(data.data);
-								document.getElementById("form-add").reset();
+								$("#numberlist").val('');
+								//document.getElementById("form-add").reset();
 							}
 							table.reload('usermanger');
 							layer.closeAll('page');
@@ -293,6 +295,31 @@
 					});
 					managerselect(number);
 				}
+				
+				$('#numberlist').on('keydown',  function (event) {
+		            if (event.keyCode == 13) {
+		                var billsNumber = $(this).val();
+		                var items = billsNumber.trim().split('\n');
+		                if(items.length > 1){
+		                	var newNumbers = items[items.length - 1];
+		                	for(i = 0 ; i < items.length - 1 ; i++){
+			                	if(items[i] === newNumbers){
+			                		var subIntem = billsNumber.trim();
+			                		var len = subIntem.length - newNumbers.trim().length;
+			                		var rstText = billsNumber.substring(0, len);
+			                		rstText = rstText.trim();
+			                		if(rstText.endsWith("\r\n")){
+			                			rstText = rstText.substring(0, rstText.length -2 );
+			                		}
+			                		$(this).val(rstText);
+			                		$(this)[0].setSelectionRange(rstText.length, rstText.length);
+			                	}
+		                	}
+		                }else{
+		                	$(this).val(billsNumber.trim());
+		                }
+		            }
+		        });
 		
 				// 工具条点击事件
 				table.on('tool(role-table)', function(obj) {

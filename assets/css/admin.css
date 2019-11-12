@@ -524,3 +524,6 @@ html {
     font-size: 30px;
     color: #c2c2c2
 }
+
+.layui-layout-body{overflow-y: auto !important;}
+.layui-body {overflow-y: hidden !important;}

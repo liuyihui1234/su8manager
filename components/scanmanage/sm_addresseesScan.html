@@ -25,7 +25,8 @@
 				<form class="layui-form" lay-filter="new" id="form-add">
 					<span>运单编号:</span>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" name="number" required lay-verify="required">
+						<textarea  class="layui-textarea"  name="number" id= "number" required lay-verify="required" style="overflow-y:auto;overflow-x:hidden;height: 140px;width: 240px;">
+						</textarea>
 					</div>
 					<span>取件员:</span>
 					<div class="layui-input-inline">
@@ -52,9 +53,6 @@
 			</div>
 			<div class="layui-card-body">
 				<div class="layui-form toolbar">
-					<!--
-					<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
-					-->
 					<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
 				</div>
 			</div>
@@ -74,7 +72,7 @@
 							</td>
 							<td>
 								<div class="layui-input-inline">
-									<input type="text" name="number" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<input type="text" name="number" id="number" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 								</div>
 							</td>
 							<td>
@@ -260,6 +258,31 @@
 					}
 					doDelete(arr);
 				});
+				
+				$('#number').on('keydown',  function (event) {
+		            if (event.keyCode == 13) {
+		                var billsNumber = $(this).val();
+		                var items = billsNumber.trim().split('\n');
+		                if(items.length > 1){
+		                	var newNumbers = items[items.length - 1];
+		                	for(i = 0 ; i < items.length - 1 ; i++){
+			                	if(items[i] === newNumbers){
+			                		var subIntem = billsNumber.trim();
+			                		var len = subIntem.length - newNumbers.trim().length;
+			                		var rstText = billsNumber.substring(0, len);
+			                		rstText = rstText.trim();
+			                		if(rstText.endsWith("\r\n")){
+			                			rstText = rstText.substring(0, rstText.length -2 );
+			                		}
+			                		$(this).val(rstText);
+			                		$(this)[0].setSelectionRange(rstText.length, rstText.length);
+			                	}
+		                	}
+		                }else{
+		                	$(this).val(billsNumber.trim());
+		                }
+		            }
+		        });
 		
 				form.on('submit(mang)', function(data) {
 					if(method == 'put') {
@@ -275,21 +298,17 @@
 					console.log('提交前的数据是:' + JSON.stringify(data.field))
 					rst =  JSON.stringify(data.field);
 					doajax(data.field, null);
-					
 					return false;
 				});
-		
 				form.verify({
 					pass: [
 						/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
 					]
 				});
-		
 				//请求公用方法
 				function doajax(data, cont) {
 					admin.aj(uri, data, function(data) {
 						//layer.closeAll('loading');
-						console.log(data)
 						if(data.code == 1) {
 							layer.msg(data.msg, {
 								icon: 1,
@@ -304,7 +323,8 @@
 								});
 								return;
 							}else if(method == 'post'){
-								document.getElementById("form-add").reset();
+//								document.getElementById("form-add").reset();
+								$("#number").val("");
 							}
 							table.reload('usermanger');
 							layer.closeAll('page');
@@ -387,14 +407,14 @@
 						doajax(JSON.stringify(obj), 1)
 					});
 				};
-			});
+				//输入订单的时候，最后一位是回车换行的时候
 			
+			});
 			/*小页面*/
 			var index;
 			var data1;
 			var nameSelect;
 			var nameIdSelect;
-		
 			function managerselect(number) {
 				if(number == 1) {
 		 			nameSelect = 'nameOne';
@@ -418,7 +438,6 @@
 							spread: true,
 							children: [{
 									title: '行政部'
-		
 								},
 								{
 									title: '仓储部'
@@ -438,7 +457,6 @@
 								},
 								{
 									title: '运输部'
-		
 								}
 							]
 						}]
@@ -453,7 +471,6 @@
 					tree.render({
 						elem: '#test12',
 						data: data,
-		
 						click: function(obj) {
 							var data = obj.data; //获取当前点击的节点数据
 							uri = 'web/user/getByDepartName';

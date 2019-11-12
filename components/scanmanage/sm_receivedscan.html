@@ -23,9 +23,10 @@
 			</div>
 			<div class="layui-row">
 				<form  id="form-add" class="layui-form layui-col-md12 x-so" lay-filter="new" id="form-update">
-					<span>运单编号:</span>
+					<span>袋编号:</span>
 					<div class="layui-input-inline">
-						<textarea placeholder="请输入订单号" class="layui-textarea" name="billsnumber"></textarea>
+						<input placeholder="请输入袋编号" class="layui-input" name="bagNumber" id="bagNumber"></input>
+						&nbsp;&nbsp;
 					</div>
 					<span>&nbsp;&nbsp;&nbsp;&nbsp;班 次:</span>
 					<div class="layui-input-inline">
@@ -68,7 +69,6 @@
 			<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
 		
 		</div>
-		
 		<!-- 表单弹窗 -->
 		<script type="text/html" id="role-model">
 			<form class="layui-form" action="" lay-filter="manger" id="form-update">
@@ -208,7 +208,7 @@
 				var admin = layui.admin;
 				var id = 0;
 				var method = 'get';
-				var uri = 'web/Receivedscan/Receivedscan';
+				var uri = 'web/receivedbagscan/Receivedscan';
 				//渲染表格
 				table.render({
 					elem: '#usermanger',
@@ -227,7 +227,7 @@
 					limit: 15,
 					page: true,
 					cols: [
-						[{
+						[ {
 								type: "checkbox",
 								width: 50,
 								fixed: "left"
@@ -286,6 +286,31 @@
 					}
 					doDelete(arr);
 				});
+				
+				$('#billsnumber').on('keydown',  function (event) {
+		            if (event.keyCode == 13) {
+		                var billsNumber = $(this).val();
+		                var items = billsNumber.trim().split('\n');
+		                if(items.length > 1){
+		                	var newNumbers = items[items.length - 1];
+		                	for(i = 0 ; i < items.length - 1 ; i++){
+			                	if(items[i] === newNumbers){
+			                		var subIntem = billsNumber.trim();
+			                		var len = subIntem.length - newNumbers.trim().length;
+			                		var rstText = billsNumber.substring(0, len);
+			                		rstText = rstText.trim();
+			                		if(rstText.endsWith("\r\n")){
+			                			rstText = rstText.substring(0, rstText.length -2 );
+			                		}
+			                		$(this).val(rstText);
+			                		$(this)[0].setSelectionRange(rstText.length, rstText.length);
+			                	}
+		                	}
+		                }else{
+		                	$(this).val(billsNumber.trim());
+		                }
+		            }
+		        });
 		
 				form.on('submit(mang)', function(data) {
 					if(method == 'put') {
@@ -301,6 +326,7 @@
 					console.log('提交前的数据是:' + JSON.stringify(data.field))
 					doajax(data.field, null);
 					//document.getElementById("form-add").reset();
+					$('#billsnumber').val('');
 					return false;
 				});
 		

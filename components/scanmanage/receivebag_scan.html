@@ -9,88 +9,54 @@
 		<link rel="stylesheet" href="../../assets/libs/layui/css/layui.css" />
 		<link rel="stylesheet" href="../../assets/css/admin.css" />
 		<link rel="stylesheet" href="../../module/formSelects/formSelects-v4.css" />
+		<!--<link rel="stylesheet" href="assets/css/theme-blue.css"/>-->
+		<!-- 自定义主题，使用EasyWeb主题生成器生成 -->
 	</head>
-	<body class="layui-layout-body">	
+	<body class="layui-layout-body">
 		<div class="layui-card">
 			<div class="layui-card-header">
-				<h2 class="header-title">发件扫描</h2>
+				<h2 class="header-title">到件扫描</h2>
 				<span class="layui-breadcrumb pull-right">
 		          <a href="#!console">首页</a>
-		          <a><cite>发件扫描</cite></a>
+		          <a><cite>到件扫描</cite></a>
 		        </span>
 			</div>
 			<div class="layui-row">
-				<form id="form-add" class="layui-form layui-col-md12 x-so" lay-filter="new" id="form-add">
-					<table>
-						<tr>
-							<td>
-								<span>运单编号:</span>
-								<div class="layui-input-inline">
-									<textarea placeholder="请输入订单号" class="layui-textarea" name="billsnumber" id="billsnumber" lay-filter="billsnumber"></textarea>
-									&nbsp;&nbsp;
-								</div>
-							</td>
-							<td>
-								<span>&nbsp;&nbsp;&nbsp;&nbsp;目的地1:</span>
-								<div class="layui-input-inline">
-									<input id="nameOne" type="text" class="layui-input" name="nextstopname" required lay-verify="required">
-									&nbsp;&nbsp;
-								</div>
-								<input type="hidden" id = "nameIdOne" name = 'nextstop'/>
-								<a href="javascript:void(0)" onclick="openSelect(1)">点击选择</a>
-							</td>
-							<td>
-								<span>&nbsp;&nbsp;&nbsp;&nbsp;目的地2:</span>
-								<div class="layui-input-inline">
-									<input id="nameTwo" type="text" class="layui-input" name="nextstopname1" required lay-verify="required">
-									&nbsp;&nbsp;
-								</div>
-								<input type="hidden" id = "nameIdTwo" name = 'nextstop1'/>
-								<a href="javascript:void(0)" onclick="openSelect(2)">点击选择</a>
-		
-							</td>
-							<td>
-								<span>&nbsp;&nbsp; 班次:</span>
-								<div class="layui-input-inline">
-									<select name="flightsnumber" id="flightsnumber">
-									
-									</select>
-									&nbsp;&nbsp;
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<br>
-							<td>
-								<span>物品类型:</span>
-								<div class="layui-input-inline">
-									<select name="goodstype" id="goodstype">
-									</select>
-								</div>
-							</td>
-							<td>
-								<span>&nbsp;&nbsp;快件类型:</span>
-								<div class="layui-input-inline">
-									<select name="expresstype" id="expresstype">
-									
-									</select>
-								</div>
-							</td>
-							<td>
-								<span>&nbsp;&nbsp;运输方式:</span>
-								<div class="layui-input-inline">
-									<select name="tranname" id="tranname">
-										
-									</select>
-								</div>
-							</td>
-							<td>
-								<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								<button class="layui-btn" lay-submit="" lay-filter="addnew">保存信息</button>
-							</td>
-						</tr>
+				<form  id="form-add" class="layui-form layui-col-md12 x-so" lay-filter="new" id="form-update">
+					<span>运单编号:</span>
+					<div class="layui-input-inline">
+						<textarea placeholder="请输入订单号" class="layui-textarea" name="billsnumber" id="billsnumber"></textarea>
+					</div>
+					<span>&nbsp;&nbsp;&nbsp;&nbsp;班 次:</span>
+					<div class="layui-input-inline">
+						<select name="flightsnumber" id="flightsnumber">
+						</select>
+					</div>
+					<span>运输方式:</span>
+					<div class="layui-input-inline">
+						<select name="tranname" id="tranname">
+						</select>
+					</div><br /><br />
+					<span>上一站:</span>
+					<div class="layui-input-inline">
+						<input id="nameOne" type="text" class="layui-input" name="laststopname" required lay-verify="required">
+					</div>
+					<input type= "hidden" name="laststop" id="nameIdOne"/>
+					<div class="layui-input-inline">
+						<a href="javascript:void(0)" onclick="openSelect(1)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					</div>
+					<span>快件类型:</span>
+					<div class="layui-input-inline">
+						<select name="expresstype" id="expresstype">
+						</select>
+					</div>
+					<span>物品类型:</span>
+					<div class="layui-input-inline">
+						<select name="goodstype" id="goodstype">
+						</select>
+					</div>
+					<button class="layui-btn" lay-submit="" lay-filter="addnew">保存信息</button>
 				</form>
-				</table>
 			</div>
 			<div class="layui-card-body">
 				<div class="layui-form toolbar">
@@ -100,7 +66,9 @@
 			</div>
 			<!-- 数据表格 -->
 			<table class="layui-table" id="usermanger" lay-filter="role-table"></table>
+		
 		</div>
+		
 		<!-- 表单弹窗 -->
 		<script type="text/html" id="role-model">
 			<form class="layui-form" action="" lay-filter="manger" id="form-update">
@@ -112,32 +80,8 @@
 							</td>
 							<td>
 								<div class="layui-input-inline">
-									<input type="text" name="billsnumber" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<input type="text" name="billsnumber" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 								</div>
-							</td>
-							<td>
-								<label  for="username" class="layui-form-label">目的地一：</label>
-							</td>
-							<td>
-								<div class="layui-input-inline">
-									<input id="nameThree"  type="text" name="nextstopname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-								</div>
-								<input type="hidden"  id= "nameIdThree" name = "nextstop" />
-								<a href="javascript:void(0)" onclick="openSelect(3)">点击选择</a>
-							</td>
-						</div>
-					</tr>
-					<tr>
-						<div class="layui-form-item">
-							<td>
-								<label for="username" class="layui-form-label">目的地二：</label>
-							</td>
-							<td>
-								<div class="layui-input-inline">
-									<input id="nameFour"  type="text" name="nextstopname1" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-								</div>
-								<input type="hidden"  id= "nameIdFour" name = "nextstop1" />
-								<a href="javascript:void(0)" onclick="openSelect(4)">点击选择</a>
 							</td>
 							<td>
 								<label for="username" class="layui-form-label">物品类型：</label>
@@ -154,45 +98,71 @@
 						</div>
 					</tr>
 					<tr>
-						<td>
-							<label for="username" class="layui-form-label">快件类型：</label>
-						</td>
-						<td>
-							<div class="layui-form-item">
-								<div class="layui-input-inline">
-									<select name="expresstype" id="expresstype1">
-									</select>
-								</div>
-							</div>
-						</td>
-						<td>
-							<label for="username" class="layui-form-label">班次：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline">
-								<select name="flightsnumber" id="flightsnumber1">
-								</select>
-							</div>
-						</td>
+						<div class="layui-form-item">
 		
+							<td>
+								<label for="username" class="layui-form-label">班次：</label>
+							</td>
+							<td>
+								<div class="layui-form-item">
+									<div class="layui-input-inline">
+										<select name="flight" id="flight1">
+											
+										</select>
+									</div>
+								</div>
+							</td>
+							<td>
+								<label class="layui-form-label">上一站：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input id="nameTwo" type="text" name="laststopname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+								<input type= "hidden" name="laststop" id="nameIdTwo"/>
+								<div class="layui-input-inline">
+									<a href="javascript:void(0)" onclick="openSelect(2)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								</div>
+							</td>
+						</div>
 					</tr>
+		
 					<tr>
-						<td>
-							<label for="username" class="layui-form-label">运输方式：</label>
-						</td>
-						<td>
-							<div class="layui-input-inline">
-								<select name="tranname" id="tranname1">
-								</select>
-							</div>
-						</td>
+						<div class="layui-form-item">
+		
+							<td>
+								<label for="username" class="layui-form-label">快递类型：</label>
+							</td>
+							<td>
+								<div class="layui-form-item">
+									<div class="layui-input-inline">
+										<select name="expresstype" id="expresstype1">
+										</select>
+									</div>
+								</div>
+							</td>
+							<td>
+								<label for="username" class="layui-form-label">运输方式：</label>
+							</td>
+							<td>
+								<div class="layui-form-item">
+									<div class="layui-input-inline">
+										<select name="tranname" id="tranname1">
+											
+										</select>
+									</div>
+								</div>
+							</td>
+						</div>
 					</tr>
+		
+					<input type="hidden" name="id" />
 					<tr>
 						<td colspan="5">
 							<div class="layui-input-block">
 								<center>
 									<!--<button class="layui-btn">保存信息</button>-->
-									<button class="layui-btn" lay-submit="" lay-filter="mang">保存信息</button>
+									<button id="" class="layui-btn" lay-submit="" lay-filter="mang">保存信息</button>
 								</center>
 							</div>
 						</td>
@@ -205,6 +175,17 @@
 			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">点我选择</a>
 		</script>
 		
+		<script type="text/html" id="role-model-branchSelect">
+		
+			<div class="layui-input-inline">
+				<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
+			</div>
+			<div class="layui-input-inline">
+				<button class="layui-btn" onclick="select($('#add').val())">查找</button>
+			</div>
+			<table class="layui-hide" id="test" lay-filter="test"></table>
+		</script>
+		
 		<script type="text/html" id="role-table-bar">
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
 			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -215,20 +196,7 @@
 		<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
 		<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
 		<script type="text/javascript" src="../../module/dictManager.js"></script>
-		
-		<script type="text/html" id="role-model-branchSelect">
-			<div class="layui-input-inline">
-				<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
-			</div>
-			<div class="layui-input-inline">
-				<button class="layui-btn" onclick="select($('#add').val(), $('#clickPositionNum').val())">查找</button>
-			</div>
-			<input type = "hidden" id = "clickPositionNum"/>
-			<table class="layui-hide" id="test" lay-filter="test"></table>
-		</script>
-		
 		<script>
-			var index;
 			layui.config({
 						base: '../../module/'
 					}).use(['form', 'table', 'util', 'config', 'admin', 'tree', 'transfer', 'layer'], function() {
@@ -240,8 +208,7 @@
 				var admin = layui.admin;
 				var id = 0;
 				var method = 'get';
-				var uri = 'web/sentScan/scan';
-				
+				var uri = 'web/Receivedscan/Receivedscan';
 				//渲染表格
 				table.render({
 					elem: '#usermanger',
@@ -270,35 +237,31 @@
 								sort: true,
 								title: '运单编号'
 							},
-							{
-								field: 'createtime',
-								sort: true,
-								title: '扫描时间'
-							},
-							{
-								field: 'incname',
-								sort: true,
-								title: '扫描网点'
-							},
-							{
-								field: 'scanners',
-								sort: true,
-								title: '扫描人员'
-							},
+		
 							{
 								field: 'flightsnumber',
 								sort: true,
 								title: '班次'
 							},
 							{
-								field: 'nextstopname',
+								field: 'tranname',
 								sort: true,
-								title: '下一班'
+								title: '运输方式'
+							},
+							{
+								field: 'laststopname',
+								sort: true,
+								title: '上一站'
+							},
+							{
+								field: 'expresstype',
+								sort: true,
+								title: '快件类型'
 							},
 							{
 								field: 'goodstype',
 								sort: true,
-								title: '物品类别'
+								title: '物品类型'
 							},
 							{
 								align: 'center',
@@ -308,14 +271,6 @@
 						]
 					]
 				});
-				
-				$(function() {// 初始化内容
-					initDictShowName(admin.aj, "web/Detype/getAllRecord", "expresstype", -1);	
-					initDictShowName(admin.aj, "web/transport/getAllTransportmode", "tranname", -1);	
-					initDictShowName(admin.aj, "web/Shift/getAllShift", "flightsnumber", -1);
-					initDictShowName(admin.aj, "web/Goods/Goods", "goodstype", -1);
-			    }); 
-		
 				// 添加按钮点击事件
 				$('#role-btn-add').click(function() {
 					showEditModel();
@@ -331,6 +286,7 @@
 					}
 					doDelete(arr);
 				});
+				
 				$('#billsnumber').on('keydown',  function (event) {
 		            if (event.keyCode == 13) {
 		                var billsNumber = $(this).val();
@@ -355,21 +311,22 @@
 		                }
 		            }
 		        });
-		        
+		
 				form.on('submit(mang)', function(data) {
 					if(method == 'put') {
 						data.field.id = id;
 					}
 					console.log('提交前的数据是:' + JSON.stringify(data.field))
 					doajax(data.field, null);
+		
 					return false;
 				});
 				form.on('submit(addnew)', function(data) {
 					method = 'post';
 					console.log('提交前的数据是:' + JSON.stringify(data.field))
 					doajax(data.field, null);
+					//document.getElementById("form-add").reset();
 					$('#billsnumber').val('');
-//					document.getElementById("form-add").reset();
 					return false;
 				});
 		
@@ -401,6 +358,20 @@
 					}, method, cont);
 				}
 		
+				window.openSelect=function openSelect(number){
+			 		index=layer.open({
+						type: 1,
+						title: "选择",
+						shadeClose: true,
+						shade: false,
+						offset: 'auto',
+						maxmin: true, //开启最大化最小化按钮
+						area: [700, '800px'],
+						content: $('#role-model-branchSelect').html()				
+				});
+				select(null,number);	
+			}
+		
 				// 工具条点击事件
 				table.on('tool(role-table)', function(obj) {
 					var data = obj.data;
@@ -428,13 +399,17 @@
 						content: $('#role-model').html(),
 						success: function() {
 							if(data) {
+								console.log(data);
 								form.val('manger', data);
 								initDictShowName(admin.aj, "web/Detype/getAllRecord", "expresstype1", data.expresstype);	
 								initDictShowName(admin.aj, "web/transport/getAllTransportmode", "tranname1", data.tranname);	
-								initDictShowName(admin.aj, "web/Shift/getAllShift", "flightsnumber1", data.flightsnumber);	
+								initDictShowName(admin.aj, "web/Shift/getAllShift", "flight1", data.flightsnumber);	
 								initDictShowName(admin.aj, "web/Goods/Goods", "goodstype1", data.goodstype);
+							}else{
+								form.val('manger', null);
+								
 							}
-							form.val('manger', null);
+							
 							$('#role-form .close').click(function() {
 								layer.closeAll('page');
 							});
@@ -449,88 +424,77 @@
 						doajax(JSON.stringify(obj), 1)
 					});
 				};
-				window.openSelect=function openSelect(number){
-			 		index=layer.open({
-						type: 1,
-						title: "选择",
-						shadeClose: true,
-						shade: false,
-						offset: 'auto',
-						maxmin: true, //开启最大化最小化按钮
-						area: [700, '800px'],
-						content: $('#role-model-branchSelect').html()				
-				});
-				select(null,number);	
-			}
+				
+				$(function() {// 初始化内容
+					initDictShowName(admin.aj, "web/Detype/getAllRecord", "expresstype", -1);	
+					initDictShowName(admin.aj, "web/transport/getAllTransportmode", "tranname", -1);	
+					initDictShowName(admin.aj, "web/Shift/getAllShift", "flightsnumber", -1);
+					initDictShowName(admin.aj, "web/Goods/Goods", "goodstype", -1);
+			    }); 
 			});
 			
 			var url;
-			var nameSelect;
-			var nameIdSelect;
-			function select(parameter,nameSelect) {
-				$('#clickPositionNum').val(nameSelect);		
-				if(nameSelect==1){
-					nameSelect='nameOne';
-					nameIdSelect = "nameIdOne";
-				}else if(nameSelect==2){
-					nameSelect='nameTwo';
-					nameIdSelect = 'nameIdTwo';
-				}else if(nameSelect==3){
-					nameSelect='nameThree';
-					nameIdSelect = 'nameIdThree';
-				}else{
-					nameSelect='nameFour';
-					nameIdSelect = 'nameIdFour';
+				var nameSelect;
+				var nameIdSelect;
+				function select(parameter, nameSelect) {
+					if(nameSelect == 1) {
+						nameSelect = 'nameOne';
+						nameIdSelect = "nameIdOne";
+					} else if(nameSelect == 2) {
+						nameSelect = 'nameTwo';
+						nameIdSelect = "nameIdTwo";
+					} 
+					if(parameter == null) {
+						url = 'web/incment/incment'
+					} else {
+						url = 'web/incment/incment?info1=' + parameter
+					}
+					layui.use(['table', 'config'], function() {
+						var config = layui.config;
+						var table = layui.table;
+						//var index = layer.getFrameIndex(window.name); //获取窗口索引
+						table.render({
+								elem: '#test',
+								url: config.server  + url,
+								response: {
+									statusName: 'code',
+									statusCode: 1,
+									msgName: 'msg',
+									//countName: 'totalpage',
+									dataName: 'data'
+								},
+								headers: {
+									Authorization: config.getToken().access_token
+								},
+								limits: [10],
+								limit: 15,
+								page: true,
+								cols: [
+									[{
+										//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
+										title: '',
+										toolbar: '#role-table-select',
+									}, {
+										field: 'number',
+										title: '网点编号'
+									}, {
+										field: 'name',
+										title: '网点名称'
+									}]
+								]
+			
+							}),
+							table.on('tool(test)', function(obj) {
+								var data = obj.data;
+								if(obj.event === 'edit') {
+									$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
+									$('#' + nameIdSelect).val(eval(JSON.stringify(data.number)));
+									layer.close(index);
+								}
+			
+							});
+					});
 				}
-				if(parameter == null) {
-					url = 'web/incment/incment'
-				} else {
-					url = 'web/incment/incment?info1=' + parameter
-				}
-				layui.use(['table','config'],function() {
-					var config = layui.config;
-					var table = layui.table;
-					//var index = layer.getFrameIndex(window.name); //获取窗口索引
-					table.render({
-							elem: '#test',
-							url: config.server  + url,
-							response: {
-								statusName: 'code',
-								statusCode: 1,
-								msgName: 'msg',
-								//countName: 'totalpage',
-								dataName: 'data'
-							},
-							headers: {
-							Authorization: config.getToken().access_token
-							},
-							limits: [10],
-							limit: 15,
-							page: true,
-							cols: [
-								[{
-									//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
-									title: '',
-									toolbar: '#role-table-select',
-								}, {
-									field: 'number',
-									title: '网点编号'
-								}, {
-									field: 'name',
-									title: '网点名称'
-								}]
-							]
-						}),
-						table.on('tool(test)', function(obj) {
-							var data = obj.data;
-							if(obj.event === 'edit') {
-								$('#'+nameSelect).val(eval(JSON.stringify(data.name)));
-								$('#' + nameIdSelect ).val(eval(JSON.stringify(data.number)));
-								layer.close(index);
-							}
-						});
-				});
-			}
 		</script>
 	</body>
 </html>

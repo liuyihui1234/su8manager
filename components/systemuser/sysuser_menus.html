@@ -58,7 +58,7 @@
 							</td>
 							<td>
 								<div class="layui-input-inline">
-									<select name="parentid" lay-filter="depart" id="parentid">
+									<select name="parentid" lay-filter="parentid" id="parentid">
 										<option value="18">单证录入</option>
 										<option value="19">扫描管理</option>
 										<option value="52">发放管理</option>
@@ -83,8 +83,8 @@
 							</td>
 							<td>
 								<div class="layui-input-inline">
-									<input type="radio" value="是" name="leaf" title="是"  class="layui-input" style="width: 400px;height: 38px;">
-									<input type="radio" value="否" name="leaf" title="否"  class="layui-input" style="width: 400px;height: 38px;">
+									<input type="radio" value="是" name="leaf" title="是" id="isleaves" class="layui-input" style="width: 400px;height: 38px;">
+									<input type="radio" value="否" name="leaf" title="否" id="notleaves"  class="layui-input" style="width: 400px;height: 38px;" checked="true">
 								</div>
 							</td>
 							<td>
@@ -286,7 +286,6 @@
 		        $('#btn-refresh').click(function () {
 		            renderTable();
 		        })
-		        
 				//请求公用方法
 				function doajax(data, cont) {
 					admin.aj(uri, data, function(data) {
@@ -308,7 +307,6 @@
 						}
 					}, method, cont);
 				}
-		
 				// 工具条点击事件
 				table.on('tool(role-table)', function(obj) {
 					var data = obj.data;
@@ -359,7 +357,17 @@
 						doajax(JSON.stringify(obj), 1)
 					});
 				};
-		
+				form.on('select(parentid)', function(data){
+					if(data.value === '-1'){
+						$("#notleaves").prop("checked",'true');
+						$("#isleaves").removeAttr("checked");
+						form.render('radio');
+					}else{
+						$("#isleaves").prop("checked",'true');
+						$("#notleaves").removeAttr("checked");
+						form.render('radio');
+					}
+				});
 			});
 		</script>
 	</body>

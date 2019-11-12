@@ -26,13 +26,13 @@
 						<div class="layui-inline">
 							<label class="layui-form-label">运单编号:</label>
 							<div class="layui-input-inline">
-								<input type="text" name="billsnumber" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 200px;height: 38px;">
+								<textarea placeholder="请输入订单号" name="billsnumber" id="billsnumber" required lay-verify="required" autocomplete="off" class="layui-textarea"></textarea>
 							</div>
 						</div>
 						<div class="layui-inline">
 							<label class="layui-form-label">班次:</label>
 							<div class="layui-input-inline">
-								<select name="flightsnumber" lay-filter="depart">
+								<select name="flightsnumber" lay-filter="flightsnumber">
 									<option value="第一班">第一班</option>
 									<option value="第二班">第二班</option>
 									<option value="第三班">第三班</option>
@@ -218,6 +218,31 @@
 					}
 					doDelete(arr);
 				});
+				
+				$('#billsnumber').on('keydown',  function (event) {
+		            if (event.keyCode == 13) {
+		                var billsNumber = $(this).val();
+		                var items = billsNumber.trim().split('\n');
+		                if(items.length > 1){
+		                	var newNumbers = items[items.length - 1];
+		                	for(i = 0 ; i < items.length - 1 ; i++){
+			                	if(items[i] === newNumbers){
+			                		var subIntem = billsNumber.trim();
+			                		var len = subIntem.length - newNumbers.trim().length;
+			                		var rstText = billsNumber.substring(0, len);
+			                		rstText = rstText.trim();
+			                		if(rstText.endsWith("\r\n")){
+			                			rstText = rstText.substring(0, rstText.length -2 );
+			                		}
+			                		$(this).val(rstText);
+			                		$(this)[0].setSelectionRange(rstText.length, rstText.length);
+			                	}
+		                	}
+		                }else{
+		                	$(this).val(billsNumber.trim());
+		                }
+		            }
+		        });
 		
 				form.on('submit(top)', function(data) {
 					method = 'post';
@@ -260,7 +285,7 @@
 								return;
 							}
 							if(method == 'post') {
-								$('#top')[0].reset();
+								$('#billsnumber').val("");
 							}
 							table.reload('usermanger');
 							layer.closeAll('page');
