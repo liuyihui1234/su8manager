@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
@@ -12,7 +11,6 @@
 		<script type="text/javascript" src="../../assets/libs/layui/layui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
 	</head>
-
 	<body>
 		<div class="x-body">
 			<form class="layui-form" lay-filter="incment" action="">
@@ -27,6 +25,7 @@
 									<input id="myView" type="text" name="name" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 								</div>
 							</td>
+							<!-- 
 							<td>
 								<label for="username" class="layui-form-label">公司编码：</label>
 							</td>
@@ -35,10 +34,7 @@
 									<input type="text" name="number" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 								</div>
 							</td>
-						</div>
-					</tr>
-					<tr>
-						<div class="layui-form-item">
+							-->
 							<td>
 								<label class="layui-form-label">助记简称：</label>
 							</td>
@@ -47,6 +43,12 @@
 									<input type="text" name="mnemonic" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 								</div>
 							</td>
+						</div>
+					</tr>
+					<!-- 
+					<tr>
+						<div class="layui-form-item">
+							
 							<td>
 								<label class="layui-form-label">本币币别：</label>
 							</td>
@@ -60,7 +62,7 @@
 							</td>
 						</div>
 					</tr>
-
+					-->
 					<tr>
 						<div class="layui-form-item">
 							<td>
@@ -72,19 +74,6 @@
 								</div>
 							</td>
 							<td>
-								<label for="username" class="layui-form-label">负责人：</label>
-							</td>
-							<td>
-								<div class="layui-input-inline">
-									<input type="text" value="00000000" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-								</div>
-							</td>
-						</div>
-					</tr>
-
-					<tr>
-						<div class="layui-form-item">
-							<td>
 								<label class="layui-form-label">手机：</label>
 							</td>
 							<td>
@@ -92,12 +81,28 @@
 									<input type="text" name="mobile" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 								</div>
 							</td>
+							<!--
+							<td>
+								<label for="username" class="layui-form-label">负责人：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" value="" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<a href="javascript:void(0)" onclick="openUserSelect(1)">选择&nbsp;&nbsp;</a>
+									<input type="hidden" id="" name=""></input>								
+								</div>
+							</td>
+							-->
+						</div>
+					</tr>
+					<tr>
+						<div class="layui-form-item">
 							<td>
 								<label class="layui-form-label">所属大区：</label>
 							</td>
 							<td>
 								<div class="layui-input-inline">
-									<select name="lagearea" lay-filter="depart" id="lagearea">
+									<select name="lagearea" lay-filter="lagearea" id="lagearea">
 										<option value="华东地区">华东地区</option>
 										<option value="华中地区">华中地区</option>
 										<option value="华南地区">华南地区</option>
@@ -107,37 +112,53 @@
 										<option value="东北地区">东北地区</option>
 									</select>
 								</div>
+								<input type="hidden" name="regional" id="regional"/>
 							</td>
+							<!--
+							<td>
+								<label class="layui-form-label">默认发件地:</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" value="河南郑州" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							-->
 						</div>
 					</tr>
-
 					<tr>
 						<td colspan="4">
 							<div class="layui-row">
 								<div class="layui-form-item" id="x-city">
 									<label class="layui-form-label">所属省份：</label>
 									<div class="layui-input-inline">
-										<select name="province" id="check" lay-filter="province">
+										<select name="province" id="province" lay-filter="province">
 											<option value="0">请选择省</option>
 										</select>
 									</div>
 									<div class="layui-input-inline">
-										<select name="city" lay-filter="city">
+										<select name="city" id="city" lay-filter="city">
 											<option class="check" value="">请选择市</option>
 										</select>
 									</div>
 									<div class="layui-input-inline">
-										<select name="area" lay-filter="area">
+										<select name="area" id='area' lay-filter="area">
 											<option class="check" value="">请选择县/区</option>
+										</select>
+									</div>
+									<div class="layui-input-inline">
+										<select name="areastreet" id='areastreet' lay-filter="areastreet">
+											<option class="check" value="">请选择街道</option>
 										</select>
 									</div>
 								</div>
 							</div>
 						</td>
 					</tr>
-
+<!--
 					<tr>
 						<div class="layui-form-item">
+							
 							<td>
 								<label class="layui-form-label">类型：</label>
 							</td>
@@ -149,16 +170,11 @@
 									</select>
 								</div>
 							</td>
-							<td>
-								<label class="layui-form-label">默认发件地:</label>
-							</td>
-							<td>
-								<div class="layui-input-inline">
-									<input type="text" value="河南郑州" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-								</div>
-							</td>
+							 
+							
 						</div>
 					</tr>
+					-->
 					<tr>
 						<div class="layui-form-item">
 							<td>
@@ -166,7 +182,11 @@
 							</td>
 							<td>
 								<div class="layui-input-inline">
-									<input type="text" name="parentname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<input type="text" name="parentname" id ="parentname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<label class="layui-form-label">
+											<a href="javascript:void(0)" onclick="openSelect(1)">选择&nbsp;&nbsp;</a>
+									</label>
+									<input type="hidden" name="parentid" id="parentid"> </input>
 								</div>
 							</td>
 							<td>
@@ -174,12 +194,16 @@
 							</td>
 							<td>
 								<div class="layui-input-inline">
-									<input type="text" name="financecenter" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<input type="text" name="financecentername" id ="financecentername" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<label class="layui-form-label">
+											<a href="javascript:void(0)" onclick="openSelect(2)">选择&nbsp;&nbsp;</a>
+									</label>
+									<input type="hidden" name="financecenter" id="financecenter"></input>
 								</div>
 							</td>
 						</div>
 					</tr>
-
+<!-- 
 					<tr>
 						<div class="layui-form-item">
 							<td>
@@ -222,7 +246,7 @@
 							</td>
 						</div>
 					</tr>
-
+-->
 					<div class="layui-form-item">
 						<td>
 							<label class="layui-form-label">财务中心：</label>
@@ -281,6 +305,36 @@
 					</tr>
 				</table>
 			</form>
+			<script type="text/html" id="role-select">
+				<div class="layui-input-inline">
+					<div id="test12" class="demo-tree-more"></div>
+				</div>
+				<div class="layui-input-inline">
+					<div id="test1" class="demo-transfer"></div>
+				</div>
+				<div class="layui-input-inline">
+					<button type="button" class="layui-btn" lay-demotransferactive="getData">保存</button>
+				</div>
+			</script>
+			
+			<script type="text/html" id="role-model-branchSelect">
+				<div class="layui-input-inline">
+					<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
+				</div>
+				<div class="layui-input-inline">
+					<button class="layui-btn" onclick="select(0, $('#add').val())">查找</button>
+				</div>
+				<table class="layui-hide" id="test" lay-filter="test"></table>
+			</script>
+			<script type="text/html" id="role-table-select">
+				<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">点我选择</a>
+			</script>
+			<script type="text/javascript" src="../../assets/libs/jquery-3.2.1.min.js"></script>
+			<script type="text/javascript" src="../../assets/libs/q.js"></script>
+			<script type="text/javascript" src="../../assets/libs/pandyle.min.js"></script>
+			<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
+			<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
+			<script type="text/javascript" src="../../module/dictManager.js"></script>
 			<script>
 				layui.config({
 					base: '../../module/'
@@ -302,17 +356,26 @@
 								console.log(JSON.stringify(data.data))
 								form.val('incment', data.data);
 								initOptionDict("web/Diction/getlistByParentId", "lagearea", 54, data.data.lagearea);
-								
-								
-								
 								form = layui.form;
-								if(data.data.provincename != null) {
-									var provincename = data.data.provincename.replace('省', '');
-									provincename = provincename.replace('市', '');
-									console.log('城市信息是:' + provincename + data.data.cityname)
-									$('#x-city').xcity(provincename, data.data.cityname, data.data.areaname);
+								if(data.data.province != null) {
+									if(data.data.province != null ){
+										initRegionShowName('regionInfo/getRegioninfoList','province', 0, data.data.province);
+									}
+									if(data.data.city != null){
+										initRegionShowName('regionInfo/getRegioninfoList','city' , data.data.province , data.data.city);
+									}
+									if(data.data.area != null){
+										initRegionShowName('regionInfo/getRegioninfoList','area',  data.data.city , data.data.area);
+									}
+									if(data.data.areastreet != null){
+										initRegionShowName('regionInfo/getRegioninfoList','areastreet' , data.data.area ,data.data.areastreet);
+									}
+//									var provincename = data.data.provincename.replace('省', '');
+//									provincename = provincename.replace('市', '');
+//									console.log('城市信息是:' + provincename + data.data.cityname)
+//									$('#x-city').xcity(provincename, data.data.cityname, data.data.areaname);
 								}else{
-									$('#x-city').xcity('', '', '');
+									initRegionShowName('regionInfo/getRegioninfoList','province', 0, -1);
 								}
 							} else {
 								layer.msg(data.msg, {
@@ -324,7 +387,33 @@
 					} else {
 						form.val('incment', null);
 						initOptionDict("web/Diction/getlistByParentId", "lagearea", 54, -1);
+						initRegionShowName('regionInfo/getRegioninfoList','province', 0, -1);
 					}
+					
+					form.on('select(province)', function(data){   
+						var val=data.value;
+						if(val != null ){
+							initRegionShowName('regionInfo/getRegioninfoList','city', val , -1);
+						}
+					});
+					form.on('select(city)', function(data){   
+						var val=data.value;
+						if(val != null ){
+							initRegionShowName('regionInfo/getRegioninfoList','area', val , -1);
+						}
+					});
+					form.on('select(area)', function(data){   
+						var val=data.value;
+						if(val != null ){
+							initRegionShowName('regionInfo/getRegioninfoList','areastreet', val , -1);
+						}
+					});
+					
+					form.on('select(lagearea)',function(data){
+						var val=data.value;
+						$('#regional').val(val);
+					});
+					
 					form.on('submit(mang)', function(data) {
 						var arr = new Array();      
 						if(method == 'put') {
@@ -332,15 +421,147 @@
 						}
 						console.log('提交前的数据是:' + JSON.stringify(data.field))
 						admin.aj("web/incment/incment", data.field, function(data) {
-							var index = parent.layer.getFrameIndex(window.name);
-							parent.layer.close(index);
-							parent.layer.msg(data.msg, {
-								icon: 1,
-								time: 1000,
-							});
+//							var index = parent.layer.getFrameIndex(window.name);
+//							parent.layer.close(index);
+//							parent.layer.msg(data.msg, {
+//								icon: 1,
+//								time: 1000,
+//							});
+							location.href = 'incment.html';
 						}, method, null);
 						return false;
 					});
+					
+					window.openSelect = function openSelect(paramter){
+				 		index=layer.open({
+							type: 1,
+							title: "选择",
+							shadeClose: true,
+							shade: false,
+							offset: 'auto',
+							maxmin: true, //开启最大化最小化按钮
+							area: [700, '650px'],
+							content: $('#role-model-branchSelect').html()				
+						});
+						select(paramter);	
+				}
+				
+				window.openUserSelect = function openUserSelect(number) {
+					index = layer.open({
+						type: 1,
+						shadeClose: true,
+						shade: false,
+						offset: 'auto',
+						maxmin: true, //开启最大化最小化按钮
+						area: [65, '600px'],
+						content: $('#role-select').html()
+					});
+					managerselect(number);
+				}
+		
+				
+				
+				
+				var url;
+				var nameSelect;
+				var nameIdSelect;
+				function managerselect(number) {
+					if(number == 1) {
+						nameSelect = 'distributeUser';
+						idNameSelect = 'distributeNum';
+					} else if(number == 2 ){
+						nameSelect = 'receiveUser';
+						idNameSelect = 'receiveNumber';
+					}else if(number == 3){
+						nameSelect = 'scannerName';
+						idNameSelect = 'scannerNumber';
+					}
+					layui.use(['tree', 'util', 'transfer', 'layer', 'admin'], function() {
+						var admin = layui.admin;
+						var $ = layui.$,
+							transfer = layui.transfer,
+							layer = layui.layer,
+							util = layui.util;
+						var tree = layui.tree,
+							layer = layui.layer,
+							util = layui.util,
+							data = [{
+								title: '全部部门',
+								id: 1,
+								spread: true,
+								children: [{
+										title: '行政部'
+			
+									},
+									{
+										title: '仓储部'
+			
+									},
+									{
+										title: '研发部'
+			
+									},
+									{
+										title: '总经理室'
+			
+									},
+									{
+										title: '财务部'
+			
+									},
+									{
+										title: '运输部'
+			
+									}
+								]
+							}]
+							data1 = null;
+						//基础效果
+						transfer.render({
+							elem: '#test1',
+							data: data1
+			
+						})
+						//基本演示
+						tree.render({
+							elem: '#test12',
+							data: data,
+			
+							click: function(obj) {
+								var data = obj.data; //获取当前点击的节点数据
+								uri = 'web/user/getByDepartName';
+								var data=JSON.stringify(data.title);
+								admin.aj(uri,data , function(json) {
+									console.log(json.data)
+									data1 = json.data
+									transfer.render({
+										elem: '#test1',
+										data: data1,
+										showSearch: true,
+										id: 'key123'
+									})
+									util.event('lay-demoTransferActive', {
+										getData: function(othis) {
+											var getData = transfer.getData('key123'); //获取右侧数据
+											if(getData.length > 1) {
+												layer.msg("抱歉！最多只能选择一名用户")
+												return;
+											}								
+											if(getData.length == 0) {
+												layer.close(index);
+												return;
+											}
+											$('#' + nameSelect).val(getData[0].title);
+											$('#' + idNameSelect).val(getData[0].number);								
+											layer.close(index);								
+										}
+									})
+								}, 'post', 1);
+							}
+						});
+			
+					});
+				}
 				    
 				    function initOptionDict(uri, itemId, parentId, defaultValue){
 						var data = {}; 
@@ -381,8 +602,64 @@
 								}
 							}, method, cont);			
 					}
-				    
 				})
+				var nameSelect;
+				var nameIdSelect; 
+				function select(parameter, inputData) {
+					if(parameter === 1 ){
+						nameSelect = 'parentname';
+						nameIdSelect = 'parentid'
+					}else if(parameter === 2){
+						nameSelect = 'financecentername';
+						nameIdSelect = 'financecenter';
+					}
+					if(inputData === null || inputData === undefined) {
+						url = 'web/incment/incment'
+					} else {
+						url = 'web/incment/incment?info1=' + inputData
+					}
+					layui.use(['table', 'config'], function() {
+						var config = layui.config;
+						var table = layui.table;
+						table.render({
+								elem: '#test',
+								url: config.server  + url,
+								response: {
+									statusName: 'code',
+									statusCode: 1,
+									msgName: 'msg',
+									dataName: 'data'
+								},
+								headers: {
+									Authorization: config.getToken().access_token
+								},
+								limits: [10],
+								limit: 15,
+								page: true,
+								cols: [
+									[{
+										title: '',
+										toolbar: '#role-table-select',
+									}, {
+										field: 'number',
+										title: '网点编号'
+									}, {
+										field: 'name',
+										title: '网点名称'
+									}]
+								]
+							}),
+							table.on('tool(test)', function(obj) {
+								var data = obj.data;
+								if(obj.event === 'edit') {
+									$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
+									$('#' + nameIdSelect).val(eval(JSON.stringify(data.number)));
+									layer.close(index);
+								}
+							});
+					});
+				}
+				
 			</script>
 	</body>
 

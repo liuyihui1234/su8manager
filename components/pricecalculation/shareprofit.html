@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="utf-8" />
+		<title>EasyWeb</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../assets/libs/layui/css/layui.css" />
+		<link rel="stylesheet" href="../../assets/css/admin.css" />
+		<link rel="stylesheet" href="../../module/formSelects/formSelects-v4.css" />
+		<!--<link rel="stylesheet" href="assets/css/theme-blue.css"/>-->
+		<!-- 自定义主题，使用EasyWeb主题生成器生成 -->
+	</head>
+	<body class="layui-layout-body">
+		<div class="layui-card">
+			<div class="layui-card-header">
+				<h2 class="header-title">省市区管理</h2>
+				<span class="layui-breadcrumb pull-right">
+		          <a href="#!console">首页</a>
+		          <a><cite>分润设置</cite></a>
+		        </span>
+			</div>
+			<div class="layui-row">
+				<form class="layui-form" action="" lay-filter="top" id="top">
+					<div class="layui-form-item" style="margin-top: 16px;">
+						<div class="layui-inline">
+							<label class="layui-form-label">出发省份:</label>
+							<div class="layui-input-inline">
+								<select name="fromprovince" lay-filter="fromprovince" id="fromprovince">
+
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">目的地省份:</label>
+							<div class="layui-input-inline">
+								<select name="toprovince" lay-filter="toprovince" id="toprovince">
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">状态:</label>
+							<div class="layui-input-inline">
+								<select name="status" lay-filter="status" id="status">
+									<option value = ""  selected="selected">请选择</option>
+									<option value = "1"  >发件首重</option>
+									<option value = "2"  >发件续重</option>
+									<option value = "3"  >收件首重</option>
+									<option value = "4"  >收件续重</option>
+								</select>
+							</div>
+		           		</div>
+		                <button id="user-btn-search" class="layui-btn icon-btn" type="button"><i class="layui-icon">&#xe615;</i>搜索</button>
+					</div>
+				</form>
+			</div>
+			<div class="layui-card-body">
+				<div class="layui-form toolbar">
+					<button id="role-btn-add" class="layui-btn data-add-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+					<button id="role-btn-del" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>删除</button>
+					<button id="role-btn-excel" class="layui-btn layui-btn-danger data-delete-btn"><i class="layui-icon">&#xe640;</i>文件导出</button>
+				</div>
+				<!-- 数据表格 -->
+				<table class="layui-table" id="role-table" lay-filter="role-table"></table>
+			</div>
+		</div>
+		<!-- 表格操作列 -->
+		<script type="text/html" id="role-table-bar">
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
+		<script type="text/javascript" src="../../assets/libs/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/q.js"></script>
+		<script type="text/javascript" src="../../assets/libs/pandyle.min.js"></script>
+		<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
+		<script type="text/javascript" src="../../assets/libs/xcity.js"></script>
+		<script type="text/javascript" src="../../module/dictManager.js"></script>
+		<!-- 表单弹窗 -->
+		<script type="text/html" id="role-model">
+					<form class="layui-form" action="" lay-filter="manger" id="form-update">
+						<table class="layui-table" id="info">
+							<tr>
+								<div class="layui-form-item">
+									<td>
+										<label for="name" class="layui-form-label">发送省份：</label>
+									</td>
+									<td>
+										<div class="layui-input-inline">
+											<select name="fromprovinceid" lay-filter="fromprovinceid" id="fromprovinceid">
+											</select>
+											<input type="hidden" name="fromprovincename" >
+										</div>
+									</td>
+								</div>
+								<div class="layui-form-item">
+									<td>
+										<label for="name" class="layui-form-label">接收省份：</label>
+									</td>
+									<td>
+										<div class="layui-input-inline">
+											<select name="toprovinceid" lay-filter="toprovinceid" id="toprovinceid">
+											</select>
+											<input type="hidden" name="toprovincename" >
+										</div>
+									</td>
+								</div>
+							</tr>
+							<tr>
+								<div class="layui-form-item">
+									<td>
+										<label for="name" class="layui-form-label">分润总金额：</label>
+									</td>
+									<td>
+										<div class="layui-input-inline">
+											<input type="text" name="total" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+										</div>
+									</td>
+								</div>
+								<div class="layui-form-item">
+									<td>
+										<label for="name" class="layui-form-label">重量：</label>
+									</td>
+									<td>
+										<div class="layui-input-inline">
+											<input type="text" name="weight" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+										</div>
+									</td>
+								</div>
+							</tr>
+							<tr>
+								<div class="layui-form-item">
+									<td>
+										<label for="name" class="layui-form-label">省级分润：</label>
+									</td>
+									<td>
+										<div class="layui-input-inline">
+											<input type="text" name="province" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+										</div>
+									</td>
+								</div>
+								<div class="layui-form-item">
+									<td>
+										<label for="name" class="layui-form-label">市分润：</label>
+									</td>
+									<td>
+										<div class="layui-input-inline">
+											<input type="text" name="city" value = '1' required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+										</div>
+									</td>
+								</div>
+							</tr>
+							<tr>
+								<div class="layui-form-item">
+									<td>
+										<label for="name" class="layui-form-label">区/县分润：</label>
+									</td>
+									<td>
+										<div class="layui-input-inline">
+											<input type="text" name="area" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+										</div>
+									</td>
+								</div>
+								<div class="layui-form-item">
+									<td>
+										<label for="name" class="layui-form-label">网点分润：</label>
+									</td>
+									<td>
+										<div class="layui-input-inline">
+											<input type="text" name="areastreet" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+										</div>
+									</td>
+								</div>
+							</tr>
+							<tr>
+								<div class="layui-form-item">
+									<td>
+										<label for="name" class="layui-form-label">公司分润：</label>
+									</td>
+									<td>
+										<div class="layui-input-inline">
+											<input type="text" name="company" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+										</div>
+									</td>
+								</div>
+								<input type="hidden" name="id" />
+								<div class="layui-form-item">
+									<td>
+										<label for="parentCode" class="layui-form-label">发件类型：</label>
+									</td>
+									<td>
+										<div class="layui-input-inline">
+											<select name="type">
+												<option value = "1"  >发件首重</option>
+												<option value = "2"  >发件续重</option>
+												<option value = "3"  >收件首重</option>
+												<option value = "4"  >收件续重</option>
+											</select>
+										</div>
+									</td>
+								</div>
+							</tr>
+							<tr>
+								<td colspan="4">
+									<div class="layui-input-block">
+										<center>
+											<!--<button class="layui-btn">保存信息</button>-->
+											<button id="add" class="layui-btn" lay-submit="" lay-filter="mang">保存信息</button>
+										</center>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</form>
+		</script>
+		<script>
+			layui.config({
+						base: '../../module/'
+					}).use(['form', 'table', 'util', 'config', 'admin'], function() {
+				var form = layui.form;
+				var table = layui.table;
+				var config = layui.config;
+				var layer = layui.layer;
+				var util = layui.util;
+				var admin = layui.admin;
+				var id = 0;
+				var method = 'get';
+				var uri = 'web/shareprofit/profit';
+				//渲染表格
+				table.render({
+					elem: '#role-table',
+					id:'role-table',
+					url: config.server+uri,
+					response: {
+						statusName: 'code',
+						statusCode: 1,
+						msgName: 'msg',
+						//countName: 'totalpage',
+						dataName: 'data'
+					},
+					headers: {
+						Authorization: config.getToken().access_token
+					},
+					limits: [10, 15, 20, 25, 50, 100],
+					limit: 15,
+					page: true,
+					cols: [
+						[{
+								type: "checkbox",
+								width: 50,
+								fixed: "left"
+							},
+							{
+								field: 'fromprovincename',
+								sort: true,
+								title: '出发地所在省份'
+							},
+							{
+								field: 'toprovincename',
+								sort: true,
+								title: '目的地所在省份'
+							},
+							{
+								field: 'total',
+								sort: true,
+								title: '分润总金额'
+							},
+							{
+								field: 'province',
+								sort: true,
+								title: '省级分润'
+							},
+							{
+								field: 'city',
+								sort: true,
+								title: '城市分润'
+							},
+							{
+								field: 'area',
+								sort: true,
+								title: '区县分润'
+							},
+							{
+								field: 'areastreet',
+								sort: true,
+								title: '网点分润'
+							},
+							{
+								field: 'company',
+								sort: true,
+								title: '公司分润'
+							},
+							{
+								field: 'weight',
+								sort: true,
+								title: '重量（单位kg）'
+							},
+							{
+								field: 'type',
+								sort: true,
+								title: '类型'
+							},
+							{
+								align: 'center',
+								toolbar: '#role-table-bar',
+								title: '操作'
+							}
+						]
+					],
+					done: function(res, curr, count){
+						$("[data-field='type']").children().each(function(){
+		                  if($(this).text()=='1'){
+		                      $(this).text("发件首重");
+		                  }else if($(this).text()=='2'){
+		                      $(this).text("发件续重");
+		                  }else if($(this).text()=='3'){
+		                      $(this).text("收件首重");
+		                  }else if($(this).text()=='4'){
+		                      $(this).text("收件续重");
+		                  }
+		                });
+					}
+				});
+				// 添加按钮点击事件
+				$('#role-btn-add').click(function() {
+					showEditModel();
+				});
+				
+				
+				//删除按钮点击事件
+				$('#role-btn-del').click(function() {
+					var checkStatus = table.checkStatus('role-table'),
+						data = checkStatus.data;
+					var arr = new Array();
+					for(var i = 0; i < data.length; i++) {
+						arr.push(data[i].id);
+					}
+					doDelete(arr);
+				});
+				$('#role-btn-excel').click(function(){
+					var status = $('#status').val();   
+		            var fromprovince = $("#fromprovince").val();
+		            var toprovince = $("#toprovince").val();
+					window.location.href =  config.server + "web/shareprofit/getShareProfitByParam?status=" + status + "&fromprovince=" + fromprovince 
+					 + "&toprovince=" + toprovince;
+				});
+				
+				 $('#user-btn-search').click(function () {
+		            //var key = $('#user-search-key').val();
+		            var status = $('#status').val();   
+		            var fromprovince = $("#fromprovince").val();
+		            var toprovince = $("#toprovince").val();
+		            table.reload('role-table', {where: {'info1':fromprovince,'info2':toprovince,'status':status}});
+		        });
+				form.on('submit(mang)', function(data) {
+					var arr = new Array();         
+					/*
+					if(data) {
+						data.field.id = id;
+					}
+					*/
+					console.log('提交前的数据是:' + JSON.stringify(data.field))
+					doajax(data.field, null);
+					return false;
+				});
+		
+				//请求公用方法
+				function doajax(data, cont) {
+					admin.aj(uri, data, function(data) {
+						console.log(data)
+						if(data.code == 1) {
+							layer.msg(data.msg, {
+								icon: 1
+							});
+							table.reload('role-table');
+							layer.closeAll('page');
+						} else {
+							//layer.closeAll('page');
+							layer.msg(data.msg, {
+								icon: 2
+							});
+						}
+					}, method, cont);
+				}
+				// 工具条点击事件
+				table.on('tool(role-table)', function(obj) {
+					var data = obj.data;
+					id = data.id;
+					if(obj.event === 'edit') { //修改
+						showEditModel(data);
+					} else if(obj.event === 'del') { //删除
+						var arr = new Array();
+						arr.push(data.id);
+						doDelete(arr);
+					}
+				});
+				// 显示编辑弹窗
+				var showEditModel = function(data) {
+					method = data ? 'put' : 'post';
+					console.log('当前的方法是' + method)
+					layer.open({
+						type: 1,
+						title: data ? '修改派件价格' : '添加派件价格',
+						shadeClose: true,
+						shade: false,
+						offset: 'auto',
+						maxmin: true, //开启最大化最小化按钮
+						area: [65, '600px'],
+						content: $('#role-model').html(),
+						success: function() {
+							$('#role-form').attr('method', 'GET');
+							if(data) {
+								form.val('manger', data);
+								//添加下拉省份
+								initRegionShowName(admin.aj , 'regionInfo/getRegioninfoList','fromprovinceid', 0 , data.fromprovinceid);
+								initRegionShowName(admin.aj , 'regionInfo/getRegioninfoList','toprovinceid', 0 , data.toprovinceid);
+							}else{
+								initRegionShowName(admin.aj , 'regionInfo/getRegioninfoList','fromprovinceid', 0 , -1);
+								initRegionShowName(admin.aj , 'regionInfo/getRegioninfoList','toprovinceid', 0 , -1);
+							}
+							$('#role-form .close').click(function() {
+								layer.closeAll('page');
+							});
+						}
+					});
+				};
+				// 删除
+				var doDelete = function(obj) {
+					method = 'delete';
+					layer.confirm('确定要删除吗？', function(i) {
+						layer.close(i);
+						alert(JSON.stringify(obj));
+						console.log(JSON.stringify(obj));
+						//layer.load(2);
+						doajax(JSON.stringify(obj), 1)
+					});
+				};
+				
+				$(function() {// 初始化内容	
+					initRegionShowName(admin.aj , 'regionInfo/getRegioninfoList','fromprovince', 0 , -1);
+					initRegionShowName(admin.aj , 'regionInfo/getRegioninfoList','toprovince', 0 , -1);
+			    }); 
+		/*  //监听行单击事件（单击事件为：rowDouble）
+		  table.on('row(role-table)', function(obj){
+		    var data = obj.data;
+			table.reload('role-table', {where: {'name':data.name}});
+		    //标注选中样式
+		    obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+		  		});
+		  		*/
+			});
+		</script>
+		
+		
+	</body>
+</html>

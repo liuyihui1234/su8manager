@@ -111,6 +111,47 @@ layui.define(['config', 'layer', 'element', 'form'], function(exports) {
 		closePopupCenter: function() {
 			layer.close(popupCenterIndex);
 		},
+		validata:function(url, data, success, method) {
+			data._method = 'POST';
+			var token = config.getToken();
+			if(token) {
+				data.access_token = token.access_token;
+			}
+			$.ajax({
+				type: "POST",
+				url: config.server+url,
+				dataType: "json",
+				async: false ,
+				data: data,
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				success: function(data) {
+					success(data);
+				},
+				error: function(xhr) {
+					console.log(xhr.status + ' - ' + xhr.statusText);
+					if(xhr.status == 401) {
+						config.removeToken();
+						layer.msg('登录过期', {
+							icon: 2
+						}, function() {
+							location.href = '/login.html';
+						});
+					} else {
+						success({
+							code: xhr.status,
+							msg: xhr.statusText
+						});
+					}
+				},
+				beforeSend: function(xhr) {
+					var token = config.getToken();
+					if(token) {
+						xhr.setRequestHeader('Authorization', token.access_token);
+					}
+				}
+			});
+		},
+			
 		// 封装ajax请求
 		req: function(url, data, success, method) {
 			if('put' == method.toLowerCase()) {

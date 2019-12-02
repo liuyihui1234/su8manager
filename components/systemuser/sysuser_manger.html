@@ -39,7 +39,7 @@
 		
 					<span>所属部门:</span>
 					<div class="layui-input-inline">
-						<select id="departname" name="departname" lay-filter="depart">
+						<select id="departid" name="departid" lay-filter="departid">
 						</select>
 					</div>
 					<button class="layui-btn" lay-submit="" lay-filter="addnew">查询</button>
@@ -71,9 +71,21 @@
 							</td>
 							<td>
 								<div class="layui-input-inline">
-									<input id="myView" type="text" name="number" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<input id="myView" type="text" name="number" readonly="readonly"  autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+								<div class="layui-inline">
+									<p style="color: red;" id = "numbertoast">(用户编号不能修改)</p>
 								</div>
 							</td>
+							<td>
+								<label class="layui-form-label">姓名：</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+								</div>
+							</td>
+							<!-- 
 							<td>
 								<label for="username" class="layui-form-label">编号方式：</label>
 							</td>
@@ -82,18 +94,11 @@
 									<input type="text" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 								</div>
 							</td>
+							-->
 						</div>
 					</tr>
 					<tr>
 						<div class="layui-form-item">
-							<td>
-								<label class="layui-form-label">姓名：</label>
-							</td>
-							<td>
-								<div class="layui-input-inline">
-									<input type="text" name="name" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
-								</div>
-							</td>
 							<td>
 								<label class="layui-form-label">密码：</label>
 							</td>
@@ -102,33 +107,19 @@
 									<input type="password" name="password" lay-verify="pass" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
 								</div>
 								<div class="layui-inline">
-									<p style="color: red;">(密码为空时表示不修改)</p>
+									<p style="color: red;" id = "passwordtoast">(密码为空时表示不修改)</p>
 								</div>
 							</td>
-						</div>
-					</tr>
-		
-					<tr>
-						<div class="layui-form-item">
 							<td>
 								<label class="layui-form-label">所属网点:</label>
 							</td>
 							<td>
 								<div class="layui-input-inline">
-									<input type="text" name="incname" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<input type="text" name="incname" id = "nameTwo" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<input type = "hidden" id = "incid" name ="incid" />								
 								</div>
 								<div class="layui-input-inline">
 									<a href="javascript:void(0)" onclick="openSelect(2)">点击选择&nbsp;&nbsp;&nbsp;&nbsp;</a>
-								</div>
-							</td>
-							<td>
-								<label class="layui-form-label">所属部门:</label>
-							</td>
-							<td>
-								<div class="layui-input-inline">
-									<select name="departname" lay-filter="depart" id="departname1">
-									
-									</select>
 								</div>
 							</td>
 						</div>
@@ -136,12 +127,24 @@
 		
 					<tr>
 						<div class="layui-form-item">
+							
+							<td>
+								<label class="layui-form-label">所属部门:</label>
+							</td>
+							<td>
+								<div class="layui-input-inline">
+									<select name="departid" lay-filter="departname1" id="departname1">
+									</select>
+									<input type="hidden" name="departname" id = 'departname' />
+								</div>
+							</td>
 							<td>
 								<label class="layui-form-label">所属主管:</label>
 							</td>
 							<td>
 								<div class="layui-input-inline">
 									<input id="parameterOne" type="text" name="departadminname" required lay-verify="required" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<input type="hidden" name = "departadmin" id ="departadmin" />
 								</div>
 								<div class="layui-input-inline">
 									<a href="javascript:void(0)" onclick="selectOne()">点击选择</a>
@@ -149,7 +152,6 @@
 							</td>
 						</div>
 					</tr>
-		
 					<tr>
 						<div class="layui-form-item">
 							<td>
@@ -157,7 +159,7 @@
 							</td>
 							<td>
 								<div class="layui-input-inline">
-									<input type="text" name="mobile" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;">
+									<input type="text" name="mobile" autocomplete="off" class="layui-input" style="width: 400px;height: 38px;" lay-verify="phone">
 								</div>
 							</td>
 							<td>
@@ -201,7 +203,7 @@
 								<label class="layui-form-label">所属用户组:</label>
 							</td>
 							<td colspan="3">
-								<div class="layui-input-block">
+								<div class="layui-input-block" id="usergroup">
 									<input type="checkbox" name="a1" lay-skin="primary" value="1" title="管理员">
 									<input type="checkbox" name="a2" lay-skin="primary" value="2" title="扫描人员">
 									<input type="checkbox" name="a3" lay-skin="primary" value="3" title="业务人员">
@@ -245,10 +247,6 @@
 			</div>
 		
 		</script>
-		
-		
-		
-		
 		<script type="text/html" id="role-table-select">
 			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">点我选择</a>
 		</script>
@@ -270,8 +268,6 @@
 			</div>
 			<table class="layui-hide" id="test" lay-filter="test"></table>
 		</script>
-		
-		
 		<script>
 			layui.config({
 				base: '../../module/'
@@ -345,7 +341,6 @@
 				$('#role-btn-add').click(function() {
 					showEditModel();
 				});
-		
 				//删除按钮点击事件
 				$('#role-btn-del').click(function() {
 					method = 'delete';
@@ -359,7 +354,7 @@
 				});
 				
 				$(function() {// 初始化内容
-					initDictShowNameOne(admin.aj, "web/Department/getListTwo", "departname", -1);	
+					initDictShowNameOne(admin.aj, "web/Department/getListTwo", "departid", -1);	
 			    });
 		
 				form.on('submit(mang)', function(data) {
@@ -384,18 +379,41 @@
 						{where:
 							{'name':data.field.name,
 							'incname':data.field.incname,
-							'departname':data.field.departname}
-						
+							'departid':data.field.departid}
 						}
 						);
-					document.getElementById("form-add").reset();
+//					document.getElementById("form-add").reset();
 					return false;
-		
 				});
 				form.verify({
 					pass: [
 						/^$|[\S]{6,15}/, '密码必须6到15位，且不能出现空格'
-					]
+					],
+					phone: function(value){
+						var data = {};
+						data.phone = value;
+						/*
+						 * put 的时候是编辑页面
+						 */
+						if(method === 'put'){
+							data.type = 1; 
+							data.userId = id; 
+						}else{
+							data.type = 0; 
+							data.userId = 0; 
+						}	
+						var isCode = 1;
+						var isRst = "";
+						admin.validata('web/usermanger/validatePhone',data, function(data){
+							if(data.code == 0 ){
+								isCode = data.code;
+								isRst = data.msg;
+							}
+						},'POST');
+						if(isCode === 0 ){
+							return isRst;
+						}
+					}
 				});
 				//请求公用方法
 				function doajax(data, cont) {
@@ -433,7 +451,6 @@
 					select(null, number);
 				}
 				
-				
 				window.selectOne = function selectOne() {
 					index = layer.open({
 						type: 1,
@@ -459,6 +476,11 @@
 						doDelete(arr);
 					}
 				});
+				form.on('select(departname1)', function(data){   
+						var val=data.value;
+						var text = $(data.elem).find("option:selected").text();
+						$('#departname').val(text);
+				});
 				// 显示编辑弹窗
 				var showEditModel = function(data) {
 					method = data ? 'put' : 'post';
@@ -466,7 +488,7 @@
 					form.val('manger', null);
 					layer.open({
 						type: 1,
-						title: data ? '修改角色' : '添加角色',
+						title: data ? '修改用户' : '添加用户',
 						shadeClose: true,
 						shade: false,
 						offset: 'auto',
@@ -485,9 +507,14 @@
 										}
 									}
 									form.val('manger', data.data);
-									initDictShowNameOne(admin.aj, "web/Department/getListTwo", "departname1", data.data.departname);
-									
+									initDictShowNameOne(admin.aj, "web/Department/getListTwo", "departname1", data.data.departid);
 								}, 'get', null);
+							}else{
+								initDictShowNameOne(admin.aj, "web/Department/getListTwo", "departname1", -1);
+								document.getElementById("role-form").reset();
+								$('#passwordtoast').html('如果为空，默认密码为123456');
+								$('#numbertoast').html('员工编号后台自动生成');
+								form.val('manger', null);
 							}
 							$('#role-form .close').click(function() {
 								layer.closeAll('page');
@@ -503,13 +530,12 @@
 						doajax(JSON.stringify(obj), 1)
 					});
 				};
-		
 			});
 			var url;
 			var nameSelect;
-			function select(parameter, nameSelect) {
-				$('#clickPositionNum').val(nameSelect);	
-				if(nameSelect == 1) {
+			function select(parameter, paremnameSelect) {
+				$('#clickPositionNum').val(paremnameSelect);	
+				if(paremnameSelect == 1) {
 					nameSelect = 'nameOne';
 				} else {
 					nameSelect = 'nameTwo';
@@ -557,6 +583,10 @@
 							var data = obj.data;
 							if(obj.event === 'edit') {
 								$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
+								if(paremnameSelect == 2 ){
+									alert(eval(JSON.stringify(data.number)));
+									$("#incid").val(eval(JSON.stringify(data.number)));
+								}
 								layer.close(index);
 							}
 						});
@@ -641,6 +671,7 @@
 											return;
 										}
 										$('#' + nameSelect).val(getData[0].title);
+										$('#departadmin').val(getData[0].number);
 										layer.close(index);
 									}
 								})

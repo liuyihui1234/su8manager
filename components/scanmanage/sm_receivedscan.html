@@ -23,10 +23,9 @@
 			</div>
 			<div class="layui-row">
 				<form  id="form-add" class="layui-form layui-col-md12 x-so" lay-filter="new" id="form-update">
-					<span>袋编号:</span>
+					<span>运单编号:</span>
 					<div class="layui-input-inline">
-						<input placeholder="请输入袋编号" class="layui-input" name="bagNumber" id="bagNumber"></input>
-						&nbsp;&nbsp;
+						<textarea placeholder="请输入订单号" class="layui-textarea" name="billsnumber" id="billsnumber"></textarea>
 					</div>
 					<span>&nbsp;&nbsp;&nbsp;&nbsp;班 次:</span>
 					<div class="layui-input-inline">
@@ -208,7 +207,7 @@
 				var admin = layui.admin;
 				var id = 0;
 				var method = 'get';
-				var uri = 'web/receivedbagscan/Receivedscan';
+				var uri = 'web/Receivedscan/Receivedscan';
 				//渲染表格
 				table.render({
 					elem: '#usermanger',

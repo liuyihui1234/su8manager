@@ -111,7 +111,7 @@ function initDictShowName(request , uri, itemId, defaultValue){
 						layui.form.render("select");
 						
 						$.each(itemList, function (index, item) {
-							$('#' + itemId ).append(new Option(item.depaname, item.depaname));// 下拉菜单里添加元素
+							$('#' + itemId ).append(new Option(item.depaname, item.id));// 下拉菜单里添加元素
 						});
 						
 						$("#" + itemId ).val(defaultValue);
@@ -157,6 +157,7 @@ function initDictShowName(request , uri, itemId, defaultValue){
 
 /*    
  * 根据父节点查询地区
+ * 
  */
 function initRegionShowName(request , uri, itemId, parentId ,defaultValue){
 			var data = {}; 
@@ -189,6 +190,7 @@ function initIncShowName(request , uri, itemId, parentId ,defaultValue){
 				if(data.code == 1) {						
 					var itemList = data.data;								
 					$('#' + itemId ).html("");
+					$('#' + itemId ).append(new Option('--请选择--', ''));
 					$.each(itemList, function (index, item) {
 						$('#' + itemId ).append(new Option(item.name, item.number));// 下拉菜单里添加元素
 					});
@@ -204,7 +206,7 @@ function initIncShowName(request , uri, itemId, parentId ,defaultValue){
  * web/Menus/getMenuByParentId  
  * -1
  */
-function initMenuInfo(request , uri, itemId, parentId ,defaultValue){
+		function initMenuInfo(request , uri, itemId, parentId ,defaultValue){
 			var data = {}; 
 			data['parentId']  = parentId;
 			var method = "post";
@@ -222,3 +224,25 @@ function initMenuInfo(request , uri, itemId, parentId ,defaultValue){
 				}
 			}, method, cont);			
 		}
+/*
+ * /web/Diction/getAllUserGroup
+ */
+function initUserGroupInfo(request , uri, itemId,defaultValue){
+	var data = {}; 
+	var method = "post";
+	var cont = null ;			
+	request(uri, data, function(data) {
+		if(data.code == 1) {						
+			var itemList = data.data;	
+			$('#' + itemId ).html("");
+			var itemstr = '';
+			$.each(itemList, function (index, item) {
+				itemstr += '<input type="checkbox" name="a' + item.id +'" lay-skin="primary" value="' + item.id + '" title="'+item.groupname+'"/>'
+			});
+			$('#' + itemId ).html(itemstr);
+			layui.form.render();
+		}
+	}, method, cont);			
+}
+
+		
