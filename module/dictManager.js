@@ -168,6 +168,7 @@ function initRegionShowName(request , uri, itemId, parentId ,defaultValue){
 					if(data.code == 1) {						
 						var itemList = data.data;								
 						$('#' + itemId ).html("");
+						$('#' + itemId ).append(new Option('--请选择--', ''));
 						$.each(itemList, function (index, item) {
 							$('#' + itemId ).append(new Option(item.name, item.code));// 下拉菜单里添加元素
 						});

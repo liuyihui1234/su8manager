@@ -180,7 +180,7 @@
 				<input id="add" type="text" placeholder="请输入网点编号或网点名称" class="layui-input" style="width: 400px;height: 38px;" />
 			</div>
 			<div class="layui-input-inline">
-				<button class="layui-btn" onclick="select($('#add').val())">查找</button>
+				<button class="layui-btn" onclick="select($('#add').val(),1)">查找</button>
 			</div>
 			<table class="layui-hide" id="test" lay-filter="test"></table>
 		</script>
@@ -433,67 +433,68 @@
 			});
 			
 			var url;
-				var nameSelect;
-				var nameIdSelect;
-				function select(parameter, nameSelect) {
-					if(nameSelect == 1) {
-						nameSelect = 'nameOne';
-						nameIdSelect = "nameIdOne";
-					} else if(nameSelect == 2) {
-						nameSelect = 'nameTwo';
-						nameIdSelect = "nameIdTwo";
-					} 
-					if(parameter == null) {
-						url = 'web/incment/incment'
-					} else {
-						url = 'web/incment/incment?info1=' + parameter
-					}
-					layui.use(['table', 'config'], function() {
-						var config = layui.config;
-						var table = layui.table;
-						//var index = layer.getFrameIndex(window.name); //获取窗口索引
-						table.render({
-								elem: '#test',
-								url: config.server  + url,
-								response: {
-									statusName: 'code',
-									statusCode: 1,
-									msgName: 'msg',
-									//countName: 'totalpage',
-									dataName: 'data'
-								},
-								headers: {
-									Authorization: config.getToken().access_token
-								},
-								limits: [10],
-								limit: 15,
-								page: true,
-								cols: [
-									[{
-										//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
-										title: '',
-										toolbar: '#role-table-select',
-									}, {
-										field: 'number',
-										title: '网点编号'
-									}, {
-										field: 'name',
-										title: '网点名称'
-									}]
-								]
-			
-							}),
-							table.on('tool(test)', function(obj) {
-								var data = obj.data;
-								if(obj.event === 'edit') {
-									$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
-									$('#' + nameIdSelect).val(eval(JSON.stringify(data.number)));
-									layer.close(index);
-								}
-			
-							});
-					});
+			var nameSelect;
+			var nameIdSelect;
+			function select(parameter, nameSelect) {
+				if(nameSelect == 1) {
+					nameSelect = 'nameOne';
+					nameIdSelect = "nameIdOne";
+				} else if(nameSelect == 2) {
+					nameSelect = 'nameTwo';
+					nameIdSelect = "nameIdTwo";
+				} 
+				if(parameter == null) {
+					url = 'web/incment/incment'
+				} else {
+					url = 'web/incment/incment?info1=' + parameter
 				}
+				layui.use(['table', 'config'], function() {
+					var config = layui.config;
+					var table = layui.table;
+					//var index = layer.getFrameIndex(window.name); //获取窗口索引
+					table.render({
+							elem: '#test',
+							url: config.server  + url,
+							response: {
+								statusName: 'code',
+								statusCode: 1,
+								msgName: 'msg',
+								//countName: 'totalpage',
+								dataName: 'data'
+							},
+							headers: {
+								Authorization: config.getToken().access_token
+							},
+							limits: [10],
+							limit: 15,
+							page: true,
+							cols: [
+								[{
+									//templet: '<div><a  href="javascript:void(0)"  class="layui-table-link">点我选择</a></div>',
+									title: '',
+									toolbar: '#role-table-select',
+								}, {
+									field: 'number',
+									title: '网点编号'
+								}, {
+									field: 'name',
+									title: '网点名称'
+								}]
+							]
+		
+						}),
+						table.on('tool(test)', function(obj) {
+							var data = obj.data;
+							
+							if(obj.event === 'edit') {
+								$('#' + nameSelect).val(eval(JSON.stringify(data.name)));
+								$('#' + nameIdSelect).val(eval(JSON.stringify(data.number)));
+								layer.close(index);
+							}
+		
+						});
+				});
+			}
 		</script>
 	</body>
 </html>

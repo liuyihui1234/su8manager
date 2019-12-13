@@ -574,7 +574,7 @@
 									$('#' + itemId ).html("");
 									layui.form.render("select");
 									$.each(itemList, function (index, item) {
-										$('#' + itemId ).append(new Option(item.name, item.name));// 下拉菜单里添加元素
+										$('#' + itemId ).append(new Option(item.name, item.id));// 下拉菜单里添加元素
 									});
 									
 									$("#" + itemId ).val(defaultValue);
